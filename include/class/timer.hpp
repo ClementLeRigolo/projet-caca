@@ -10,8 +10,14 @@ class Timer
         Time m_currentTime;
         Time m_prevTime;
         float m_frameDelta;
-        float m_elapsedTime;
-        float m_seconds;
+        float m_fps;
+
+    public:
+        Timer();
+        void update();
+        float getSeconds();
+        float getFps();
+        float getFrameDelta();
 };
 
 #endif
