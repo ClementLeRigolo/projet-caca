@@ -1,12 +1,12 @@
 #include "libs.hpp"
-#include "class/core.hpp"
+#include "class/Game.hpp"
 
 int main()
 {
-    Core core = Core();
-    Render* render = core.getRender();
+    Game engine = Game();
 
-    while (render->window.isOpen()) {
-        render->window.display();
+    while (engine.isRunning()) {
+        engine.update();
+        engine.getRender()->update();
     }
 }
