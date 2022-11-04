@@ -9,10 +9,17 @@
 class Core
 {
     private:
-        Render m_render;
+        Render* m_render;
         Timer m_timer;
         Event m_event;
         Assets m_assets;
+
+    public:
+        Core();
+        Render* getRender();
+        Timer getTimer();
+        Event getEvent();
+        Assets getAssets();
 };
 
 #endif

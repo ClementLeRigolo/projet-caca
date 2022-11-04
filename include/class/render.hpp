@@ -7,11 +7,19 @@
 class Render
 {
     private:
-        RenderWindow m_window;
         Scene m_currentScene;
         View m_view;
         bool m_fullscreen;
-
+        
+    public:
+        Render();
+        RenderWindow window;
+        Scene getCurrentScene();
+        void setCurrentScene(Scene scene);
+        View getView();
+        void setView(View view);
+        bool isFullscreen();
+        void setFullscreen(bool fullscreen);
 };
 
 #endif
