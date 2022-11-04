@@ -9,4 +9,3 @@ int main()
     while (render->window.isOpen()) {
         render->window.display();
     }
-}
