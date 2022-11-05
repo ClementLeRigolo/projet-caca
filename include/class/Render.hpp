@@ -1,12 +1,17 @@
 #pragma once
 
-#include "libs.hpp"
+#include "class/Scene.hpp"
 
 class Render
 {
+    private:
+        Scene* m_currentScene;
+
     public:
         Render();
-        virtual ~Render();
+        ~Render();
         RenderWindow* window;
+        Scene* getCurrentScene() const;
+        void setCurrentScene(Scene* scene);
         void update();
 };

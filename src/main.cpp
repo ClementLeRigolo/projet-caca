@@ -1,5 +1,6 @@
 #include "libs.hpp"
 #include "class/Game.hpp"
+#include "class/Collection.hpp"
 
 int main()
 {

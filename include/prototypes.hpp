@@ -1,3 +1,3 @@
 #pragma once
 
-#include "libs.hpp"
+void buildLevel1();
