@@ -6,16 +6,16 @@ class Scene
 {
     private:
         int m_index;
-        RectangleShape m_background;
-        RectangleShape m_foreground;
+        RectangleShape* m_background;
+        RectangleShape* m_foreground;
 
     public:
         Scene();
         int getIndex() const;
         void setIndex(int index);
-        RectangleShape getBackground() const;
-        void setBackground(RectangleShape background);
-        RectangleShape getForeground() const;
-        void setForeground(RectangleShape foreground);
-        virtual void display(RenderWindow* window);
+        RectangleShape* getBackground() const;
+        void setBackground(RectangleShape *background);
+        RectangleShape* getForeground() const;
+        void setForeground(RectangleShape* foreground);
+        void display(RenderWindow* window);
 };
