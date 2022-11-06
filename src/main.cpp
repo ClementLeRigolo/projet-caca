@@ -10,4 +10,5 @@ int main()
         engine.update();
         engine.getRender()->update();
     }
+    engine.getRender()->~Render();
 }

@@ -2,6 +2,12 @@
 
 Scene::Scene() : m_index(0) {}
 
+Scene::~Scene()
+{
+    delete m_background;
+    delete m_foreground;
+}
+
 int Scene::getIndex() const { return m_index; }
 
 void Scene::setIndex(int index) { m_index = index; }

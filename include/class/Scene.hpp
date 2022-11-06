@@ -11,11 +11,12 @@ class Scene
 
     public:
         Scene();
+        ~Scene();
         int getIndex() const;
         void setIndex(int index);
         RectangleShape* getBackground() const;
         void setBackground(RectangleShape *background);
         RectangleShape* getForeground() const;
         void setForeground(RectangleShape* foreground);
-        void display(RenderWindow* window);
+        virtual void display(RenderWindow* window);
 };
