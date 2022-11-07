@@ -28,9 +28,9 @@ void Game::update()
 
     getTimer()->update();
 
-    if (getTimer()->getSeconds() > clock + 0.1) {
+    if (getTimer()->getSeconds() > clock + 0.2) {
         clock = getTimer()->getSeconds();
-        getRender()->getCurrentScene()->getText()->setString("fps : " + to_string(getTimer()->getFps()));
+        getRender()->getCurrentScene()->getText()->setString("fps : " + to_string((int)getTimer()->getFps()));
     }
 
     pollEvents();
