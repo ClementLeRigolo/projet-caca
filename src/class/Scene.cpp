@@ -1,6 +1,9 @@
 #include "class/Scene.hpp"
+#include "class/Asset.hpp"
 
-Scene::Scene() : m_index(0) {}
+Scene::Scene() : m_index(0) {
+    m_text.setFont(Asset::FONT);
+}
 
 Scene::~Scene()
 {
@@ -24,6 +27,7 @@ void Scene::setForeground(RectangleShape* foreground) { m_foreground = foregroun
 
 void Scene::display(RenderWindow* window)
 {
+    window->draw(m_text);
     if (m_background != nullptr)
         window->draw(m_background[0]);
     if (m_foreground != nullptr)

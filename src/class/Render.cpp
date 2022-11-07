@@ -10,7 +10,6 @@ Render::Render()
 Render::~Render()
 {
     delete window;
-    m_currentScene->~Scene();
 }
 
 Scene* Render::getCurrentScene() const { return m_currentScene; }
