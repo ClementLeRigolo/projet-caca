@@ -1,6 +1,6 @@
 #include "class/Timer.hpp"
 
-Timer::Timer(/* args */)
+Timer::Timer()
 {
     m_fps = 0;
     m_frameDelta = 0;
@@ -25,17 +25,8 @@ void Timer::update()
     m_prevTime = m_currentTime;
 }
 
-float Timer::getFps() const
-{
-    return m_fps;
-}
+float Timer::getFps() const { return m_fps; }
 
-float Timer::getSeconds() const
-{
-    return m_seconds;
-}
+float Timer::getSeconds() const { return m_seconds; }
 
-float Timer::getFrameDelta() const
-{
-    return m_frameDelta;
-}
+float Timer::getFrameDelta() const { return m_frameDelta; }

@@ -1,10 +1,12 @@
 #include "class/Game.hpp"
 #include "class/Asset.hpp"
+#include "class/Collection.hpp"
 
 Game::Game()
 {
     m_render = new Render();
     Asset::loadAssets();
+    Collection::loadCollection();
 }
 
 bool Game::isRunning() const { return m_render->getWindow()->isOpen(); }
@@ -26,8 +28,8 @@ void Game::pollEvents()
 
 void Game::update()
 {
-    static float clock = 0;
-
+    float clock = 0;
+    
     getTimer()->update();
 
     if (getTimer()->getSeconds() > clock + 0.2) {
