@@ -9,6 +9,8 @@ bool Game::isRunning() const { return m_render->window->isOpen(); }
 
 Render* Game::getRender() const { return m_render; }
 
+Timer* Game::getTimer() { return &m_timer; }
+
 void Game::pollEvents()
 {
     while (m_render->window->pollEvent(m_event)) {
@@ -22,5 +24,14 @@ void Game::pollEvents()
 
 void Game::update()
 {
+    static float clock = 0;
+
+    getTimer()->update();
+
+    if (getTimer()->getSeconds() > clock + 0.2) {
+        clock = getTimer()->getSeconds();
+        getRender()->getCurrentScene()->getText()->setString("fps : " + to_string((int)getTimer()->getFps()));
+    }
+
     pollEvents();
 }

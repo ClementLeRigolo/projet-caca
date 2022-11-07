@@ -5,6 +5,7 @@
 int main()
 {
     Game engine = Game();
+    float fps = 0;
 
     while (engine.isRunning()) {
         engine.update();
