@@ -7,18 +7,18 @@ Game::Game()
     Asset::loadAssets();
 }
 
-bool Game::isRunning() const { return m_render->window->isOpen(); }
+bool Game::isRunning() const { return m_render->getWindow()->isOpen(); }
 
-Render* Game::getRender() const { return m_render; }
+Render* Game::getRender() { return m_render; }
 
 Timer* Game::getTimer() { return &m_timer; }
 
 void Game::pollEvents()
 {
-    while (m_render->window->pollEvent(m_event)) {
+    while (m_render->getWindow()->pollEvent(m_event)) {
         switch (m_event.type) {
             case Event::Closed:
-                m_render->window->close();
+                m_render->getWindow()->close();
                 break;
         }
     }

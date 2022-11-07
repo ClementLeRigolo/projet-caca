@@ -5,13 +5,15 @@
 class Render
 {
     private:
+        RenderWindow m_window;
         Scene* m_currentScene;
 
     public:
         Render();
         ~Render();
-        RenderWindow* window;
-        Scene* getCurrentScene() const;
+        void init(Scene* scene);
+        RenderWindow* getWindow();
+        Scene* getCurrentScene();
         void setCurrentScene(Scene* scene);
         void update();
 };

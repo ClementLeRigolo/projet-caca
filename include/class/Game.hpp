@@ -13,7 +13,7 @@ class Game
     public:
         Game();
         bool isRunning() const;
-        Render* getRender() const;
+        Render* getRender();
         Timer* getTimer();
         void pollEvents();
         void update();

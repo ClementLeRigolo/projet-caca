@@ -39,7 +39,3 @@ float Timer::getFrameDelta() const
 {
     return m_frameDelta;
 }
-
-Timer::~Timer()
-{
-}

@@ -3,22 +3,24 @@
 
 Render::Render()
 {
-    window = new RenderWindow(VideoMode(960, 540, 32), WINDOW_NAME, Style::Default);
+    m_window.create(VideoMode(960, 540, 32), WINDOW_NAME, Style::Default);
     m_currentScene = &Collection::LEVEL_1;
 }
 
 Render::~Render()
 {
-    delete window;
+    delete m_currentScene;
 }
 
-Scene* Render::getCurrentScene() const { return m_currentScene; }
+RenderWindow* Render::getWindow() { return &m_window; }
+
+Scene* Render::getCurrentScene() { return m_currentScene; }
 
 void Render::setCurrentScene(Scene* scene) { m_currentScene = scene; }
 
 void Render::update()
 {
-    window->clear();
-    m_currentScene->display(window);
-    window->display();
+    m_window.clear();
+    m_currentScene->display(&m_window);
+    m_window.display();
 }
