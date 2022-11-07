@@ -4,7 +4,9 @@ WIN_SRC = .\src\main.cpp	\
 		.\src\class\Game.cpp	\
 		.\src\class\Render.cpp	\
 		.\src\class\Scene.cpp	\
-		.\src\class\Collection.cpp
+		.\src\class\Collection.cpp	\
+		.\src\class\Timer.cpp	\
+		.\src\class\Asset.cpp
 
 FLAGS = -g -I include -lsfml-graphics -lsfml-audio -lsfml-system -lsfml-window -lm
 

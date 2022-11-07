@@ -1,8 +1,10 @@
 #include "class/Game.hpp"
+#include "class/Asset.hpp"
 
 Game::Game()
 {
     m_render = new Render();
+    Asset::loadAssets();
 }
 
 bool Game::isRunning() const { return m_render->window->isOpen(); }

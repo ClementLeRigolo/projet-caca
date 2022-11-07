@@ -24,12 +24,6 @@ void Scene::setForeground(RectangleShape* foreground) { m_foreground = foregroun
 
 void Scene::display(RenderWindow* window)
 {
-    Font font;
-
-    font.loadFromFile("misc/font.ttf");
-
-    m_text.setFont(font);
-    window->draw(m_text);
     if (m_background != nullptr)
         window->draw(m_background[0]);
     if (m_foreground != nullptr)
