@@ -7,11 +7,6 @@ Render::Render()
     m_currentScene = &Collection::LEVEL_1;
 }
 
-Render::~Render()
-{
-    delete m_currentScene;
-}
-
 RenderWindow* Render::getWindow() { return &m_window; }
 
 Scene* Render::getCurrentScene() { return m_currentScene; }
