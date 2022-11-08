@@ -1,5 +1,6 @@
 #include "class/Scene.hpp"
 #include "class/Asset.hpp"
+#include "class/Collection.hpp"
 
 Scene::Scene() : m_index(0) {
     m_text.setFont(Asset::FONT);
@@ -28,5 +29,9 @@ void Scene::display(RenderWindow* window)
     window->draw(m_background);
     window->draw(m_foreground);
     window->setView(m_view);
+    Collection::TEST_ENTITY.setTexture(&Asset::TEST_TEXTURE);
+    window->draw(Collection::TEST_ENTITY.getSprite());
+    window->draw(Collection::TEST_ENTITY.getHitbox());
+    
     window->draw(m_text);
 }

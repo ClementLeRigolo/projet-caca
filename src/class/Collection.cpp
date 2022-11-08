@@ -1,4 +1,5 @@
 #include "class/Collection.hpp"
+#include "class/Asset.hpp"
 
 void Collection::loadCollection()
 {
@@ -10,3 +11,4 @@ void Collection::loadCollection()
 Scene Collection::INTRO_CREDITS = Scene();
 Scene Collection::START_MENU = Scene();
 Scene Collection::LEVEL_1 = Scene();
+Entity Collection::TEST_ENTITY = Entity(Asset::TEST_TEXTURE, Vector2f(1, 1));
