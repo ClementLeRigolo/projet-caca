@@ -12,5 +12,4 @@ class Collection
         static Scene INTRO_CREDITS;
         static Scene START_MENU;
         static Scene LEVEL_1;
-        static Entity TEST_ENTITY;
 };

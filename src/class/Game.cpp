@@ -4,10 +4,12 @@
 
 Game::Game()
 {
-    m_render = new Render();
     Asset::loadAssets();
     Collection::loadCollection();
+    m_render = new Render();
 }
+
+Game* Game::instance;
 
 bool Game::isRunning() const { return m_render->getWindow()->isOpen(); }
 
@@ -38,7 +40,14 @@ void Game::updateFpsIndicator()
 
 void Game::update()
 {
+    static float clock = 0;
+
     getTimer()->update();
+    if (getTimer()->getSeconds() > clock + 0.5) {
+        getRender()->getCurrentScene()->addEntity(Vector2f(randomNumber(0, 960), randomNumber(0, 540)));
+        clock = getTimer()->getSeconds();
+    }
+    getRender()->getCurrentScene()->update(getRender()->getWindow());
     updateFpsIndicator();
     pollEvents();
 }

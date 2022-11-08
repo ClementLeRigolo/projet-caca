@@ -12,6 +12,7 @@ class Game
 
     public:
         Game();
+        static Game* instance;
         bool isRunning() const;
         Render* getRender();
         Timer* getTimer();

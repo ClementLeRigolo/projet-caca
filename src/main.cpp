@@ -1,10 +1,10 @@
 #include "libs.hpp"
 #include "class/Game.hpp"
-#include "class/Collection.hpp"
 
 int main()
 {
-    Game engine = Game();
+    Game engine;
+    Game::instance = &engine;
 
     while (engine.isRunning()) {
         engine.update();

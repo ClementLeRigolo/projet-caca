@@ -13,6 +13,8 @@ class Entity {
         Vector2f m_acc;
 
     public:
+        Entity();
+        Entity(Vector2f pos);
         Entity(Texture* texture, Vector2f scale);
         void setTexture(Texture* texture);
         void setHitboxSize(Vector2f size);

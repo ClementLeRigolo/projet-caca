@@ -1,6 +1,40 @@
 #include "class/Entity.hpp"
 #include "class/Timer.hpp"
 
+Entity::Entity()
+{
+    m_acc = Vector2f(0, 0);
+    m_vel = Vector2f(0, 0);
+    m_pos = Vector2f(480, 270);
+    m_sprite.setColor(Color::White);
+    m_sprite.setPosition(m_pos);
+    m_hitbox.setFillColor(Color::Transparent);
+    m_hitbox.setSize(Vector2f(20, 20));
+    m_hitbox.setOutlineThickness(1);
+    m_hitbox.setOutlineColor(Color(255, 0, 0, 100));
+    m_hitbox.setOrigin(getCenter(m_hitbox));
+    m_hitbox.setPosition(m_pos);
+    m_health = 10;
+    m_speed = 20;
+}
+
+Entity::Entity(Vector2f pos)
+{
+    m_acc = Vector2f(0, 0);
+    m_vel = Vector2f(0, 0);
+    m_pos = pos;
+    m_sprite.setColor(Color::White);
+    m_sprite.setPosition(m_pos);
+    m_hitbox.setFillColor(Color::Transparent);
+    m_hitbox.setSize(Vector2f(20, 20));
+    m_hitbox.setOutlineThickness(1);
+    m_hitbox.setOutlineColor(Color(255, 0, 0, 100));
+    m_hitbox.setOrigin(getCenter(m_hitbox));
+    m_hitbox.setPosition(m_pos);
+    m_health = 10;
+    m_speed = 20;
+}
+
 Entity::Entity(Texture* texture, Vector2f scale)
 {
     m_acc = Vector2f(0, 0);
@@ -11,7 +45,6 @@ Entity::Entity(Texture* texture, Vector2f scale)
     m_sprite.setOrigin(getCenter(*texture));
     m_sprite.setScale(scale);
     m_sprite.setPosition(m_pos);
-    m_hitbox.setTexture(texture);
     m_hitbox.setScale(scale);
     m_hitbox.setFillColor(Color::Transparent);
     m_hitbox.setSize(Vector2f(20, 20));

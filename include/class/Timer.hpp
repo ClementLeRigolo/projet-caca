@@ -9,7 +9,7 @@ class Timer
         float m_fps;
         float m_seconds;
         float m_frameDelta;
-        
+
     public:
         Timer();
         void update();
