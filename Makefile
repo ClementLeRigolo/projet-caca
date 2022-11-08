@@ -6,7 +6,8 @@ WIN_SRC = .\src\main.cpp	\
 		.\src\class\Scene.cpp	\
 		.\src\class\Collection.cpp	\
 		.\src\class\Timer.cpp	\
-		.\src\class\Asset.cpp
+		.\src\class\Asset.cpp	\
+		.\src\class\Item.cpp
 
 FLAGS = -g -I include -lsfml-graphics -lsfml-audio -lsfml-system -lsfml-window -lm
 
