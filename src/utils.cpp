@@ -1,6 +1,6 @@
 #include "libs.hpp"
 
-sf::Vector2f getTextureCenter(sf::Texture texture)
+sf::Vector2f getCenter(sf::Texture texture)
 {
     sf::Vector2u center = texture.getSize();
 
@@ -9,7 +9,12 @@ sf::Vector2f getTextureCenter(sf::Texture texture)
     return sf::Vector2f(center.x, center.y);
 }
 
-sf::Vector2f getRectCenter(float width, float height)
+sf::Vector2f getCenter(float width, float height)
 {
     return sf::Vector2f(width / 2.0, height / 2.0);
+}
+
+sf::Vector2f getCenter(sf::Shape &shape)
+{
+    return sf::Vector2f(shape.getGlobalBounds().width / 2.0, shape.getGlobalBounds().height / 2.0);
 }

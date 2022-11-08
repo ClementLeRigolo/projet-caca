@@ -26,16 +26,19 @@ void Game::pollEvents()
     }
 }
 
-void Game::update()
+void Game::updateFpsIndicator()
 {
-    float clock = 0;
-    
-    getTimer()->update();
+    static float clock = 0;
 
-    if (getTimer()->getSeconds() > clock + 0.2) {
+    if (getTimer()->getSeconds() > clock + 0.15) {
         clock = getTimer()->getSeconds();
         getRender()->getCurrentScene()->getText()->setString("fps : " + to_string((int)getTimer()->getFps()));
     }
+}
 
+void Game::update()
+{
+    getTimer()->update();
+    updateFpsIndicator();
     pollEvents();
 }

@@ -13,8 +13,8 @@ class Entity {
         Vector2f m_acc;
 
     public:
-        Entity(Texture texture, Vector2f scale);
-        void setTexture(Texture *texture);
+        Entity(Texture* texture, Vector2f scale);
+        void setTexture(Texture* texture);
         void setHitboxSize(Vector2f size);
         void setHitboxOffset(Vector2f offset);
         void setPos(Vector2f pos);
@@ -23,6 +23,6 @@ class Entity {
         void setSpeed(float speed);
         Sprite getSprite();
         RectangleShape getHitbox();
-        void update();
+        void update(float deltaTime);
         void draw(sf::RenderTarget &target);
 };

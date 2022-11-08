@@ -26,12 +26,8 @@ Text* Scene::getText() { return &m_text; };
 
 void Scene::display(RenderWindow* window)
 {
+    window->setView(m_view);
     window->draw(m_background);
     window->draw(m_foreground);
-    window->setView(m_view);
-    Collection::TEST_ENTITY.setTexture(&Asset::TEST_TEXTURE);
-    window->draw(Collection::TEST_ENTITY.getSprite());
-    window->draw(Collection::TEST_ENTITY.getHitbox());
-    
     window->draw(m_text);
 }
