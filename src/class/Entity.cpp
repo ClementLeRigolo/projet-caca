@@ -61,14 +61,14 @@ void Entity::setHitboxOffset(Vector2f offset)
     m_hitbox.setPosition(Vector2f(m_pos.x + offset.x, m_pos.y + offset.y));
 }
 
-Sprite Entity::getSprite()
+Sprite* Entity::getSprite()
 {
-    return m_sprite;
+    return &m_sprite;
 }
 
-RectangleShape Entity::getHitbox()
+RectangleShape* Entity::getHitbox()
 {
-    return m_hitbox;
+    return &m_hitbox;
 }
 
 void Entity::draw(sf::RenderTarget &target)

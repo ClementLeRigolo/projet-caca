@@ -21,8 +21,8 @@ class Entity {
         void setScale(Vector2f scale);
         void setHealth(float health);
         void setSpeed(float speed);
-        Sprite getSprite();
-        RectangleShape getHitbox();
+        Sprite* getSprite();
+        RectangleShape* getHitbox();
         void update(float deltaTime);
         void draw(sf::RenderTarget &target);
 };
