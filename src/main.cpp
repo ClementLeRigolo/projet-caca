@@ -8,6 +8,6 @@ int main()
 
     while (engine.isRunning()) {
         engine.update();
-        engine.getRender()->update();
+        engine.render();
     }
 }

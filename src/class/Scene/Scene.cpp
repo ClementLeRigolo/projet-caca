@@ -12,8 +12,6 @@ Scene::Scene() {
     m_fpsText.setPosition(Vector2f(0, 0));
 }
 
-Scene::~Scene() {};
-
 int Scene::getIndex() const { return m_index; }
 
 void Scene::setIndex(int index) { m_index = index; }

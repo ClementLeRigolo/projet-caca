@@ -1,6 +1,6 @@
 #pragma once
 
-#include "class/Weapon.hpp"
+#include "class/Item.hpp"
 
 class Inventory
 {

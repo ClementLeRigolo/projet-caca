@@ -13,10 +13,10 @@ void buttonExitGameFunc()
 
 void buttonBackMainMenuFunc()
 {
-    Game::instance->getRender()->setCurrentScene(&Collection::MAIN_MENU);
+    Game::instance->setCurrentScene(&Collection::MAIN_MENU);
 }
 
 void buttonPlayGameFunc()
 {
-    Game::instance->getRender()->setCurrentScene(&Collection::LEVEL_1);
+    Game::instance->setCurrentScene(&Collection::LEVEL_1);
 }

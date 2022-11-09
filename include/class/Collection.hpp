@@ -1,7 +1,7 @@
 #pragma once
 
 #include "class/Scene.hpp"
-#include "class/Weapon.hpp"
+#include "class/Item.hpp"
 #include "class/Entity.hpp"
 
 class Collection

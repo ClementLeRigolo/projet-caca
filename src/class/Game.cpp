@@ -8,6 +8,7 @@ Game::Game()
     Collection::loadCollection();
     Timer::start();
     m_render = new Render();
+    m_currentScene = &Collection::MAIN_MENU;
 }
 
 Game* Game::instance;
@@ -15,6 +16,10 @@ Game* Game::instance;
 bool Game::isRunning() const { return m_render->getWindow()->isOpen(); }
 
 Render* Game::getRender() { return m_render; }
+
+Scene* Game::getCurrentScene() { return m_currentScene; }
+
+void Game::setCurrentScene(Scene* scene) { m_currentScene = scene; }
 
 void Game::pollEvents()
 {
@@ -33,7 +38,7 @@ void Game::updateFpsIndicator()
 
     if (Timer::getSeconds() > clock + 0.15) {
         clock = Timer::getSeconds();
-        getRender()->getCurrentScene()->getText()->setString("fps : " + \
+        m_currentScene->getText()->setString("fps : " + \
         to_string((int)Timer::getFps()));
     }
 }
@@ -48,6 +53,13 @@ void Game::update()
 {
     Timer::update();
     updateFpsIndicator();
-    updateSceneLogic(getRender()->getCurrentScene());
+    updateSceneLogic(m_currentScene);
     pollEvents();
+}
+
+void Game::render()
+{
+    m_render->getWindow()->clear();
+    m_currentScene->display(getRender()->getWindow());
+    m_render->getWindow()->display();
 }

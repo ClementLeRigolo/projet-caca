@@ -1,4 +1,4 @@
-#include "class/Weapon.hpp"
+#include "class/Item.hpp"
 
 Weapon::Weapon() : Item() {}
 

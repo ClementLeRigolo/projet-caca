@@ -15,7 +15,6 @@ class Scene
 
     public:
         Scene();
-        virtual ~Scene();
         virtual void updateLogic(RenderWindow* window);
         int getIndex() const;
         void setIndex(int index);
