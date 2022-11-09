@@ -985,6 +985,9 @@ _deps
 # C/C++ binary extension file
 *.bin
 
+# RPG Binary
+RPG_MASTERCLASS
+
 ##### C
 # Prerequisites
 *.d

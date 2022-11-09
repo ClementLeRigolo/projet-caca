@@ -1,5 +1,6 @@
 #include "class/Scene.hpp"
 #include "class/Asset.hpp"
+#include "class/Collection.hpp"
 
 Scene::Scene() : m_index(0) {
     m_text.setFont(Asset::FONT);
@@ -25,8 +26,8 @@ Text* Scene::getText() { return &m_text; };
 
 void Scene::display(RenderWindow* window)
 {
+    window->setView(m_view);
     window->draw(m_background);
     window->draw(m_foreground);
-    window->setView(m_view);
     window->draw(m_text);
 }
