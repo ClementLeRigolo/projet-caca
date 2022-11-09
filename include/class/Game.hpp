@@ -8,16 +8,16 @@ class Game
     private:
         Render* m_render;
         Event m_event;
-        Timer m_timer;
 
     public:
         Game();
+        static Game* instance;
         bool isRunning() const;
         Render* getRender();
-        Timer* getTimer();
         void pollEvents();
         void update();
 
     private:
+        void updateSceneLogic(Scene* scene);
         void updateFpsIndicator();
 };

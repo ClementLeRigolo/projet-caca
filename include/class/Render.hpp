@@ -10,6 +10,7 @@ class Render
 
     public:
         Render();
+        ~Render();
         void init(Scene* scene);
         RenderWindow* getWindow();
         Scene* getCurrentScene();
