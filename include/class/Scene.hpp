@@ -17,7 +17,8 @@ class Scene
 
     public:
         Scene();
-        void update(RenderWindow* window);
+        ~Scene();
+        void updateLogic(RenderWindow* window);
         void addEntity(Vector2f pos);
         int getIndex() const;
         void setIndex(int index);

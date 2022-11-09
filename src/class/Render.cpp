@@ -7,6 +7,11 @@ Render::Render()
     m_currentScene = &Collection::LEVEL_1;
 }
 
+Render::~Render()
+{
+    m_currentScene->~Scene();
+}
+
 RenderWindow* Render::getWindow() { return &m_window; }
 
 Scene* Render::getCurrentScene() { return m_currentScene; }

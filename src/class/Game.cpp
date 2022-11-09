@@ -6,6 +6,7 @@ Game::Game()
 {
     Asset::loadAssets();
     Collection::loadCollection();
+    Timer::start();
     m_render = new Render();
 }
 
@@ -14,8 +15,6 @@ Game* Game::instance;
 bool Game::isRunning() const { return m_render->getWindow()->isOpen(); }
 
 Render* Game::getRender() { return m_render; }
-
-Timer* Game::getTimer() { return &m_timer; }
 
 void Game::pollEvents()
 {
@@ -32,22 +31,23 @@ void Game::updateFpsIndicator()
 {
     static float clock = 0;
 
-    if (getTimer()->getSeconds() > clock + 0.15) {
-        clock = getTimer()->getSeconds();
-        getRender()->getCurrentScene()->getText()->setString("fps : " + to_string((int)getTimer()->getFps()));
+    if (Timer::getSeconds() > clock + 0.15) {
+        clock = Timer::getSeconds();
+        getRender()->getCurrentScene()->getText()->setString("fps : " + \
+        to_string((int)Timer::getFps()));
     }
+}
+
+void Game::updateSceneLogic(Scene* scene)
+{
+    // Updates scene logic
+    scene->updateLogic(getRender()->getWindow());
 }
 
 void Game::update()
 {
-    static float clock = 0;
-
-    getTimer()->update();
-    if (getTimer()->getSeconds() > clock + 0.5) {
-        getRender()->getCurrentScene()->addEntity(Vector2f(randomNumber(0, 960), randomNumber(0, 540)));
-        clock = getTimer()->getSeconds();
-    }
-    getRender()->getCurrentScene()->update(getRender()->getWindow());
+    Timer::update();
     updateFpsIndicator();
+    updateSceneLogic(getRender()->getCurrentScene());
     pollEvents();
 }

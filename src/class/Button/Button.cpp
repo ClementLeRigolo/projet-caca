@@ -1,16 +1,12 @@
 #include "class/Button.hpp"
 #include "class/Game.hpp"
-
-void func()
-{
-    cout << Game::instance->getTimer()->getSeconds() << endl;
-}
+#include "prototypes.hpp"
 
 Button::Button()
 {
     m_shape.setFillColor(Color::White);
     m_shape.setSize(Vector2f(100, 75));
-    m_onClick = &func;
+    m_onClick = &exempleFunc;
 }
 
 Button::Button(Texture* texture, void (*onClick)())

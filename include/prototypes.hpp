@@ -13,3 +13,6 @@ sf::Vector2i getMousePosition(sf::RenderWindow* window);
 bool DoMouseIntersect(sf::Vector2i mousePos, sf::FloatRect to_check);
 
 int randomNumber(int min_num, int max_num);
+
+// Button functions
+void exempleFunc();
