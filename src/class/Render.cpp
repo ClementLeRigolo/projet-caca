@@ -3,8 +3,8 @@
 
 Render::Render()
 {
-    m_window.create(VideoMode(960, 540, 32), WINDOW_NAME, Style::Default);
-    m_currentScene = &Collection::LEVEL_1;
+    m_window.create(VideoMode(SCREEN_SIZE.x, SCREEN_SIZE.y, 32), WINDOW_NAME, Style::Default);
+    m_currentScene = &Collection::START_MENU;
 }
 
 Render::~Render()

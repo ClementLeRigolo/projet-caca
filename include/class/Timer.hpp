@@ -1,3 +1,5 @@
+#pragma once
+
 #include "libs.hpp"
 
 class Timer

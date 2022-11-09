@@ -1,5 +1,6 @@
 #include "class/Entity.hpp"
 #include "class/Timer.hpp"
+#include "class/Asset.hpp"
 
 Entity::Entity()
 {
@@ -9,11 +10,12 @@ Entity::Entity()
     m_sprite.setColor(Color::White);
     m_sprite.setPosition(m_pos);
     m_hitbox.setFillColor(Color::Transparent);
-    m_hitbox.setSize(Vector2f(20, 20));
+    m_hitbox.setSize(Vector2f(100, 100));
     m_hitbox.setOutlineThickness(1);
     m_hitbox.setOutlineColor(Color(255, 0, 0, 100));
     m_hitbox.setOrigin(getCenter(m_hitbox));
     m_hitbox.setPosition(m_pos);
+    m_hitboxVisible = false;
     m_health = 10;
     m_speed = 20;
 }
@@ -23,14 +25,17 @@ Entity::Entity(Vector2f pos)
     m_acc = Vector2f(0, 0);
     m_vel = Vector2f(0, 0);
     m_pos = pos;
+    m_sprite.setTexture(Asset::ENTITY_TEXTURE, true);
+    m_sprite.setOrigin(getCenter(Asset::ENTITY_TEXTURE));
     m_sprite.setColor(Color::White);
     m_sprite.setPosition(m_pos);
     m_hitbox.setFillColor(Color::Transparent);
-    m_hitbox.setSize(Vector2f(20, 20));
+    m_hitbox.setSize(Vector2f(100, 100));
     m_hitbox.setOutlineThickness(1);
     m_hitbox.setOutlineColor(Color(255, 0, 0, 100));
     m_hitbox.setOrigin(getCenter(m_hitbox));
     m_hitbox.setPosition(m_pos);
+    m_hitboxVisible = false;
     m_health = 10;
     m_speed = 20;
 }
@@ -47,11 +52,12 @@ Entity::Entity(Texture* texture, Vector2f scale)
     m_sprite.setPosition(m_pos);
     m_hitbox.setScale(scale);
     m_hitbox.setFillColor(Color::Transparent);
-    m_hitbox.setSize(Vector2f(20, 20));
+    m_hitbox.setSize(Vector2f(100, 100));
     m_hitbox.setOutlineThickness(1);
     m_hitbox.setOutlineColor(Color(255, 0, 0, 100));
     m_hitbox.setOrigin(getCenter(m_hitbox));
     m_hitbox.setPosition(m_pos);
+    m_hitboxVisible = false;
     m_health = 10;
     m_speed = 20;
 }
@@ -104,10 +110,18 @@ RectangleShape* Entity::getHitbox()
     return &m_hitbox;
 }
 
+void Entity::setHitboxVisible(bool visible)
+{
+    m_hitboxVisible = visible;
+}
+
+bool Entity::isHitboxVisible() const { return m_hitboxVisible; };
+
 void Entity::draw(sf::RenderTarget &target)
 {
-    target.draw(m_hitbox);
     target.draw(m_sprite);
+    if (m_hitboxVisible)
+        target.draw(m_hitbox);
 }
 
 void Entity::update(float deltaTime)

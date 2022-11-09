@@ -6,20 +6,17 @@
 
 class Scene
 {
-    private:
+    protected:
         int m_index;
         RectangleShape m_background;
         RectangleShape m_foreground;
         View m_view;
-        Text m_text;
-        Button m_button;
-        vector<Entity*> m_entities;
+        Text m_fpsText;
 
     public:
         Scene();
-        ~Scene();
-        void updateLogic(RenderWindow* window);
-        void addEntity(Vector2f pos);
+        virtual ~Scene();
+        virtual void updateLogic(RenderWindow* window);
         int getIndex() const;
         void setIndex(int index);
         RectangleShape* getBackground();
@@ -30,4 +27,30 @@ class Scene
         void setView(View view);
         Text* getText();
         virtual void display(RenderWindow* window);
+};
+
+class Menu : public Scene
+{
+    private:
+        Button m_buttonPlay;
+        Button m_buttonExit;
+
+    public:
+        Menu();
+        void updateLogic(RenderWindow* window);
+        void display(RenderWindow* window);
+};
+
+class Level : public Scene
+{
+    private:
+        Text m_levelTitle;
+        vector<Entity*> m_entities;
+
+    public:
+        Level();
+        ~Level();
+        void addEntity(Vector2f pos);
+        void updateLogic(RenderWindow* window);
+        void display(RenderWindow* window);
 };

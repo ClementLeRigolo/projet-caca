@@ -1,7 +1,17 @@
 #include "class/Game.hpp"
+#include "class/Collection.hpp"
 
 void exempleFunc()
 {
-    Game::instance->getRender()->getCurrentScene()->addEntity(Vector2f(randomNumber(0, 960), randomNumber(0, 540)));
     cout << Timer::getSeconds() << endl;
+}
+
+void buttonExitGameFunc()
+{
+    Game::instance->getRender()->getWindow()->close();
+}
+
+void buttonPlayGameFunc()
+{
+    Game::instance->getRender()->setCurrentScene(&Collection::LEVEL_1);
 }

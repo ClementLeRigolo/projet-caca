@@ -4,6 +4,7 @@
 
 class Entity {
     private:
+        bool m_hitboxVisible;
         Sprite m_sprite;
         RectangleShape m_hitbox;
         float m_speed;
@@ -17,6 +18,8 @@ class Entity {
         Entity(Vector2f pos);
         Entity(Texture* texture, Vector2f scale);
         void setTexture(Texture* texture);
+        void setHitboxVisible(bool visible);
+        bool isHitboxVisible() const;
         void setHitboxSize(Vector2f size);
         void setHitboxOffset(Vector2f offset);
         void setPos(Vector2f pos);

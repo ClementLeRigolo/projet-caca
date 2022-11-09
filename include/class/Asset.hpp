@@ -9,6 +9,7 @@ class Asset
 
         //fonts
         static Font FONT;
-        static Texture BUTTON_TEXTURE;
+        static Texture PLAY_TEXTURE;
+        static Texture EXIT_TEXTURE;
         static Texture ENTITY_TEXTURE;
 };

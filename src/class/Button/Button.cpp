@@ -2,11 +2,13 @@
 #include "class/Game.hpp"
 #include "prototypes.hpp"
 
+void doNothing() {};
+
 Button::Button()
 {
     m_shape.setFillColor(Color::White);
     m_shape.setSize(Vector2f(100, 75));
-    m_onClick = &exempleFunc;
+    m_onClick = &doNothing;
 }
 
 Button::Button(Texture* texture, void (*onClick)())
@@ -72,4 +74,5 @@ void Button::update(Vector2i mousePos)
         t_rect.left = 0;
     }
     m_shape.setTextureRect(t_rect);
+    m_shape.setOrigin(getCenter(m_shape));
 }

@@ -10,6 +10,6 @@ class Collection
 
         // scenes
         static Scene INTRO_CREDITS;
-        static Scene START_MENU;
-        static Scene LEVEL_1;
+        static Menu START_MENU;
+        static Level LEVEL_1;
 };
