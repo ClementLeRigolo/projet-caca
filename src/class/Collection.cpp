@@ -7,5 +7,5 @@ void Collection::loadCollection()
 
 // scenes
 Scene Collection::INTRO_CREDITS = Scene();
-Menu Collection::START_MENU = Menu();
+Menu Collection::MAIN_MENU = Menu();
 Level Collection::LEVEL_1 = Level();

@@ -7,6 +7,12 @@
 Level::Level()
 {
     m_index = 0;
+
+    m_backMainMenu.setTexture(&Asset::EXIT_TEXTURE);
+    m_backMainMenu.getShape()->setSize(Vector2f(250, 100));
+    m_backMainMenu.setPos(Vector2f(SCREEN_SIZE.x * 0.1, SCREEN_SIZE.y * 0.95));
+    m_backMainMenu.setOnClick(&buttonBackMainMenuFunc);
+
     m_levelTitle.setFont(Asset::FONT);
     m_levelTitle.setCharacterSize(100);
     m_levelTitle.setString("Level " + to_string(m_index));
@@ -28,6 +34,7 @@ Level::~Level()
 
 void Level::updateLogic(RenderWindow* window)
 {
+    m_backMainMenu.update(getMousePosition(window));
 }
 
 void Level::display(RenderWindow* window)
@@ -35,6 +42,7 @@ void Level::display(RenderWindow* window)
     for (int i = 0; i < m_entities.size(); i++)
         m_entities.at(i)->draw(*window);
     window->setView(m_view);
+    window->draw(*m_backMainMenu.getShape());
     window->draw(m_levelTitle);
     window->draw(m_background);
     window->draw(m_foreground);

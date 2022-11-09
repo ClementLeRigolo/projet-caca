@@ -44,6 +44,7 @@ class Menu : public Scene
 class Level : public Scene
 {
     private:
+        Button m_backMainMenu;
         Text m_levelTitle;
         vector<Entity*> m_entities;
 

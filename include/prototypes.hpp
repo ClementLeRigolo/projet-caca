@@ -20,3 +20,4 @@ int randomNumber(int min_num, int max_num);
 void exempleFunc();
 void buttonExitGameFunc();
 void buttonPlayGameFunc();
+void buttonBackMainMenuFunc();

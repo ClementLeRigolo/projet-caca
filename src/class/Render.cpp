@@ -4,7 +4,7 @@
 Render::Render()
 {
     m_window.create(VideoMode(SCREEN_SIZE.x, SCREEN_SIZE.y, 32), WINDOW_NAME, Style::Default);
-    m_currentScene = &Collection::START_MENU;
+    m_currentScene = &Collection::MAIN_MENU;
 }
 
 Render::~Render()
