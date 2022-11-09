@@ -1,3 +1,4 @@
+
 SRC := $(shell find $(SOURCEDIR) -name '*.cpp')
 
 WIN_SRC := $(shell dir /S /B *.cpp)

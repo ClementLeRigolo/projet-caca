@@ -11,3 +11,6 @@ void Collection::loadCollection()
 Scene Collection::INTRO_CREDITS = Scene();
 Scene Collection::START_MENU = Scene();
 Scene Collection::LEVEL_1 = Scene();
+
+// items
+Item Collection::TEST_ITEM = Item(0, "Test item", "this is a dev test item", Texture(), false);
