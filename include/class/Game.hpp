@@ -17,4 +17,7 @@ class Game
         Timer* getTimer();
         void pollEvents();
         void update();
+
+    private:
+        void updateFpsIndicator();
 };

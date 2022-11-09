@@ -2,6 +2,7 @@
 
 #include "class/Scene.hpp"
 #include "class/Weapon.hpp"
+#include "class/Entity.hpp"
 
 class Collection
 {
@@ -15,4 +16,7 @@ class Collection
 
         //items
         static Item TEST_ITEM;
+        
+        // entities
+        static Entity TEST_ENTITY;
 };
