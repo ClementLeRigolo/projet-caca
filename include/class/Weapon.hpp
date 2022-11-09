@@ -9,6 +9,7 @@ class Weapon : public Item
         float m_attackSpeed;
     
     public:
+        Weapon();
         Weapon(int id, string name, string description, Texture texture, float damage, float attackSpeed);
         float getDamage() const;
         void setDamage(float damage);

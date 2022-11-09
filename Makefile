@@ -1,17 +1,11 @@
+
 SRC := $(shell find $(SOURCEDIR) -name '*.cpp')
 
-WIN_SRC = .\src\main.cpp	\
-		.\src\class\Game.cpp	\
-		.\src\class\Render.cpp	\
-		.\src\class\Scene.cpp	\
-		.\src\class\Collection.cpp	\
-		.\src\class\Timer.cpp	\
-		.\src\class\Asset.cpp	\
-		.\src\class\Item.cpp
+WIN_SRC := $(shell dir /S /B *.cpp)
 
 FLAGS = -g -I include -lsfml-graphics -lsfml-audio -lsfml-system -lsfml-window -lm
 
-WIN_FLAGS = -g -I include -LC:\msys64\SFML-2.5.1\lib -I"C:\msys64\SFML-2.5.1\include" -lsfml-graphics -lsfml-audio -lsfml-system -lsfml-window -lm -lopengl32 -lwinmm -lgdi32
+WIN_FLAGS = -g -I include -LC:\msys64\SFML-2.5.1\lib -I"C:\msys64\SFML-2.5.1\include" -lsfml-graphics -lsfml-audio -lsfml-system -lsfml-window -lm
 
 NAME =	RPG_MASTERCLASS
 

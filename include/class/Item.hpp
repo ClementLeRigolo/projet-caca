@@ -4,14 +4,16 @@
 
 class Item
 {
-    private:
+    protected:
         int m_id;
         string m_name;
         string m_description;
         Texture m_texture;
+        bool m_equipable;
         
     public:
-        Item(int id, string name, string description, Texture texture);
+        Item();
+        Item(int id, string name, string description, Texture texture, bool equipable);
         int getId() const;
         void setId(int id);
         string getName() const;
@@ -20,4 +22,6 @@ class Item
         void setDescription(string description);
         Texture* getTexture();
         void setTexture(Texture texture);
+        bool isEquipable() const;
+        void setEquipable(bool equipable);
 };
