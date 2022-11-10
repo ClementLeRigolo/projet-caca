@@ -121,6 +121,14 @@ float Entity::getSpeed() const
     return m_speed;
 }
 
+Vector2f Entity::getPosition()
+{
+    FloatRect bound = m_hitbox.getGlobalBounds();
+
+    return Vector2f(bound.left + (bound.width / 2.0),
+    bound.top + (bound.height / 2.0));
+}
+
 bool Entity::isHitboxVisible() const { return m_hitboxVisible; };
 
 void Entity::draw(sf::RenderTarget &target)
@@ -132,17 +140,18 @@ void Entity::draw(sf::RenderTarget &target)
 
 void Entity::reposition()
 {
-    m_acc = vectUnit(m_acc);
-    m_acc.y += 200 * Timer::getFrameDelta() * GRAVITY;
-    m_acc *= (Timer::getFrameDelta() * 10000);
-    m_vel += m_acc * Timer::getFrameDelta();
-    m_pos += m_vel;
+    //m_acc = vectUnit(m_acc);
+    m_acc *= Timer::getFrameDelta();
+    m_vel += vectMult(m_acc, 500.0);
+    m_pos += m_vel * Timer::getFrameDelta();
     if (m_pos.y > SCREEN_SIZE.y - getSize().y) {
+        m_vel.y = 0;
         m_pos.y = SCREEN_SIZE.y - getSize().y;
     }
-    m_vel.x = lerp(0.0, m_vel.x, exp2(-8.0 * Timer::getFrameDelta()));
-    m_vel.y = lerp(0.0, m_vel.y, exp2(-8.0 * Timer::getFrameDelta()));
+    m_vel.x = damp(m_vel.x, 0.001f, Timer::getFrameDelta());
+    m_vel.y = damp(m_vel.y, 0.05f, Timer::getFrameDelta());
     m_acc = Vector2f(0, 0);
+    m_acc.y += 2 * GRAVITY;
     m_sprite.setPosition(m_pos);
     m_hitbox.setPosition(m_pos);
 }

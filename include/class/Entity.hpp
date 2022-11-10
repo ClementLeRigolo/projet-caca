@@ -24,6 +24,7 @@ class Entity {
         void setPos(Vector2f pos);
         void setScale(Vector2f scale);
         void setSpeed(float speed);
+        Vector2f getPosition();
         Vector2f getSize() const;
         float getSpeed() const;
         Sprite* getSprite();
@@ -44,6 +45,7 @@ class Player : public Entity
             bool jumping;
             bool running;
         } states_t;
+        View m_view;
         states_t m_states;
 
     public:
@@ -53,5 +55,7 @@ class Player : public Entity
         void update();
         void updateStates();
         void setHealth(float health);
+        void viewFollow();
+        View* getView();
         float getHealth() const;
 };

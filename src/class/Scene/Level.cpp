@@ -18,6 +18,9 @@ Level::Level()
     m_levelTitle.setString("Level " + to_string(m_index));
     m_levelTitle.setOrigin(getCenter(m_levelTitle));
     m_levelTitle.setPosition(Vector2f(SCREEN_SIZE.x / 2, SCREEN_SIZE.y / 2));
+
+    for (int i = 0; i < 100; i++)
+        addEntity(Vector2f(randomNumber(-1920, 1920 * 2), randomNumber(-1080, 1080 * 2)));
 }
 
 void Level::addEntity(Vector2f pos)
@@ -39,13 +42,17 @@ void Level::updateLogic(RenderWindow* window)
 
 void Level::display(RenderWindow* window)
 {
+    // Update player view and draw world
+    Player::instance->viewFollow();
+    window->setView(*Player::instance->getView());
+    window->draw(m_background);
     for (int i = 0; i < m_entities.size(); i++)
         m_entities.at(i)->draw(*window);
-    window->setView(m_view);
     Player::instance->draw(*window);
+
+    // Set view to static view and draw hud
+    window->setView(m_view);
     window->draw(*m_backMainMenu.getShape());
     window->draw(m_levelTitle);
-    window->draw(m_background);
-    window->draw(m_foreground);
     window->draw(m_fpsText);
 }

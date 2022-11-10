@@ -24,6 +24,10 @@ void buttonBackMainMenuFunc();
 
 // Easing functions
 double lerp(double a, double b, double t);
+float damp(float source, float smoothing, float dt);
+
+double clamp(double min, double max, double value);
+
 
 // Vectors
 sf::Vector2f v2uToV2f(sf::Vector2u vector);

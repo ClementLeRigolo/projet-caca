@@ -65,10 +65,24 @@ int randomNumber(int min_num, int max_num)
     return result;
 }
 
+float damp(float source, float smoothing, float dt)
+{
+    return source * pow(smoothing, dt);
+}
+
 double lerp(double a, double b, double t)
 {
     if (t <= 0.5)
         return a+(b-a)*t;
     else
         return b-(b-a)*(1.0-t);
+}
+
+double clamp(double min, double max, double value)
+{
+    if (value > max)
+        return max;
+    if (value < min)
+        return min;
+    return value;
 }
