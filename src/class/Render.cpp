@@ -4,6 +4,7 @@
 Render::Render()
 {
     m_window.create(VideoMode(SCREEN_SIZE.x, SCREEN_SIZE.y, 32), WINDOW_NAME, Style::Default);
+    m_window.setFramerateLimit(2000);
 }
 
 RenderWindow* Render::getWindow() { return &m_window; }

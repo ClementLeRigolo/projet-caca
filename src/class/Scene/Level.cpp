@@ -31,9 +31,9 @@ Level::~Level()
         delete m_entities.at(i);
 }
 
-
 void Level::updateLogic(RenderWindow* window)
 {
+    Player::instance->update();
     m_backMainMenu.update(getMousePosition(window));
 }
 
@@ -42,6 +42,7 @@ void Level::display(RenderWindow* window)
     for (int i = 0; i < m_entities.size(); i++)
         m_entities.at(i)->draw(*window);
     window->setView(m_view);
+    Player::instance->draw(*window);
     window->draw(*m_backMainMenu.getShape());
     window->draw(m_levelTitle);
     window->draw(m_background);

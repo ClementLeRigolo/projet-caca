@@ -6,3 +6,5 @@
 #define FONT_PATH "asset/font/font.ttf"
 #define PLAY_PATH "asset/textures/UI/play.png"
 #define EXIT_PATH "asset/textures/UI/exit.png"
+
+#define GRAVITY 9.81;

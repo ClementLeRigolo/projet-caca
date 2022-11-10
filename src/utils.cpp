@@ -64,3 +64,11 @@ int randomNumber(int min_num, int max_num)
     result = (rand() % (hi_num - low_num)) + low_num;
     return result;
 }
+
+double lerp(double a, double b, double t)
+{
+    if (t <= 0.5)
+        return a+(b-a)*t;
+    else
+        return b-(b-a)*(1.0-t);
+}

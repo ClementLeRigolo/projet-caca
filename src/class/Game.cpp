@@ -7,6 +7,7 @@ Game::Game()
     Asset::loadAssets();
     Collection::loadCollection();
     Timer::start();
+    Player::instance = new Player();
     m_render = new Render();
     m_currentScene = &Collection::MAIN_MENU;
 }
