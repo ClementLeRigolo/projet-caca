@@ -15,7 +15,6 @@ class Scene
 
     public:
         Scene();
-        virtual void updateLogic(RenderWindow* window);
         int getIndex() const;
         void setIndex(int index);
         RectangleShape* getBackground();
@@ -25,6 +24,7 @@ class Scene
         View* getView();
         void setView(View view);
         Text* getText();
+        virtual void updateLogic(RenderWindow* window);
         virtual void display(RenderWindow* window);
 };
 

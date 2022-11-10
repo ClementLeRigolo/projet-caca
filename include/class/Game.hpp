@@ -9,7 +9,7 @@ class Game
         Render* m_render;
         Scene* m_currentScene;
         Event m_event;
-    
+
     private:
         void updateSceneLogic(Scene* scene);
         void updateFpsIndicator();

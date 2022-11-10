@@ -3,6 +3,9 @@
 
 void exempleFunc()
 {
+    Level* level = (Level*)Game::instance->getCurrentScene();
+
+    level->addEntity(Vector2f(randomNumber(0, 1920), randomNumber(0, 1920)));
     cout << Timer::getSeconds() << endl;
 }
 

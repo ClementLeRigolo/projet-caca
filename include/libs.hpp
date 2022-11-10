@@ -8,6 +8,7 @@
 #include <SFML/Window.hpp>
 #include "define.hpp"
 #include "prototypes.hpp"
+#include "math.h"
 
 using namespace sf;
 using namespace std;
