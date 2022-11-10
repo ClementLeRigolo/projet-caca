@@ -12,13 +12,17 @@ BOLD   = $ \x1b[1m
 UNDER  = $ \x1b[4m
 REV    = $ \x1b[7m
 
-## Build standard binary file
+SRC := $(shell find $(SOURCEDIR) -name '*.cpp')
 
 FLAGS = -g -I include -lsfml-graphics -lsfml-audio -lsfml-system -lsfml-window -lm
+
+WFLAGS = -g -I include -I../lib/SFML-mingw/include -L"../lib/SFML-mingw/lib" -lsfml-graphics -lsfml-audio -lsfml-system -lsfml-window -lm
 
 NAME = RPG_MASTERCLASS
 
 OBJ =	$(SRC:.cpp=.o)
+
+## Build standard binary file
 
 %.o: %.cpp
 	@g++ -o $@ -c $< $(FLAGS)
@@ -30,8 +34,6 @@ $(NAME): header $(OBJ) done
 	@g++ -o $(NAME) $(OBJ) $(FLAGS)
 
 ## Build Windows executable file
-
-WFLAGS = -g -I include -I../lib/SFML-mingw/include -L"../lib/SFML-mingw/lib" -lsfml-graphics -lsfml-audio -lsfml-system -lsfml-window -lm
 
 wincmp:
 	x86_64-w64-mingw32-g++ $(SRC) -o $(NAME) $(WFLAGS)
