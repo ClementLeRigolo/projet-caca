@@ -1,10 +1,3 @@
-##
-## EPITECH PROJECT, 2022
-## rpg_masterclass
-## File description:
-## Makefile
-##
-
 GREY   = $ \x1b[30m
 RED    = $ \x1b[31m
 GREEN  = $ \x1b[32m
@@ -19,16 +12,7 @@ BOLD   = $ \x1b[1m
 UNDER  = $ \x1b[4m
 REV    = $ \x1b[7m
 
-IGREY   = $ \x1b[40m
-IRED    = $ \x1b[41m
-IGREEN  = $ \x1b[42m
-IYELLOW = $ \x1b[43m
-IBLUE   = $ \x1b[44m
-IPURPLE = $ \x1b[45m
-ICYAN   = $ \x1b[46m
-IWHITE  = $ \x1b[47m
-
-SRC := $(shell find $(SOURCEDIR) -name '*.cpp')
+## Build standard binary file
 
 FLAGS = -g -I include -lsfml-graphics -lsfml-audio -lsfml-system -lsfml-window -lm
 
@@ -44,6 +28,15 @@ all: $(NAME)
 
 $(NAME): header $(OBJ) done
 	@g++ -o $(NAME) $(OBJ) $(FLAGS)
+
+## Build Windows executable file
+
+WFLAGS = -g -I include -I../lib/SFML-mingw/include -L"../lib/SFML-mingw/lib" -lsfml-graphics -lsfml-audio -lsfml-system -lsfml-window -lm
+
+wincmp:
+	x86_64-w64-mingw32-g++ $(SRC) -o $(NAME) $(WFLAGS)
+
+## Make args
 
 header:
 	@printf "${IWHITE}               ${BOLD}${PURPLE}FILES                  \
