@@ -17,11 +17,12 @@ bool DoMouseIntersect(sf::Vector2i mousePos, sf::FloatRect to_check);
 int randomNumber(int min_num, int max_num);
 
 // Button functions
+void doNothingFunc();
 void exempleFunc();
+void buttonGoToSettingsFunc();
 void buttonExitGameFunc();
 void buttonPlayGameFunc();
 void buttonBackMainMenuFunc();
-
 // Easing functions
 double lerp(double a, double b, double t);
 float damp(float source, float smoothing, float dt);

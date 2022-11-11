@@ -11,12 +11,13 @@ class Collection
 
         // scenes
         static Scene INTRO_CREDITS;
-        static Menu MAIN_MENU;
+        static MainMenu MAIN_MENU;
+        static SettingsMenu SETTINGS_MENU;
         static Level LEVEL_1;
 
         //items
         static Item TEST_ITEM;
-        
+
         // entities
         static Entity TEST_ENTITY;
 };

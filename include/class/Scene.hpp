@@ -12,6 +12,7 @@ class Scene
         RectangleShape m_foreground;
         View m_view;
         Text m_fpsText;
+        vector<Button> m_buttons;
 
     public:
         Scene();
@@ -28,14 +29,22 @@ class Scene
         virtual void display(RenderWindow* window);
 };
 
-class Menu : public Scene
+class MainMenu : public Scene
 {
     private:
-        Button m_buttonPlay;
-        Button m_buttonExit;
 
     public:
-        Menu();
+        MainMenu();
+        void updateLogic(RenderWindow* window);
+        void display(RenderWindow* window);
+};
+
+class SettingsMenu : public Scene
+{
+    private:
+
+    public:
+        SettingsMenu();
         void updateLogic(RenderWindow* window);
         void display(RenderWindow* window);
 };
@@ -43,7 +52,6 @@ class Menu : public Scene
 class Level : public Scene
 {
     private:
-        Button m_backMainMenu;
         Text m_levelTitle;
         vector<Entity*> m_entities;
 
