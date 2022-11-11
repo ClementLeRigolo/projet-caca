@@ -12,7 +12,9 @@ Game::Game()
     m_currentScene = &Collection::MAIN_MENU;
 }
 
-Game* Game::instance;
+Game Game::s_instance;
+
+Game& Game::getInstance() { return s_instance; }
 
 bool Game::isRunning() const { return m_render->getWindow()->isOpen(); }
 

@@ -3,7 +3,7 @@
 
 void exempleFunc()
 {
-    Level* level = (Level*)Game::instance->getCurrentScene();
+    Level* level = (Level*)Game::getInstance().getCurrentScene();
 
     level->addEntity(Vector2f(randomNumber(0, 1920), randomNumber(0, 1920)));
     cout << Timer::getSeconds() << endl;
@@ -11,15 +11,15 @@ void exempleFunc()
 
 void buttonExitGameFunc()
 {
-    Game::instance->getRender()->getWindow()->close();
+    Game::getInstance().getRender()->getWindow()->close();
 }
 
 void buttonBackMainMenuFunc()
 {
-    Game::instance->setCurrentScene(&Collection::MAIN_MENU);
+    Game::getInstance().setCurrentScene(&Collection::MAIN_MENU);
 }
 
 void buttonPlayGameFunc()
 {
-    Game::instance->setCurrentScene(&Collection::LEVEL_1);
+    Game::getInstance().setCurrentScene(&Collection::LEVEL_1);
 }

@@ -3,8 +3,7 @@
 
 int main()
 {
-    Game engine;
-    Game::instance = &engine;
+    Game& engine = Game::getInstance();
 
     while (engine.isRunning()) {
         engine.update();
