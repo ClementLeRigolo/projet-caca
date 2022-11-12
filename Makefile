@@ -14,15 +14,13 @@ REV    = $ \e[7m
 
 SRC := $(shell find $(SOURCEDIR) -name '*.cpp')
 
-FLAGS = -g -I include -lsfml-graphics -lsfml-audio -lsfml-system -lsfml-window -lm
+## Build standard binary file
 
-WFLAGS = -g -I include -I../lib/SFML-mingw/include -L"../lib/SFML-mingw/lib" -lsfml-graphics -lsfml-audio -lsfml-system -lsfml-window -lm
+FLAGS = -g -I include -lsfml-graphics -lsfml-audio -lsfml-system -lsfml-window -lm
 
 NAME = RPG_MASTERCLASS
 
-OBJ =	$(SRC:.cpp=.o)
-
-## Build standard binary file
+OBJ = $(SRC:.cpp=.o)
 
 %.o: %.cpp
 	@g++ -o $@ -c $< $(FLAGS)
@@ -35,8 +33,20 @@ $(NAME): header $(OBJ) done
 
 ## Build Windows executable file
 
-wincmp:
-	x86_64-w64-mingw32-g++ $(SRC) -o $(NAME) $(WFLAGS)
+WFLAGS = -g -I include -I../lib/SFML-mingw/include -L"../lib/SFML-mingw/lib" -lsfml-graphics -lsfml-audio -lsfml-system -lsfml-window -lm
+
+WNAME = RPG_MASTERCLASS.exe
+
+WOBJ = $(SRC:.cpp=.wo)
+
+%.wo: %.cpp
+	@x86_64-w64-mingw32-g++ -o $@ -c $< $(WFLAGS)
+	@printf "\t${PURPLE}%s\n${END}"  $<
+
+wincmp: $(WNAME)
+
+$(WNAME): header $(WOBJ) done
+	@x86_64-w64-mingw32-g++ -o $(WNAME) $(WOBJ) $(WFLAGS)
 
 ## Make args
 
@@ -52,10 +62,12 @@ clean:
 	@printf "${IWHITE}               ${BOLD}${GREY}CLEAN                  \
 	${END}\n\n"
 	@rm -f $(OBJ)
+	@rm -f $(WOBJ)
 
 fclean: clean
 	@rm -f $(NAME)
+	@rm -f $(WNAME)
 
 re: fclean all
 
-.PHONY: all, clean, fclean, re
+.PHONY: all, wincmp, clean, fclean, re

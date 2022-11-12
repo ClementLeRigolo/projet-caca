@@ -994,6 +994,7 @@ RPG_MASTERCLASS
 
 # Object files
 *.o
+*.wo
 *.ko
 *.obj
 *.elf
