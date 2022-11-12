@@ -1,16 +1,16 @@
-GREY   = $ \x1b[30m
-RED    = $ \x1b[31m
-GREEN  = $ \x1b[32m
-YELLOW = $ \x1b[33m
-BLUE   = $ \x1b[34m
-PURPLE = $ \x1b[35m
-CYAN   = $ \x1b[36m
-WHITE  = $ \x1b[37m
+GREY   = $ \033[30m
+RED    = $ \033[31m
+GREEN  = $ \033[32m
+YELLOW = $ \033[33m
+BLUE   = $ \033[34m
+PURPLE = $ \033[35m
+CYAN   = $ \033[36m
+WHITE  = $ \033[37m
 
-END    = $ \x1b[0m
-BOLD   = $ \x1b[1m
-UNDER  = $ \x1b[4m
-REV    = $ \x1b[7m
+END    = $ \e[0m
+BOLD   = $ \e[1m
+UNDER  = $ \e[4m
+REV    = $ \e[7m
 
 SRC := $(shell find $(SOURCEDIR) -name '*.cpp')
 

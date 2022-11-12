@@ -1,6 +1,8 @@
 #pragma once
 
 #include <iostream>
+#include <chrono>
+#include <ctime>
 #include <SFML/Audio.hpp>
 #include <SFML/Config.hpp>
 #include <SFML/Graphics.hpp>

@@ -6,6 +6,7 @@
 class Game
 {
     private:
+        Game();
         static Game s_instance; 
         Render* m_render;
         Scene* m_currentScene;
@@ -14,7 +15,6 @@ class Game
         void updateFpsIndicator();
 
     public:
-        Game();
         static Game& getInstance();
         bool isRunning() const;
         Scene* getCurrentScene();
