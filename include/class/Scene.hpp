@@ -3,6 +3,7 @@
 #include "libs.hpp"
 #include "Button.hpp"
 #include "Entity.hpp"
+#include "EText.hpp"
 
 class Scene
 {
@@ -25,6 +26,7 @@ class Scene
         View* getView();
         void setView(View view);
         Text* getText();
+        virtual void pollEvents(RenderWindow* window);
         virtual void updateLogic(RenderWindow* window);
         virtual void display(RenderWindow* window);
 };
@@ -32,6 +34,7 @@ class Scene
 class MainMenu : public Scene
 {
     private:
+        vector<RectangleShape> m_background;
 
     public:
         MainMenu();
@@ -42,9 +45,11 @@ class MainMenu : public Scene
 class SettingsMenu : public Scene
 {
     private:
+        vector<EText> m_text;
 
     public:
         SettingsMenu();
+        void pollEvents(RenderWindow* window);
         void updateLogic(RenderWindow* window);
         void display(RenderWindow* window);
 };

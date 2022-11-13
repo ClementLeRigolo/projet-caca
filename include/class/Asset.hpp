@@ -11,7 +11,8 @@ class Asset
         static void loadAssets();
 
         //fonts
-        static Font FONT;
+        static Font INGAME_FONT;
+        static Font DEBUG_FONT;
         static Texture _TEXTURE;
         static Texture B_CONTINUE_TEX;
         static Texture B_LOAD_GAME_TEX;
@@ -21,4 +22,9 @@ class Asset
         static Texture B_SETG_TEX;
         static Texture B_EXT_TEX;
         static Texture ENTITY_TEXTURE;
+        static Texture MM_BG1;
+        static Texture MM_BG2;
+        static Texture MM_BG3;
+        static Texture MM_BG4;
+        static Texture MM_BG5;
 };

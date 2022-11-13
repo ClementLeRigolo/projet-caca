@@ -6,7 +6,7 @@
 class Game
 {
     private:
-        static Game s_instance; 
+        static Game s_instance;
         Render* m_render;
         Scene* m_currentScene;
         Event m_event;
@@ -20,7 +20,7 @@ class Game
         Scene* getCurrentScene();
         void setCurrentScene(Scene* scene);
         Render* getRender();
-        void pollEvents();
+        Event& getEvent();
         void update();
         void render();
 };

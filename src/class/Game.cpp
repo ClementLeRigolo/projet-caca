@@ -24,15 +24,9 @@ Scene* Game::getCurrentScene() { return m_currentScene; }
 
 void Game::setCurrentScene(Scene* scene) { m_currentScene = scene; }
 
-void Game::pollEvents()
+Event& Game::getEvent()
 {
-    while (m_render->getWindow()->pollEvent(m_event)) {
-        switch (m_event.type) {
-            case Event::Closed:
-                m_render->getWindow()->close();
-                break;
-        }
-    }
+    return m_event;
 }
 
 void Game::updateFpsIndicator()
@@ -49,6 +43,7 @@ void Game::updateFpsIndicator()
 void Game::updateSceneLogic(Scene* scene)
 {
     // Updates scene logic
+    scene->pollEvents(getRender()->getWindow());
     scene->updateLogic(getRender()->getWindow());
 }
 
@@ -57,7 +52,6 @@ void Game::update()
     Timer::update();
     updateFpsIndicator();
     updateSceneLogic(m_currentScene);
-    pollEvents();
 }
 
 void Game::render()
