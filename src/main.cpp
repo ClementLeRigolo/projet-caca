@@ -1,6 +1,5 @@
 #include "libs.hpp"
 #include "class/Game.hpp"
-#include "class/Logger.hpp"
 
 int main()
 {
