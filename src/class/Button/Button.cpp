@@ -2,23 +2,22 @@
 #include "class/Game.hpp"
 #include "prototypes.hpp"
 
-void doNothing() {};
-
 Button::Button()
 {
     m_shape.setFillColor(Color::White);
     m_shape.setSize(Vector2f(100, 75));
-    m_onClick = &doNothing;
+    m_onClick = &doNothingFunc;
 }
 
-Button::Button(Texture* texture, void (*onClick)())
+Button::Button(Vector2f size, Vector2f pos, Texture& texture, void (*onClick)())
 {
     m_shape.setFillColor(Color::White);
-    m_shape.setSize(Vector2f(100, 75));
-    m_shape.setTexture(texture);
+    m_shape.setSize(size);
+    m_shape.setTexture(&texture);
     m_shape.setTextureRect(IntRect(0, 0,
-    texture->getSize().x / 3, texture->getSize().y));
+    texture.getSize().x / 3, texture.getSize().y));
     m_shape.setOrigin(getCenter(m_shape));
+    m_shape.setPosition(pos);
     m_state = idle;
     m_onClick = onClick;
 }

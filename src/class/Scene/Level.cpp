@@ -7,12 +7,10 @@ Level::Level()
 {
     m_index = 0;
 
-    m_backMainMenu.setTexture(&Asset::EXIT_TEXTURE);
-    m_backMainMenu.getShape().setSize(Vector2f(250, 100));
-    m_backMainMenu.setPos(Vector2f(SCREEN_SIZE.x * 0.1, SCREEN_SIZE.y * 0.95));
-    m_backMainMenu.setOnClick(&buttonBackMainMenuFunc);
+    m_buttons.push_back(Button(Vector2f(250, 100), Vector2f(SCREEN_SIZE.x * 0.1,
+    SCREEN_SIZE.y * 0.95), Asset::B_EXT_TEX, &buttonBackMainMenuFunc));
 
-    m_levelTitle.setFont(Asset::FONT);
+    m_levelTitle.setFont(Asset::DEBUG_FONT);
     m_levelTitle.setCharacterSize(100);
     m_levelTitle.setString("Level " + to_string(m_index));
     m_levelTitle.setOrigin(getCenter(m_levelTitle));
@@ -36,7 +34,8 @@ Level::~Level()
 void Level::updateLogic(RenderWindow& window)
 {
     Game::getInstance().getPlayer().update();
-    m_backMainMenu.update(getMousePosition(window));
+    for (int i = 0; i < m_buttons.size(); i++)
+        m_buttons.at(i).update(getMousePosition(window));
 }
 
 void Level::display(RenderWindow& window)
@@ -52,7 +51,8 @@ void Level::display(RenderWindow& window)
 
     // Set view to static view and draw hud
     window.setView(m_view);
-    window.draw(m_backMainMenu.getShape());
+    for (int i = 0; i < m_buttons.size(); i++)
+        window.draw(m_buttons.at(i).getShape());
     window.draw(m_levelTitle);
     window.draw(m_fpsText);
 }

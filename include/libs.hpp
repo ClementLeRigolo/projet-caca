@@ -10,7 +10,8 @@
 #include <SFML/Window.hpp>
 #include "define.hpp"
 #include "prototypes.hpp"
-#include "math.h"
+#include <math.h>
+#include <dirent.h>
 
 using namespace sf;
 using namespace std;

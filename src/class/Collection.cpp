@@ -7,7 +7,8 @@ void Collection::loadCollection()
 
 // scenes
 Scene Collection::INTRO_CREDITS = Scene();
-Menu Collection::MAIN_MENU = Menu();
+MainMenu Collection::MAIN_MENU = MainMenu();
+SettingsMenu Collection::SETTINGS_MENU = SettingsMenu();
 Level Collection::LEVEL_1 = Level();
 
 // items

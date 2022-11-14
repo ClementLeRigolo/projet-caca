@@ -16,11 +16,11 @@ class Button
 
     public:
         Button();
-        Button(Texture *texture, void (*onClick)());
+        Button(Vector2f size, Vector2f pos, Texture& texture, void (*onClick)());
         void setPos(Vector2f pos);
         void setOnClick(void (*onClick)());
         void onClick();
-        void setTexture(Texture *texture);
+        void setTexture(Texture* texture);
         RectangleShape& getShape();
         void update(Vector2i mousePos);
 };

@@ -10,7 +10,7 @@ class Item
         string m_description;
         Texture m_texture;
         bool m_equipable;
-        
+
     public:
         Item();
         Item(int id, string name, string description, Texture texture, bool equipable);
@@ -31,7 +31,7 @@ class Weapon : public Item
     private:
         float m_damage;
         float m_attackSpeed;
-    
+
     public:
         Weapon();
         Weapon(int id, string name, string description, Texture texture, float damage, float attackSpeed);

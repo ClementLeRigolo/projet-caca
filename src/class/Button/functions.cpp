@@ -1,6 +1,8 @@
 #include "class/Game.hpp"
 #include "class/Collection.hpp"
 
+void doNothingFunc() {};
+
 void exempleFunc()
 {
     Level* level = (Level*)Game::getInstance().getCurrentScene();
@@ -17,6 +19,11 @@ void buttonExitGameFunc()
 void buttonBackMainMenuFunc()
 {
     Game::getInstance().setCurrentScene(&Collection::MAIN_MENU);
+}
+
+void buttonGoToSettingsFunc()
+{
+    Game::getInstance().setCurrentScene(&Collection::SETTINGS_MENU);
 }
 
 void buttonPlayGameFunc()
