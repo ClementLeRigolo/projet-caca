@@ -59,15 +59,9 @@ Entity::Entity(Texture* texture, Vector2f scale)
     m_speed = 20;
 }
 
-void Entity::setPos(Vector2f pos)
-{
-    m_pos = pos;
-}
+void Entity::setPos(Vector2f pos) { m_pos = pos; }
 
-void Entity::setSpeed(float speed)
-{
-    m_speed = speed;
-}
+void Entity::setSpeed(float speed) { m_speed = speed; }
 
 Vector2f Entity::getSize() const
 {
@@ -101,25 +95,16 @@ void Entity::setHitboxOffset(Vector2f offset)
     (m_hitbox.getSize().y / 2.0) + offset.y);
 }
 
-Sprite* Entity::getSprite()
-{
-    return &m_sprite;
-}
+Sprite& Entity::getSprite() { return m_sprite; }
 
-RectangleShape* Entity::getHitbox()
-{
-    return &m_hitbox;
-}
+RectangleShape& Entity::getHitbox() { return m_hitbox; }
 
 void Entity::setHitboxVisible(bool visible)
 {
     m_hitboxVisible = visible;
 }
 
-float Entity::getSpeed() const
-{
-    return m_speed;
-}
+float Entity::getSpeed() const { return m_speed; }
 
 Vector2f Entity::getPosition()
 {

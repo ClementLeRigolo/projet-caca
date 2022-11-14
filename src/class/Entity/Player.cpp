@@ -8,7 +8,7 @@ Player::Player()
     m_view.setCenter(Vector2f(SCREEN_SIZE.x / 2, SCREEN_SIZE.y / 2));
     setTexture(&Asset::ENTITY_TEXTURE);
     setScale(Vector2f(0.4, 0.4));
-    getHitbox()->setOutlineThickness(2);
+    getHitbox().setOutlineThickness(2);
     setHitboxSize(Vector2f(300, 400), true);
     setHitboxOffset(Vector2f(0, 0));
     setHitboxVisible(true);
@@ -21,12 +21,7 @@ Player::Player()
     m_states.running = false;
 }
 
-Player* Player::instance;
-
-void Player::setHealth(float health)
-{
-    m_health = health;
-}
+void Player::setHealth(float health) { m_health = health; }
 
 float Player::getHealth() const { return m_health; }
 
@@ -46,10 +41,7 @@ void Player::control()
     }
 }
 
-View* Player::getView()
-{
-    return &m_view;
-}
+View& Player::getView() { return m_view; }
 
 void Player::viewFollow()
 {

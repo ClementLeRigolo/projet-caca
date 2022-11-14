@@ -17,15 +17,15 @@ class Scene
         Scene();
         int getIndex() const;
         void setIndex(int index);
-        RectangleShape* getBackground();
+        RectangleShape& getBackground();
         void setBackground(RectangleShape background);
-        RectangleShape* getForeground();
+        RectangleShape& getForeground();
         void setForeground(RectangleShape foreground);
-        View* getView();
+        View& getView();
         void setView(View view);
-        Text* getText();
-        virtual void updateLogic(RenderWindow* window);
-        virtual void display(RenderWindow* window);
+        Text& getText();
+        virtual void updateLogic(RenderWindow& window);
+        virtual void display(RenderWindow& window);
 };
 
 class Menu : public Scene
@@ -36,8 +36,8 @@ class Menu : public Scene
 
     public:
         Menu();
-        void updateLogic(RenderWindow* window);
-        void display(RenderWindow* window);
+        void updateLogic(RenderWindow& window) override;
+        void display(RenderWindow& window) override;
 };
 
 class Level : public Scene
@@ -51,6 +51,6 @@ class Level : public Scene
         Level();
         ~Level();
         void addEntity(Vector2f pos);
-        void updateLogic(RenderWindow* window);
-        void display(RenderWindow* window);
+        void updateLogic(RenderWindow& window) override;
+        void display(RenderWindow& window) override;
 };

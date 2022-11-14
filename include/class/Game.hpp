@@ -2,6 +2,7 @@
 
 #include "class/Render.hpp"
 #include "class/Timer.hpp"
+#include "class/Entity.hpp"
 
 class Game
 {
@@ -11,6 +12,7 @@ class Game
         Render* m_render;
         Scene* m_currentScene;
         Event m_event;
+        Player m_player;
         void updateSceneLogic(Scene* scene);
         void updateFpsIndicator();
 
@@ -21,6 +23,7 @@ class Game
         void setCurrentScene(Scene* scene);
         Render* getRender();
         void pollEvents();
+        Player& getPlayer();
         void update();
         void render();
 };

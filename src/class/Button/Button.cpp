@@ -46,9 +46,9 @@ void Button::setPos(Vector2f pos)
     m_shape.setPosition(pos);
 }
 
-RectangleShape* Button::getShape()
+RectangleShape& Button::getShape()
 {
-    return &m_shape;
+    return m_shape;
 }
 
 void Button::update(Vector2i mousePos)

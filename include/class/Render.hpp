@@ -9,5 +9,5 @@ class Render
 
     public:
         Render();
-        RenderWindow* getWindow();
+        RenderWindow& getWindow();
 };

@@ -7,16 +7,16 @@ Game::Game()
     Asset::loadAssets();
     Collection::loadCollection();
     Timer::start();
-    Player::instance = new Player();
     m_render = new Render();
     m_currentScene = &Collection::MAIN_MENU;
+    m_player = Player();
 }
 
 Game Game::s_instance;
 
 Game& Game::getInstance() { return s_instance; }
 
-bool Game::isRunning() const { return m_render->getWindow()->isOpen(); }
+bool Game::isRunning() const { return m_render->getWindow().isOpen(); }
 
 Render* Game::getRender() { return m_render; }
 
@@ -26,14 +26,16 @@ void Game::setCurrentScene(Scene* scene) { m_currentScene = scene; }
 
 void Game::pollEvents()
 {
-    while (m_render->getWindow()->pollEvent(m_event)) {
+    while (m_render->getWindow().pollEvent(m_event)) {
         switch (m_event.type) {
             case Event::Closed:
-                m_render->getWindow()->close();
+                m_render->getWindow().close();
                 break;
         }
     }
 }
+
+Player& Game::getPlayer() { return m_player; }
 
 void Game::updateFpsIndicator()
 {
@@ -41,7 +43,7 @@ void Game::updateFpsIndicator()
 
     if (Timer::getSeconds() > clock + 0.15) {
         clock = Timer::getSeconds();
-        m_currentScene->getText()->setString("fps : " + \
+        m_currentScene->getText().setString("fps : " + \
         to_string((int)Timer::getFps()));
     }
 }
@@ -62,7 +64,7 @@ void Game::update()
 
 void Game::render()
 {
-    m_render->getWindow()->clear();
+    m_render->getWindow().clear();
     m_currentScene->display(getRender()->getWindow());
-    m_render->getWindow()->display();
+    m_render->getWindow().display();
 }

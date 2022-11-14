@@ -7,4 +7,4 @@ Render::Render()
     m_window.setFramerateLimit(800);
 }
 
-RenderWindow* Render::getWindow() { return &m_window; }
+RenderWindow& Render::getWindow() { return m_window; }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "libs.hpp"
+#include "class/Inventory.hpp"
 
 class Entity {
     protected:
@@ -27,8 +28,8 @@ class Entity {
         Vector2f getPosition();
         Vector2f getSize() const;
         float getSpeed() const;
-        Sprite* getSprite();
-        RectangleShape* getHitbox();
+        Sprite& getSprite();
+        RectangleShape& getHitbox();
         virtual void update();
         virtual void reposition();
         virtual void draw(sf::RenderTarget &target);
@@ -50,12 +51,11 @@ class Player : public Entity
 
     public:
         Player();
-        static Player* instance;
         void control();
         void update();
         void updateStates();
         void setHealth(float health);
         void viewFollow();
-        View* getView();
+        View& getView();
         float getHealth() const;
 };

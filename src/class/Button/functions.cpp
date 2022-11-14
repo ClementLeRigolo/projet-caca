@@ -11,7 +11,7 @@ void exempleFunc()
 
 void buttonExitGameFunc()
 {
-    Game::getInstance().getRender()->getWindow()->close();
+    Game::getInstance().getRender()->getWindow().close();
 }
 
 void buttonBackMainMenuFunc()

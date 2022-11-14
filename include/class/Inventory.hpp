@@ -10,10 +10,10 @@ class Inventory
 
     public:
         Inventory();
-        Item* getItem(int slot);
+        Item& getItem(int slot);
         void setItem(int slot, Item item);
         Item* getItems();
-        Weapon* getWeapon();
+        Weapon& getWeapon();
         void setWeapon(Weapon weapon);
         void clear();
 };

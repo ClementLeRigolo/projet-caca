@@ -1,7 +1,6 @@
-#include "class/Scene.hpp"
+#include "class/Game.hpp"
 #include "class/Asset.hpp"
 #include "class/Collection.hpp"
-#include "class/Timer.hpp"
 #include "prototypes.hpp"
 
 Level::Level()
@@ -9,7 +8,7 @@ Level::Level()
     m_index = 0;
 
     m_backMainMenu.setTexture(&Asset::EXIT_TEXTURE);
-    m_backMainMenu.getShape()->setSize(Vector2f(250, 100));
+    m_backMainMenu.getShape().setSize(Vector2f(250, 100));
     m_backMainMenu.setPos(Vector2f(SCREEN_SIZE.x * 0.1, SCREEN_SIZE.y * 0.95));
     m_backMainMenu.setOnClick(&buttonBackMainMenuFunc);
 
@@ -34,25 +33,26 @@ Level::~Level()
         delete m_entities.at(i);
 }
 
-void Level::updateLogic(RenderWindow* window)
+void Level::updateLogic(RenderWindow& window)
 {
-    Player::instance->update();
+    Game::getInstance().getPlayer().update();
     m_backMainMenu.update(getMousePosition(window));
 }
 
-void Level::display(RenderWindow* window)
+void Level::display(RenderWindow& window)
 {
     // Update player view and draw world
-    Player::instance->viewFollow();
-    window->setView(*Player::instance->getView());
-    window->draw(m_background);
+    Player& player = Game::getInstance().getPlayer();
+    player.viewFollow();
+    window.setView(player.getView());
+    window.draw(m_background);
     for (int i = 0; i < m_entities.size(); i++)
-        m_entities.at(i)->draw(*window);
-    Player::instance->draw(*window);
+        m_entities.at(i)->draw(window);
+    player.draw(window);
 
     // Set view to static view and draw hud
-    window->setView(m_view);
-    window->draw(*m_backMainMenu.getShape());
-    window->draw(m_levelTitle);
-    window->draw(m_fpsText);
+    window.setView(m_view);
+    window.draw(m_backMainMenu.getShape());
+    window.draw(m_levelTitle);
+    window.draw(m_fpsText);
 }
