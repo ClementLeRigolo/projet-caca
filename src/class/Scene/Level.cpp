@@ -25,12 +25,6 @@ void Level::addEntity(Vector2f pos)
     m_entities.push_back(new Entity(pos));
 }
 
-Level::~Level()
-{
-    for (int i = 0; i < m_entities.size(); i++)
-        delete m_entities.at(i);
-}
-
 void Level::updateLogic(RenderWindow& window)
 {
     Game::getInstance().getPlayer().update();

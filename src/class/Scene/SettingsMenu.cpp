@@ -47,15 +47,10 @@ void SettingsMenu::pollEvents(RenderWindow& window)
 {
     Event event = Game::getInstance().getEvent();
 
-    while (window.pollEvent(event)) {
-        switch (event.type) {
-            case Event::Closed:
-                window.close();
-                break;
-            case Event::TextEntered:
-                //updateTextInputBox(event, m_testText);
-                break;
-        }
+    switch (event.type) {
+        case Event::TextEntered:
+            //updateTextInputBox(event, m_testText);
+            break;
     }
 }
 

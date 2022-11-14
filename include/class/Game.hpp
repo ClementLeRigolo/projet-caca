@@ -21,6 +21,7 @@ class Game
         bool isRunning() const;
         Scene* getCurrentScene();
         void setCurrentScene(Scene* scene);
+        void pollEvents();
         Render* getRender();
         Player& getPlayer();
         Event& getEvent();

@@ -4,11 +4,13 @@
 #include "Button.hpp"
 #include "Entity.hpp"
 #include "EText.hpp"
+#include "class/FadeLayer.hpp"
 
 class Scene
 {
     protected:
         int m_index;
+        bool m_hasFocus;
         RectangleShape m_background;
         RectangleShape m_foreground;
         View m_view;
@@ -19,6 +21,8 @@ class Scene
         Scene();
         int getIndex() const;
         void setIndex(int index);
+        void setFocus(bool boolean);
+        bool hasFocus();
         RectangleShape& getBackground();
         void setBackground(RectangleShape background);
         RectangleShape& getForeground();
@@ -34,10 +38,12 @@ class Scene
 class MainMenu : public Scene
 {
     private:
+        FadeLayer m_fadeLayer;
         vector<RectangleShape> m_background;
 
     public:
         MainMenu();
+        void pollEvents(RenderWindow& window);
         void updateLogic(RenderWindow& window);
         void display(RenderWindow& window);
 };
@@ -62,7 +68,6 @@ class Level : public Scene
 
     public:
         Level();
-        ~Level();
         void addEntity(Vector2f pos);
         void updateLogic(RenderWindow& window);
         void display(RenderWindow& window);
