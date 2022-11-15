@@ -47,3 +47,7 @@ float vectDot(sf::Vector2f v1, sf::Vector2f v2);
 float vectCross(sf::Vector2f v1, sf::Vector2f v2);
 float distFrom(sf::Vector2f p1, sf::Vector2f p2);
 sf::Vector2f closestPointSeg(sf::Vector2f a, sf::Vector2f b, sf::Vector2f p);
+
+
+// sf::View
+sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight);

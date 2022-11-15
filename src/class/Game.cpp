@@ -56,6 +56,12 @@ void Game::pollEvents()
 
     while (window.pollEvent(event)) {
         switch (event.type) {
+            case Event::Resized:
+                getCurrentScene()->getView() = getLetterboxView(getCurrentScene()->getView(),
+                window.getSize().x, window.getSize().y);
+                m_player.getView() = getLetterboxView(m_player.getView(),
+                window.getSize().x, window.getSize().y);
+                break;
             case Event::Closed:
                 window.close();
                 break;
