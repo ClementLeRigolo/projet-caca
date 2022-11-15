@@ -10,6 +10,7 @@ Scene::Scene() {
     m_view.setCenter(Vector2f(SCREEN_SIZE.x / 2, SCREEN_SIZE.y / 2));
     m_fpsText.setFont(Asset::DEBUG_FONT);
     m_fpsText.setPosition(Vector2f(0, 0));
+    m_hasFocus = false;
 }
 
 int Scene::getIndex() const { return m_index; }
@@ -30,21 +31,26 @@ void Scene::setView(View view) { m_view = view; }
 
 Text& Scene::getText() { return m_fpsText; };
 
+bool Scene::hasFocus()
+{
+    return m_hasFocus;
+}
+
+void Scene::setFocus(bool boolean)
+{
+    m_hasFocus = boolean;
+}
+
 void Scene::pollEvents(RenderWindow& window)
 {
-    Event &event = Game::getInstance().getEvent();
-
-    while (window.pollEvent(event)) {
-        switch (event.type) {
-            case Event::Closed:
-                window.close();
-                break;
-        }
-    }
 }
 
 void Scene::updateLogic(RenderWindow& window)
 {
+    if (!hasFocus()) {
+        m_fadeLayer.reset();
+    } else
+        m_fadeLayer.fade(0.02, Color::Transparent);
 }
 
 void Scene::display(RenderWindow& window)
@@ -52,5 +58,6 @@ void Scene::display(RenderWindow& window)
     window.setView(m_view);
     window.draw(m_background);
     window.draw(m_foreground);
+    window.draw(m_fadeLayer);
     window.draw(m_fpsText);
 }

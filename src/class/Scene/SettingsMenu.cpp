@@ -17,6 +17,11 @@ void SettingsMenu::updateLogic(RenderWindow& window)
 {
     for (int i = 0; i < m_buttons.size(); i++)
         m_buttons.at(i).update(getMousePosition(window));
+
+    if (!hasFocus()) {
+        m_fadeLayer.reset();
+    } else
+        m_fadeLayer.fade(0.02, Color::Transparent);
 }
 
 static void updateTextInputBox(Event& event, Text& inputBox)
@@ -47,15 +52,10 @@ void SettingsMenu::pollEvents(RenderWindow& window)
 {
     Event event = Game::getInstance().getEvent();
 
-    while (window.pollEvent(event)) {
-        switch (event.type) {
-            case Event::Closed:
-                window.close();
-                break;
-            case Event::TextEntered:
-                //updateTextInputBox(event, m_testText);
-                break;
-        }
+    switch (event.type) {
+        case Event::TextEntered:
+            //updateTextInputBox(event, m_testText);
+            break;
     }
 }
 
@@ -68,5 +68,6 @@ void SettingsMenu::display(RenderWindow& window)
         window.draw(m_text.at(i));
     window.draw(m_background);
     window.draw(m_foreground);
+    window.draw(m_fadeLayer);
     window.draw(m_fpsText);
 }

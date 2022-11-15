@@ -1,6 +1,7 @@
 #include "class/Game.hpp"
 #include "class/Asset.hpp"
 #include "class/Collection.hpp"
+#include "class/Logger.hpp"
 
 Game::Game()
 {
@@ -22,7 +23,13 @@ Render* Game::getRender() { return m_render; }
 
 Scene* Game::getCurrentScene() { return m_currentScene; }
 
-void Game::setCurrentScene(Scene* scene) { m_currentScene = scene; }
+void Game::setCurrentScene(Scene* scene)
+{
+    if (getCurrentScene()) {
+        getCurrentScene()->setFocus(false);
+    }
+    m_currentScene = scene;
+}
 
 Event& Game::getEvent()
 {
@@ -42,17 +49,34 @@ void Game::updateFpsIndicator()
     }
 }
 
+void Game::pollEvents()
+{
+    Event &event = getEvent();
+    Window& window = getRender()->getWindow();
+
+    while (window.pollEvent(event)) {
+        switch (event.type) {
+            case Event::Closed:
+                window.close();
+                break;
+            default:
+                getCurrentScene()->pollEvents(getRender()->getWindow());
+        }
+    }
+}
+
 void Game::updateSceneLogic(Scene* scene)
 {
     // Updates scene logic
-    scene->pollEvents(getRender()->getWindow());
     scene->updateLogic(getRender()->getWindow());
+    scene->setFocus(true);
 }
 
 void Game::update()
 {
     Timer::update();
     updateFpsIndicator();
+    pollEvents();
     updateSceneLogic(m_currentScene);
 }
 

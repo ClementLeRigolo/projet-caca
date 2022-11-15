@@ -23,10 +23,11 @@ void buttonGoToSettingsFunc();
 void buttonExitGameFunc();
 void buttonPlayGameFunc();
 void buttonBackMainMenuFunc();
+
 // Easing functions
 double lerp(double a, double b, double t);
 float damp(float source, float smoothing, float dt);
-
+sf::Color smoothColor(sf::Color c1, sf::Color c2, double prog);
 double clamp(double min, double max, double value);
 
 

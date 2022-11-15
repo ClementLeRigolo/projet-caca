@@ -19,8 +19,12 @@ void Asset::smoothTextures()
 
 void Asset::loadAssets()
 {
+    // fonts
     DEBUG_FONT.loadFromFile(DEBUG_FONT_PATH);
     INGAME_FONT.loadFromFile(GAME_FONT_PATH);
+
+    // textures
+    // buttons
     B_CONTINUE_TEX.loadFromFile(BTON_PATH + "continue.png");
     B_LOAD_GAME_TEX.loadFromFile(BTON_PATH + "load_game.png");
     B_NEW_GAME_TEX.loadFromFile(BTON_PATH + "new_game.png");
@@ -28,12 +32,18 @@ void Asset::loadAssets()
     B_EXT_TEX.loadFromFile(BTON_PATH + "exit.png");
     B_BACK_TEX.loadFromFile(BTON_PATH + "back.png");
     B_APPLY_TEX.loadFromFile(BTON_PATH + "apply.png");
+
+    // entities
     ENTITY_TEXTURE.loadFromFile("asset/texture/entity/entity.png");
+
+    // background
     MM_BG1.loadFromFile(BCKGRD_PATH + "background_no_char.jpg");
     MM_BG2.loadFromFile(BCKGRD_PATH + "char.png");
     MM_BG3.loadFromFile(BCKGRD_PATH + "embers.png");
     MM_BG4.loadFromFile(BCKGRD_PATH + "smoke.png");
     MM_BG5.loadFromFile(BCKGRD_PATH + "title.png");
+
+    // sounds
 
     smoothTextures();
 }
