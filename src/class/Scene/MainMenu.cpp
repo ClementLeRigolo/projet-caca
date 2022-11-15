@@ -18,8 +18,6 @@ MainMenu::MainMenu() {
     m_buttons.push_back(Button(Vector2f(300, 100), Vector2f(SCREEN_SIZE.x * 0.85,
     SCREEN_SIZE.y * 0.8), Asset::B_EXT_TEX, &buttonExitGameFunc));
 
-    m_fadeLayer = FadeLayer();
-
     for (int i = 0; i < 5; i++) {
         m_background.push_back(RectangleShape());
         m_background.at(i).setSize(SCREEN_SIZE);
@@ -59,9 +57,12 @@ void MainMenu::updateLogic(RenderWindow& window)
 {
     for (int i = 0; i < m_buttons.size(); i++)
         m_buttons.at(i).update(getMousePosition(window));
-    if (!hasFocus())
+
+
+    if (!hasFocus()) {
         m_fadeLayer.reset();
-    m_fadeLayer.fade(1.5, 0.8);
+    } else
+        m_fadeLayer.fade(0.02, Color::Transparent);
 }
 
 void MainMenu::display(RenderWindow& window)

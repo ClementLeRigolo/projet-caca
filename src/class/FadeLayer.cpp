@@ -1,10 +1,9 @@
 #include "class/FadeLayer.hpp"
 #include "class/Timer.hpp"
+#include "class/Logger.hpp"
 
 FadeLayer::FadeLayer()
 {
-    m_clockBuffer = 0;
-    m_progress = 0;
     setSize(SCREEN_SIZE);
     setOrigin(vectMult(SCREEN_SIZE, 0.5));
     setPosition(vectMult(SCREEN_SIZE, 0.5));
@@ -12,28 +11,30 @@ FadeLayer::FadeLayer()
     setFillColor(Color::Black);
 }
 
-bool FadeLayer::isDone()
+bool FadeLayer::isDone(Color target)
 {
-    if (getFillColor().a <= 0)
+    Color color = getFillColor();
+    if (color.a == target.a && color.b == target.b
+        && color.r == target.r && color.g == target.g)
         return true;
     return false;
 }
 
 void FadeLayer::reset()
 {
-    m_progress = 0;
     setFillColor(Color::Black);
 }
 
-void FadeLayer::fade(float duration, float power)
+void FadeLayer::fade(float rate, Color targetColor)
 {
-    if (Timer::getSeconds() > m_clockBuffer) {
-        m_progress += Timer::getSeconds() - m_clockBuffer;
-        m_clockBuffer = Timer::getSeconds();
-    }
+    Color color = getFillColor();
 
-    Color fadeColor = getFillColor();
-    fadeColor = smoothColor(Color(0, 0, 0, 0), Color::Black,
-    pow(m_progress, power) / duration);
-    setFillColor(fadeColor);
+    rate *= Timer::getFrameDelta() * 100;
+
+    color.r = (targetColor.r - color.r) * rate + color.r;
+    color.g = (targetColor.g - color.g) * rate + color.g;
+    color.b = (targetColor.b - color.b) * rate + color.b;
+    color.a = (targetColor.a - color.a) * rate + color.a;
+
+    setFillColor(color);
 }

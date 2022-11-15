@@ -47,6 +47,10 @@ void Scene::pollEvents(RenderWindow& window)
 
 void Scene::updateLogic(RenderWindow& window)
 {
+    if (!hasFocus()) {
+        m_fadeLayer.reset();
+    } else
+        m_fadeLayer.fade(0.02, Color::Transparent);
 }
 
 void Scene::display(RenderWindow& window)
@@ -54,5 +58,6 @@ void Scene::display(RenderWindow& window)
     window.setView(m_view);
     window.draw(m_background);
     window.draw(m_foreground);
+    window.draw(m_fadeLayer);
     window.draw(m_fpsText);
 }

@@ -16,6 +16,7 @@ class Scene
         View m_view;
         Text m_fpsText;
         vector<Button> m_buttons;
+        FadeLayer m_fadeLayer;
 
     public:
         Scene();
@@ -38,7 +39,6 @@ class Scene
 class MainMenu : public Scene
 {
     private:
-        FadeLayer m_fadeLayer;
         vector<RectangleShape> m_background;
 
     public:

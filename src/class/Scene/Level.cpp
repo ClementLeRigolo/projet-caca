@@ -2,10 +2,13 @@
 #include "class/Asset.hpp"
 #include "class/Collection.hpp"
 #include "prototypes.hpp"
+#include "class/Logger.hpp"
 
 Level::Level()
 {
     m_index = 0;
+
+    m_hasFocus = false;
 
     m_buttons.push_back(Button(Vector2f(250, 100), Vector2f(SCREEN_SIZE.x * 0.1,
     SCREEN_SIZE.y * 0.95), Asset::B_EXT_TEX, &buttonBackMainMenuFunc));
@@ -30,6 +33,11 @@ void Level::updateLogic(RenderWindow& window)
     Game::getInstance().getPlayer().update();
     for (int i = 0; i < m_buttons.size(); i++)
         m_buttons.at(i).update(getMousePosition(window));
+
+    if (!hasFocus()) {
+        m_fadeLayer.reset();
+    } else
+        m_fadeLayer.fade(0.02, Color::Transparent);
 }
 
 void Level::display(RenderWindow& window)
@@ -48,5 +56,6 @@ void Level::display(RenderWindow& window)
     for (int i = 0; i < m_buttons.size(); i++)
         window.draw(m_buttons.at(i).getShape());
     window.draw(m_levelTitle);
+    window.draw(m_fadeLayer);
     window.draw(m_fpsText);
 }

@@ -1,6 +1,7 @@
 #include "class/Game.hpp"
 #include "class/Asset.hpp"
 #include "class/Collection.hpp"
+#include "class/Logger.hpp"
 
 Game::Game()
 {
@@ -24,8 +25,9 @@ Scene* Game::getCurrentScene() { return m_currentScene; }
 
 void Game::setCurrentScene(Scene* scene)
 {
-    if (getCurrentScene())
+    if (getCurrentScene()) {
         getCurrentScene()->setFocus(false);
+    }
     m_currentScene = scene;
 }
 
@@ -67,8 +69,7 @@ void Game::updateSceneLogic(Scene* scene)
 {
     // Updates scene logic
     scene->updateLogic(getRender()->getWindow());
-    if (!m_currentScene->hasFocus())
-        m_currentScene->setFocus(true);
+    scene->setFocus(true);
 }
 
 void Game::update()

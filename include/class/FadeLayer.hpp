@@ -4,13 +4,13 @@
 
 class FadeLayer : public RectangleShape
 {
-    private:
+    public:
         float m_clockBuffer;
         float m_progress;
 
     public:
         FadeLayer();
-        void fade(float duration, float power);
-        bool isDone();
+        void fade(float rate, Color targetColor);
+        bool isDone(Color target);
         void reset();
 };
