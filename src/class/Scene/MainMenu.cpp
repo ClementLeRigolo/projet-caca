@@ -4,11 +4,13 @@
 #include "class/Timer.hpp"
 #include "class/Game.hpp"
 #include "class/Logger.hpp"
+#include "class/AssetManager.hpp"
 #include "prototypes.hpp"
 
 MainMenu::MainMenu() {
+    AssetManager::loadTexture(TextureID::B_CONTINUE_TEX, BTON_PATH + "continue.png");
     m_buttons.push_back(Button(Vector2f(300, 100), Vector2f(SCREEN_SIZE.x * 0.85,
-    SCREEN_SIZE.y * 0.4), Asset::B_CONTINUE_TEX, &buttonPlayGameFunc));
+    SCREEN_SIZE.y * 0.4), AssetManager::getTexture(TextureID::B_CONTINUE_TEX), &buttonPlayGameFunc));
     m_buttons.push_back(Button(Vector2f(300, 100), Vector2f(SCREEN_SIZE.x * 0.85,
     SCREEN_SIZE.y * 0.5), Asset::B_NEW_GAME_TEX, &doNothingFunc));
     m_buttons.push_back(Button(Vector2f(300, 100), Vector2f(SCREEN_SIZE.x * 0.85,
