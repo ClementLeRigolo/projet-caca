@@ -4,6 +4,7 @@
 #include "Button.hpp"
 #include "Entity.hpp"
 #include "EText.hpp"
+#include "Slider.hpp"
 #include "class/FadeLayer.hpp"
 
 class Scene
@@ -52,6 +53,7 @@ class SettingsMenu : public Scene
 {
     private:
         vector<EText> m_text;
+        vector<Slider> m_sliders;
 
     public:
         SettingsMenu();

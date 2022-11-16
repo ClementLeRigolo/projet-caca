@@ -15,6 +15,10 @@ void Asset::smoothTextures()
     MM_BG3.setSmooth(true);
     MM_BG4.setSmooth(true);
     MM_BG5.setSmooth(true);
+
+    SLIDER_IN.setSmooth(true);
+    SLIDER_OUT.setSmooth(true);
+    SLIDER_THINGY.setSmooth(true);
 }
 
 void Asset::loadAssets()
@@ -25,13 +29,13 @@ void Asset::loadAssets()
 
     // textures
     // buttons
-    B_CONTINUE_TEX.loadFromFile(BTON_PATH + "continue.png");
-    B_LOAD_GAME_TEX.loadFromFile(BTON_PATH + "load_game.png");
-    B_NEW_GAME_TEX.loadFromFile(BTON_PATH + "new_game.png");
-    B_SETG_TEX.loadFromFile(BTON_PATH + "settings.png");
-    B_EXT_TEX.loadFromFile(BTON_PATH + "exit.png");
-    B_BACK_TEX.loadFromFile(BTON_PATH + "back.png");
-    B_APPLY_TEX.loadFromFile(BTON_PATH + "apply.png");
+    B_CONTINUE_TEX.loadFromFile(UI_PATH + "continue.png");
+    B_LOAD_GAME_TEX.loadFromFile(UI_PATH + "load_game.png");
+    B_NEW_GAME_TEX.loadFromFile(UI_PATH + "new_game.png");
+    B_SETG_TEX.loadFromFile(UI_PATH + "settings.png");
+    B_EXT_TEX.loadFromFile(UI_PATH + "exit.png");
+    B_BACK_TEX.loadFromFile(UI_PATH + "back.png");
+    B_APPLY_TEX.loadFromFile(UI_PATH + "apply.png");
 
     // entities
     ENTITY_TEXTURE.loadFromFile("asset/texture/entity/entity.png");
@@ -42,6 +46,11 @@ void Asset::loadAssets()
     MM_BG3.loadFromFile(BCKGRD_PATH + "embers.png");
     MM_BG4.loadFromFile(BCKGRD_PATH + "smoke.png");
     MM_BG5.loadFromFile(BCKGRD_PATH + "title.png");
+
+    // slider
+    SLIDER_IN.loadFromFile(UI_PATH + "slider_in.png");
+    SLIDER_OUT.loadFromFile(UI_PATH + "slider_out.png");
+    SLIDER_THINGY.loadFromFile(UI_PATH + "slider_thingy.png");
 
     // sounds
 
@@ -64,3 +73,7 @@ Texture Asset::MM_BG2 = Texture();
 Texture Asset::MM_BG3 = Texture();
 Texture Asset::MM_BG4 = Texture();
 Texture Asset::MM_BG5 = Texture();
+
+Texture Asset::SLIDER_IN = Texture();
+Texture Asset::SLIDER_THINGY = Texture();
+Texture Asset::SLIDER_OUT = Texture();

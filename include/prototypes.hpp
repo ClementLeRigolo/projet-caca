@@ -41,7 +41,7 @@ sf::Vector2f vectSub(sf::Vector2f v1, sf::Vector2f v2);
 float vectMag(sf::Vector2f v);
 sf::Vector2f vectMult(sf::Vector2f v, float n);
 sf::Vector2f vectUnit(sf::Vector2f v);
-sf::Vector2f vectFmult(sf::Vector2f v, float n);
+sf::Vector2f vectFmult(sf::Vector2f v, sf::Vector2f v2);
 sf::Vector2f vectNorm(sf::Vector2f v);
 float vectDot(sf::Vector2f v1, sf::Vector2f v2);
 float vectCross(sf::Vector2f v1, sf::Vector2f v2);

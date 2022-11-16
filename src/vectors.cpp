@@ -58,10 +58,10 @@ sf::Vector2f vectUnit(sf::Vector2f v)
     return v;
 }
 
-sf::Vector2f vectFmult(sf::Vector2f v, float n)
+sf::Vector2f vectFmult(sf::Vector2f v, sf::Vector2f v2)
 {
-    v.x *= n;
-    v.y *= n;
+    v.x *= v2.x;
+    v.y *= v2.y;
     return v;
 }
 

@@ -8,8 +8,9 @@ class Settings
         static void loadSettings();
 
         //fonts
-        static bool fullscreen;
-        static float globalVolume;
-        static float sfxVolume;
-        static float musicVolume;
+        static bool FULLSCREEN;
+        static int FRAMERATE_LIMIT;
+        static float GLOBAL_VOLUME;
+        static float SFX_VOLUME;
+        static float MUSIC_VOLUME;
 };

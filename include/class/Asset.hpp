@@ -27,4 +27,7 @@ class Asset
         static Texture MM_BG3;
         static Texture MM_BG4;
         static Texture MM_BG5;
+        static Texture SLIDER_IN;
+        static Texture SLIDER_THINGY;
+        static Texture SLIDER_OUT;
 };

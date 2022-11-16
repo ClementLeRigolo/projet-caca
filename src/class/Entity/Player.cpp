@@ -49,7 +49,7 @@ void Player::viewFollow()
     target.y -= Player::getSize().y / 2.0;
     Vector2f sign = Vector2f(1, 1);
     Vector2f diff = vectSub(target, m_view.getCenter());
-    Vector2f pos = vectFmult(diff, 9.0 * Timer::getFrameDelta());
+    Vector2f pos = vectMult(diff, 9.0 * Timer::getFrameDelta());
     m_view.setCenter(m_view.getCenter() + pos);
 }
 
