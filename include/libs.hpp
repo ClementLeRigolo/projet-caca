@@ -3,6 +3,7 @@
 #include <iostream>
 #include <chrono>
 #include <ctime>
+#include <cassert>
 #include <SFML/Audio.hpp>
 #include <SFML/Config.hpp>
 #include <SFML/Graphics.hpp>
