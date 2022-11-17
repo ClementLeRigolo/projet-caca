@@ -1,13 +1,13 @@
-#include "class/Asset.hpp"
+#include "class/AssetManager.hpp"
 #include "class/Game.hpp"
 #include "class/Settings.hpp"
 #include "prototypes.hpp"
 
 SettingsMenu::SettingsMenu() {
     m_buttons.push_back(Button(Vector2f(300, 100), Vector2f(SCREEN_SIZE.x * 0.7,
-    SCREEN_SIZE.y * 0.9), Asset::B_APPLY_TEX, &doNothingFunc));
+    SCREEN_SIZE.y * 0.9), GET_TEXTURE(B_APPLY_TEX), &doNothingFunc));
     m_buttons.push_back(Button(Vector2f(300, 100), Vector2f(SCREEN_SIZE.x * 0.3,
-    SCREEN_SIZE.y * 0.9), Asset::B_BACK_TEX, &buttonBackMainMenuFunc));
+    SCREEN_SIZE.y * 0.9), GET_TEXTURE(B_BACK_TEX), &buttonBackMainMenuFunc));
 
     m_text.push_back(EText(Vector2f(SCREEN_SIZE.x * 0.5, SCREEN_SIZE.y * 0.06), "{ Audio }"));
     m_text.at(0).setCharacterSize(50);
@@ -24,33 +24,33 @@ SettingsMenu::SettingsMenu() {
     m_text.push_back(EText(Vector2f(SCREEN_SIZE.x * 0.73, SCREEN_SIZE.y * 0.55), "[500]"));
     m_text.push_back(EText(Vector2f(SCREEN_SIZE.x * 0.3, SCREEN_SIZE.y * 0.65), "Toggle Vsync"));
 
-    m_sliders.push_back(Slider(&Asset::SLIDER_OUT,
-    &Asset::SLIDER_IN,
-    &Asset::SLIDER_THINGY,
+    m_sliders.push_back(Slider(&GET_TEXTURE(SLIDER_OUT),
+    &GET_TEXTURE(SLIDER_IN),
+    &GET_TEXTURE(SLIDER_THINGY),
     Vector2f(400, 50), Vector2f(SCREEN_SIZE.x * 0.6, SCREEN_SIZE.y * 0.17)));
     m_sliders.at(0).getSliderThingy().setPosition(Vector2f((m_sliders.at(0).getInShape().getGlobalBounds().left\
     + m_sliders.at(0).getInShape().getGlobalBounds().width),
     m_sliders.at(0).getSliderThingy().getPosition().y));
     m_sliders.at(0).setProgress(1);
 
-    m_sliders.push_back(Slider(&Asset::SLIDER_OUT,
-    &Asset::SLIDER_IN,
-    &Asset::SLIDER_THINGY,
+    m_sliders.push_back(Slider(&GET_TEXTURE(SLIDER_OUT),
+    &GET_TEXTURE(SLIDER_IN),
+    &GET_TEXTURE(SLIDER_THINGY),
     Vector2f(400, 50), Vector2f(SCREEN_SIZE.x * 0.6, SCREEN_SIZE.y * 0.27)));
 
-    m_sliders.push_back(Slider(&Asset::SLIDER_OUT,
-    &Asset::SLIDER_IN,
-    &Asset::SLIDER_THINGY,
+    m_sliders.push_back(Slider(&GET_TEXTURE(SLIDER_OUT),
+    &GET_TEXTURE(SLIDER_IN),
+    &GET_TEXTURE(SLIDER_THINGY),
     Vector2f(400, 50), Vector2f(SCREEN_SIZE.x * 0.6, SCREEN_SIZE.y * 0.37)));
 
-    m_sliders.push_back(Slider(&Asset::SLIDER_OUT,
-    &Asset::SLIDER_IN,
-    &Asset::SLIDER_THINGY,
+    m_sliders.push_back(Slider(&GET_TEXTURE(SLIDER_OUT),
+    &GET_TEXTURE(SLIDER_IN),
+    &GET_TEXTURE(SLIDER_THINGY),
     Vector2f(400, 50), Vector2f(SCREEN_SIZE.x * 0.6, SCREEN_SIZE.y * 0.57)));
 
 
     m_tickboxs.push_back(TickBox(Vector2f(50, 50), Vector2f(SCREEN_SIZE.x * 0.6,
-    SCREEN_SIZE.y * 0.665), Asset::B_TICKBOX, &toggleVsyncFunc));
+    SCREEN_SIZE.y * 0.665), GET_TEXTURE(B_TICKBOX), &toggleVsyncFunc));
     m_tickboxs.at(0).setBaseScale(Vector2f(0.8, 0.8));
 }
 

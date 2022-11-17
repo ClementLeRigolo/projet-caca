@@ -1,5 +1,5 @@
 #include "class/Game.hpp"
-#include "class/Asset.hpp"
+#include "class/AssetManager.hpp"
 #include "class/Collection.hpp"
 #include "prototypes.hpp"
 #include "class/Logger.hpp"
@@ -11,9 +11,9 @@ Level::Level()
     m_hasFocus = false;
 
     m_buttons.push_back(Button(Vector2f(250, 100), Vector2f(SCREEN_SIZE.x * 0.1,
-    SCREEN_SIZE.y * 0.95), Asset::B_EXT_TEX, &buttonBackMainMenuFunc));
+    SCREEN_SIZE.y * 0.95), GET_TEXTURE(B_EXT_TEX), &buttonBackMainMenuFunc));
 
-    m_levelTitle.setFont(Asset::DEBUG_FONT);
+    m_levelTitle.setFont(GET_FONT(INGAME_FONT));
     m_levelTitle.setCharacterSize(100);
     m_levelTitle.setString("Level " + to_string(m_index));
     m_levelTitle.setOrigin(getCenter(m_levelTitle));

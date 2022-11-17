@@ -1,12 +1,10 @@
 #include "class/Game.hpp"
-#include "class/Asset.hpp"
 #include "class/Collection.hpp"
 #include "class/Logger.hpp"
 #include "class/Settings.hpp"
 
 Game::Game()
 {
-    Asset::loadAssets();
     Collection::loadCollection();
     Timer::start();
     m_render = new Render();

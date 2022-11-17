@@ -1,6 +1,6 @@
 #include "class/Entity.hpp"
 #include "class/Timer.hpp"
-#include "class/Asset.hpp"
+#include "class/AssetManager.hpp"
 
 Entity::Entity()
 {
@@ -24,8 +24,8 @@ Entity::Entity(Vector2f pos)
     m_acc = Vector2f(0, 0);
     m_vel = Vector2f(0, 0);
     m_pos = pos;
-    m_sprite.setTexture(Asset::ENTITY_TEXTURE, true);
-    m_sprite.setOrigin(getCenter(Asset::ENTITY_TEXTURE));
+    m_sprite.setTexture(GET_TEXTURE(ENTITY_TEXTURE), true);
+    m_sprite.setOrigin(getCenter(GET_TEXTURE(ENTITY_TEXTURE)));
     m_sprite.setColor(Color::White);
     m_sprite.setPosition(m_pos);
     m_hitbox.setFillColor(Color(255, 0, 0, 100));

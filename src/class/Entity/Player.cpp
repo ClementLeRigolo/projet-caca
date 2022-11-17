@@ -1,12 +1,12 @@
 #include "class/Entity.hpp"
-#include "class/Asset.hpp"
+#include "class/AssetManager.hpp"
 #include "class/Timer.hpp"
 
 Player::Player()
 {
     m_view.setSize(SCREEN_SIZE);
     m_view.setCenter(Vector2f(SCREEN_SIZE.x / 2, SCREEN_SIZE.y / 2));
-    setTexture(&Asset::ENTITY_TEXTURE);
+    setTexture(&GET_TEXTURE(ENTITY_TEXTURE));
     setScale(Vector2f(0.4, 0.4));
     getHitbox().setOutlineThickness(2);
     setHitboxSize(Vector2f(300, 400), true);

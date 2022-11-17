@@ -1,6 +1,6 @@
 #include "class/TickBox.hpp"
 #include "class/Game.hpp"
-#include "class/Asset.hpp"
+#include "class/AssetManager.hpp"
 #include "class/Logger.hpp"
 #include "class/Settings.hpp"
 #include "prototypes.hpp"
@@ -18,8 +18,8 @@ TickBox::TickBox(Vector2f size, Vector2f pos, Texture& texture, void (*onClick)(
     m_state = idle;
     m_toggled = false;
     m_onClick = onClick;
-    m_clickSound.setBuffer(Asset::SOUND_CLICK);
-    m_hoverSound.setBuffer(Asset::SOUND_HOVER);
+    m_clickSound.setBuffer(GET_SOUND(CLICK_SOUND));
+    m_hoverSound.setBuffer(GET_SOUND(HOVER_SOUND));
 }
 
 void TickBox::setOnClick(void (*onClick)(bool toggle))

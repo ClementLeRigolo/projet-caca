@@ -1,17 +1,64 @@
 #include "class/AssetManager.hpp"
 
-map<TextureID, unique_ptr<Texture>> AssetManager::m_textures = map<TextureID, unique_ptr<Texture>>();
-map<FontID, unique_ptr<Font>> AssetManager::m_fonts = map<FontID, unique_ptr<Font>>();
-
 // Loader
+
+AssetManager::AssetManager()
+{
+    //fonts
+    loadFont(DEBUG_FONT, DEBUG_FONT_PATH);
+    loadFont(INGAME_FONT, GAME_FONT_PATH);
+
+    loadTexture(B_CONTINUE_TEX, UI_PATH + "continue.png");
+    loadTexture(B_LOAD_GAME_TEX,UI_PATH + "load_game.png");
+    loadTexture(B_NEW_GAME_TEX, UI_PATH + "new_game.png");
+    loadTexture(B_SETG_TEX, UI_PATH + "settings.png");
+    loadTexture(B_EXT_TEX, UI_PATH + "exit.png");
+    loadTexture(B_BACK_TEX, UI_PATH + "back.png");
+    loadTexture(B_APPLY_TEX, UI_PATH + "apply.png");
+    loadTexture(B_TICKBOX, UI_PATH + "tickbox.png");
+
+    // entities
+    loadTexture(ENTITY_TEXTURE, "asset/texture/entity/entity.png");
+
+    // background
+    loadTexture(MM_BG1, BCKGRD_PATH + "background_no_char.jpg");
+    loadTexture(MM_BG2, BCKGRD_PATH + "char.png");
+    loadTexture(MM_BG3, BCKGRD_PATH + "embers.png");
+    loadTexture(MM_BG4, BCKGRD_PATH + "smoke.png");
+    loadTexture(MM_BG5, BCKGRD_PATH + "title.png");
+
+    // slider
+    loadTexture(SLIDER_IN, UI_PATH + "slider_in.png");
+    loadTexture(SLIDER_OUT, UI_PATH + "slider_out.png");
+    loadTexture(SLIDER_THINGY, UI_PATH + "slider_thingy.png");
+
+
+    // sound
+    loadSound(CLICK_SOUND , AUDIO_PATH  + "ui/click.ogg");
+    loadSound(HOVER_SOUND , AUDIO_PATH  + "ui/hover.ogg");
+}
+
+AssetManager AssetManager::s_instance;
+
+AssetManager& AssetManager::getInstance() { return s_instance; }
 
 void AssetManager::loadTexture(TextureID identifier, string filename)
 {
     unique_ptr<Texture> texture(new Texture());
     texture.get()->loadFromFile(filename);
+    texture.get()->setSmooth(true);
     auto insert = m_textures.insert(make_pair(identifier, move(texture)));
     assert(insert.second);
 }
+
+void AssetManager::loadSound(SoundID identifier, string filename)
+{
+    unique_ptr<SoundBuffer> soundBuffer(new SoundBuffer());
+    soundBuffer.get()->loadFromFile(filename);
+    auto insert = m_sounds.insert(make_pair(identifier, move(soundBuffer)));
+    assert(insert.second);
+}
+
 
 void AssetManager::loadFont(FontID identifier, string filename)
 {
@@ -29,6 +76,14 @@ Texture& AssetManager::getTexture(TextureID identifier)
     assert(found != m_textures.end());
     return *found->second.get();
 }
+
+SoundBuffer& AssetManager::getSound(SoundID identifier)
+{
+    auto found = m_sounds.find(identifier);
+    assert(found != m_sounds.end());
+    return *found->second.get();
+}
+
 
 Font& AssetManager::getFont(FontID identifier)
 {

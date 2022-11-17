@@ -1,14 +1,13 @@
 #include "class/Scene.hpp"
-#include "class/Asset.hpp"
 #include "class/Collection.hpp"
+#include "class/AssetManager.hpp"
 #include "class/Game.hpp"
 #include "prototypes.hpp"
 
 Scene::Scene() {
-    Asset::loadAssets();
     m_view.setSize(SCREEN_SIZE);
     m_view.setCenter(Vector2f(SCREEN_SIZE.x / 2, SCREEN_SIZE.y / 2));
-    m_fpsText.setFont(Asset::DEBUG_FONT);
+    m_fpsText.setFont(GET_FONT(DEBUG_FONT));
     m_fpsText.setPosition(Vector2f(0, 0));
     m_hasFocus = false;
 

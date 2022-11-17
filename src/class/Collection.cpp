@@ -1,5 +1,4 @@
 #include "class/Collection.hpp"
-#include "class/Asset.hpp"
 
 void Collection::loadCollection()
 {
