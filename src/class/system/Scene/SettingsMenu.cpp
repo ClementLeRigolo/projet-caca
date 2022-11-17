@@ -22,6 +22,7 @@ SettingsMenu::SettingsMenu() {
     m_text.push_back(EText(Vector2f(SCREEN_SIZE.x * 0.3, SCREEN_SIZE.y * 0.35), "Music volume"));
     m_text.push_back(EText(Vector2f(SCREEN_SIZE.x * 0.3, SCREEN_SIZE.y * 0.55), "Framerate limit"));
     m_text.push_back(EText(Vector2f(SCREEN_SIZE.x * 0.73, SCREEN_SIZE.y * 0.55), "[500]"));
+    m_text.push_back(EText(Vector2f(SCREEN_SIZE.x * 0.3, SCREEN_SIZE.y * 0.65), "Toggle Vsync"));
 
     m_sliders.push_back(Slider(&Asset::SLIDER_OUT,
     &Asset::SLIDER_IN,
@@ -46,6 +47,11 @@ SettingsMenu::SettingsMenu() {
     &Asset::SLIDER_IN,
     &Asset::SLIDER_THINGY,
     Vector2f(400, 50), Vector2f(SCREEN_SIZE.x * 0.6, SCREEN_SIZE.y * 0.57)));
+
+
+    m_tickboxs.push_back(TickBox(Vector2f(50, 50), Vector2f(SCREEN_SIZE.x * 0.6,
+    SCREEN_SIZE.y * 0.665), Asset::B_TICKBOX, &toggleVsyncFunc));
+    m_tickboxs.at(0).setBaseScale(Vector2f(0.8, 0.8));
 }
 
 void SettingsMenu::updateLogic(RenderWindow& window)
@@ -54,6 +60,9 @@ void SettingsMenu::updateLogic(RenderWindow& window)
 
     for (int i = 0; i < m_buttons.size(); i++)
         m_buttons.at(i).update(getMousePosition(window));
+
+    for (int i = 0; i < m_tickboxs.size(); i++)
+        m_tickboxs.at(i).update(getMousePosition(window));
 
     for (int i = 0; i < m_sliders.size(); i++)
         m_sliders.at(i).update(window);
@@ -122,6 +131,8 @@ void SettingsMenu::display(RenderWindow& window)
     window.setView(m_view);
     for (int i = 0; i < m_buttons.size(); i++)
         window.draw(m_buttons.at(i).getShape());
+    for (int i = 0; i < m_tickboxs.size(); i++)
+        window.draw(m_tickboxs.at(i).getShape());
     for (int i = 0; i < m_text.size(); i++)
         window.draw(m_text.at(i));
     for (int i = 0; i < m_sliders.size(); i++)

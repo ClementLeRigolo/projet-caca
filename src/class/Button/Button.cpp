@@ -12,6 +12,7 @@ Button::Button()
     m_onClick = &doNothingFunc;
     m_clickSound.setBuffer(Asset::SOUND_CLICK);
     m_hoverSound.setBuffer(Asset::SOUND_HOVER);
+    m_baseScale = Vector2f(1, 1);
 }
 
 Button::Button(Vector2f size, Vector2f pos, Texture& texture, void (*onClick)())
@@ -27,6 +28,7 @@ Button::Button(Vector2f size, Vector2f pos, Texture& texture, void (*onClick)())
     m_onClick = onClick;
     m_clickSound.setBuffer(Asset::SOUND_CLICK);
     m_hoverSound.setBuffer(Asset::SOUND_HOVER);
+    m_baseScale = Vector2f(1, 1);
 }
 
 void Button::setTexture(Texture* texture)
@@ -35,6 +37,7 @@ void Button::setTexture(Texture* texture)
     m_shape.setTextureRect(IntRect(0, 0,
     texture->getSize().x / 3, texture->getSize().y));
     m_shape.setOrigin(getCenter(m_shape));
+    m_baseScale = Vector2f(1, 1);
 }
 
 void Button::setOnClick(void (*onClick)())
@@ -50,6 +53,37 @@ void Button::onClick()
 void Button::setPos(Vector2f pos)
 {
     m_shape.setPosition(pos);
+}
+
+void Button::setScale(Vector2f scale)
+{
+    m_shape.setScale(scale);
+}
+
+void Button::setBaseScale(Vector2f scale)
+{
+    m_shape.setScale(scale);
+    m_baseScale = scale;
+}
+
+Vector2f Button::getPosition()
+{
+    return m_shape.getPosition();
+}
+
+void Button::setPosition(Vector2f pos)
+{
+    m_shape.setPosition(pos);
+}
+
+Vector2f Button::getBaseScale()
+{
+    return m_baseScale;
+}
+
+Vector2f Button::getScale()
+{
+    return m_shape.getScale();
 }
 
 RectangleShape& Button::getShape()

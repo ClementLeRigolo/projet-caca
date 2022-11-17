@@ -36,6 +36,7 @@ void Asset::loadAssets()
     B_EXT_TEX.loadFromFile(UI_PATH + "exit.png");
     B_BACK_TEX.loadFromFile(UI_PATH + "back.png");
     B_APPLY_TEX.loadFromFile(UI_PATH + "apply.png");
+    B_TICKBOX.loadFromFile(UI_PATH + "tickbox.png");
 
     // entities
     ENTITY_TEXTURE.loadFromFile("asset/texture/entity/entity.png");
@@ -55,6 +56,9 @@ void Asset::loadAssets()
     // sounds
     SOUND_CLICK.loadFromFile("asset/audio/ui/click.ogg");
     SOUND_HOVER.loadFromFile("asset/audio/ui/hover.ogg");
+
+    // music
+    MUSIC.openFromFile(AUDIO_PATH + "music/music.ogg");
 
     smoothTextures();
 }
@@ -80,7 +84,11 @@ Texture Asset::MM_BG5 = Texture();
 Texture Asset::SLIDER_IN = Texture();
 Texture Asset::SLIDER_THINGY = Texture();
 Texture Asset::SLIDER_OUT = Texture();
+Texture Asset::B_TICKBOX = Texture();
 
 // sounds
 SoundBuffer Asset::SOUND_CLICK = SoundBuffer();
 SoundBuffer Asset::SOUND_HOVER = SoundBuffer();
+
+// musics
+Music Asset::MUSIC = Music();

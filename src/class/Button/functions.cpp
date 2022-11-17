@@ -30,3 +30,8 @@ void buttonPlayGameFunc()
 {
     Game::getInstance().setCurrentScene(&Collection::LEVEL_1);
 }
+
+void toggleVsyncFunc(bool toggle)
+{
+    Game::getInstance().getRender()->getWindow().setVerticalSyncEnabled(toggle);
+}

@@ -27,6 +27,7 @@ void buttonGoToSettingsFunc();
 void buttonExitGameFunc();
 void buttonPlayGameFunc();
 void buttonBackMainMenuFunc();
+void toggleVsyncFunc(bool toggle);
 
 // Easing functions
 double lerp(double a, double b, double t);

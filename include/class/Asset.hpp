@@ -31,8 +31,12 @@ class Asset
         static Texture SLIDER_IN;
         static Texture SLIDER_THINGY;
         static Texture SLIDER_OUT;
+        static Texture B_TICKBOX;
 
         // soundbuffers
         static SoundBuffer SOUND_CLICK;
         static SoundBuffer SOUND_HOVER;
+
+        // Musics
+        static Music MUSIC;
 };

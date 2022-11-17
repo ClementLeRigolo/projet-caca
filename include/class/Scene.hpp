@@ -1,7 +1,7 @@
 #pragma once
 
 #include "libs.hpp"
-#include "Button.hpp"
+#include "TickBox.hpp"
 #include "Entity.hpp"
 #include "EText.hpp"
 #include "Slider.hpp"
@@ -18,7 +18,7 @@ class Scene
         Text m_fpsText;
         vector<Button> m_buttons;
         FadeLayer m_fadeLayer;
-        Music m_music;
+        Music* m_music;
 
     public:
         Scene();
@@ -33,7 +33,8 @@ class Scene
         View& getView();
         void setView(View view);
         Text& getText();
-        Music& getMusic();
+        void setMusic(Music* music);
+        Music* getMusic();
         virtual void pollEvents(RenderWindow& window);
         virtual void updateLogic(RenderWindow& window);
         virtual void display(RenderWindow& window);
@@ -56,6 +57,7 @@ class SettingsMenu : public Scene
     private:
         vector<EText> m_text;
         vector<Slider> m_sliders;
+        vector<TickBox> m_tickboxs;
 
     public:
         SettingsMenu();

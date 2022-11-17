@@ -4,7 +4,7 @@
 
 class Button
 {
-    private:
+    protected:
         RectangleShape m_shape;
         enum ButtonStates {
             idle,
@@ -15,14 +15,21 @@ class Button
         Sound m_hoverSound;
         unsigned short m_state;
         void (*m_onClick)();
+        Vector2f m_baseScale;
 
     public:
         Button();
         Button(Vector2f size, Vector2f pos, Texture& texture, void (*onClick)());
         void setPos(Vector2f pos);
-        void setOnClick(void (*onClick)());
-        void onClick();
+        void setScale(Vector2f scale);
+        void setBaseScale(Vector2f scale);
+        void setPosition(Vector2f pos);
+        Vector2f getPosition();
+        Vector2f getBaseScale();
+        Vector2f getScale();
+        virtual void setOnClick(void (*onClick)());
+        virtual void onClick();
         void setTexture(Texture* texture);
         RectangleShape& getShape();
-        void update(Vector2i mousePos);
+        virtual void update(Vector2i mousePos);
 };

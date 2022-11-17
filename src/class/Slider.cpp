@@ -87,9 +87,9 @@ void Slider::update(RenderWindow& window)
     Vector2f diff;
 
     boundOut.left -= boundOut.width / 5.0;
-    boundOut.width += boundOut.width * 2.5;
-    boundOut.top -= boundOut.height / 2.0;
-    boundOut.height += boundOut.height;
+    boundOut.width += boundOut.width / 2.5;
+    boundOut.top -= boundOut.height / 3.0;
+    boundOut.height += boundOut.height / 1.5;
 
     if (!DoMouseIntersect(mousePos, boundOut)) {
         getSliderThingy().setScale(m_thingyBaseScale);

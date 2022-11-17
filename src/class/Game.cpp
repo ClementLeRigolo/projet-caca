@@ -19,7 +19,7 @@ void Game::Initialize()
     Settings::GLOBAL_VOLUME = 100;
     Settings::SFX_VOLUME = 50;
     Settings::MUSIC_VOLUME = 50;
-    getCurrentScene()->getMusic().play();
+    getCurrentScene()->getMusic()->play();
 }
 
 Game Game::s_instance;
@@ -37,12 +37,12 @@ void Game::setCurrentScene(Scene* scene)
     RenderWindow& window = getRender()->getWindow();
 
     if (getCurrentScene()) {
-        getCurrentScene()->getMusic().stop();
+        getCurrentScene()->getMusic()->stop();
         getCurrentScene()->setFocus(false);
     }
     scene->getView() = getLetterboxView(getCurrentScene()->getView(),
     window.getSize().x, window.getSize().y);
-    scene->getMusic().play();
+    scene->getMusic()->play();
     m_currentScene = scene;
 }
 
@@ -90,7 +90,7 @@ void Game::updateSceneLogic(Scene* scene)
 {
     // Updates scene logic
     scene->updateLogic(getRender()->getWindow());
-    scene->getMusic().setVolume(Settings::MUSIC_VOLUME);
+    scene->getMusic()->setVolume(Settings::MUSIC_VOLUME);
     scene->setFocus(true);
 }
 

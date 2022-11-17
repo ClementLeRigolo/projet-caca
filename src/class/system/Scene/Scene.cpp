@@ -12,10 +12,12 @@ Scene::Scene() {
     m_fpsText.setPosition(Vector2f(0, 0));
     m_hasFocus = false;
 
-    m_music.openFromFile(AUDIO_PATH + "music/music.ogg");
+    setMusic(&Asset::MUSIC);
 }
 
-Music& Scene::getMusic() { return m_music; }
+void Scene::setMusic(Music* music) { m_music = music; }
+
+Music* Scene::getMusic() { return m_music; }
 
 int Scene::getIndex() const { return m_index; }
 
