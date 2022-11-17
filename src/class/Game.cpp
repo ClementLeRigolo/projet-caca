@@ -53,6 +53,7 @@ void Game::setCurrentScene(Scene* scene)
     }
     scene->getView() = getLetterboxView(getCurrentScene()->getView(),
     window.getSize().x, window.getSize().y);
+    scene->setMusic(m_music);
     if (scene->getMusic())
         scene->getMusic()->play();
     m_currentScene = scene;

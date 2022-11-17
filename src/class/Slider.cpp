@@ -92,6 +92,7 @@ void Slider::update(RenderWindow& window)
     boundOut.height += boundOut.height / 1.5;
 
     if (!DoMouseIntersect(mousePos, boundOut)) {
+        m_grabbed = false;
         getSliderThingy().setScale(m_thingyBaseScale);
         return;
     }
