@@ -13,6 +13,7 @@
 #include "prototypes.hpp"
 #include <math.h>
 #include <dirent.h>
+#include <memory>
 
 using namespace sf;
 using namespace std;
