@@ -27,4 +27,5 @@ class Game
         Event& getEvent();
         void update();
         void render();
+        void Initialize();
 };

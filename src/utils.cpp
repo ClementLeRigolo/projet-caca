@@ -139,3 +139,22 @@ sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight)
 
     return view;
 }
+
+void modulateSound(sf::Sound* sound, float lowest, float highest)
+{
+    sound->setPitch(((float)randomNumber(lowest * 100, highest * 100) / 100));
+}
+
+float getMin(float a, float b)
+{
+    if (a > b)
+        return b;
+    return a;
+}
+
+float getMax(float a, float b)
+{
+    if (a < b)
+        return b;
+    return a;
+}

@@ -2,6 +2,7 @@
 #include "class/Asset.hpp"
 #include "class/Collection.hpp"
 #include "class/Logger.hpp"
+#include "class/Settings.hpp"
 
 Game::Game()
 {
@@ -11,6 +12,14 @@ Game::Game()
     m_render = new Render();
     m_currentScene = &Collection::MAIN_MENU;
     m_player = Player();
+}
+
+void Game::Initialize()
+{
+    Settings::GLOBAL_VOLUME = 100;
+    Settings::SFX_VOLUME = 50;
+    Settings::MUSIC_VOLUME = 50;
+    getCurrentScene()->getMusic().play();
 }
 
 Game Game::s_instance;
@@ -25,9 +34,15 @@ Scene* Game::getCurrentScene() { return m_currentScene; }
 
 void Game::setCurrentScene(Scene* scene)
 {
+    RenderWindow& window = getRender()->getWindow();
+
     if (getCurrentScene()) {
+        getCurrentScene()->getMusic().stop();
         getCurrentScene()->setFocus(false);
     }
+    scene->getView() = getLetterboxView(getCurrentScene()->getView(),
+    window.getSize().x, window.getSize().y);
+    scene->getMusic().play();
     m_currentScene = scene;
 }
 
@@ -75,6 +90,7 @@ void Game::updateSceneLogic(Scene* scene)
 {
     // Updates scene logic
     scene->updateLogic(getRender()->getWindow());
+    scene->getMusic().setVolume(Settings::MUSIC_VOLUME);
     scene->setFocus(true);
 }
 

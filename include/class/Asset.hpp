@@ -10,10 +10,11 @@ class Asset
     public:
         static void loadAssets();
 
-        //fonts
+        // fonts
         static Font INGAME_FONT;
         static Font DEBUG_FONT;
-        static Texture _TEXTURE;
+
+        // textures
         static Texture B_CONTINUE_TEX;
         static Texture B_LOAD_GAME_TEX;
         static Texture B_NEW_GAME_TEX;
@@ -30,4 +31,8 @@ class Asset
         static Texture SLIDER_IN;
         static Texture SLIDER_THINGY;
         static Texture SLIDER_OUT;
+
+        // soundbuffers
+        static SoundBuffer SOUND_CLICK;
+        static SoundBuffer SOUND_HOVER;
 };

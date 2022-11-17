@@ -53,6 +53,8 @@ void Asset::loadAssets()
     SLIDER_THINGY.loadFromFile(UI_PATH + "slider_thingy.png");
 
     // sounds
+    SOUND_CLICK.loadFromFile("asset/audio/ui/click.ogg");
+    SOUND_HOVER.loadFromFile("asset/audio/ui/hover.ogg");
 
     smoothTextures();
 }
@@ -60,6 +62,8 @@ void Asset::loadAssets()
 //fonts
 Font Asset::INGAME_FONT = Font();
 Font Asset::DEBUG_FONT = Font();
+
+// textures
 Texture Asset::B_CONTINUE_TEX = Texture();
 Texture Asset::B_LOAD_GAME_TEX = Texture();
 Texture Asset::B_NEW_GAME_TEX = Texture();
@@ -73,7 +77,10 @@ Texture Asset::MM_BG2 = Texture();
 Texture Asset::MM_BG3 = Texture();
 Texture Asset::MM_BG4 = Texture();
 Texture Asset::MM_BG5 = Texture();
-
 Texture Asset::SLIDER_IN = Texture();
 Texture Asset::SLIDER_THINGY = Texture();
 Texture Asset::SLIDER_OUT = Texture();
+
+// sounds
+SoundBuffer Asset::SOUND_CLICK = SoundBuffer();
+SoundBuffer Asset::SOUND_HOVER = SoundBuffer();

@@ -11,7 +11,11 @@ Scene::Scene() {
     m_fpsText.setFont(Asset::DEBUG_FONT);
     m_fpsText.setPosition(Vector2f(0, 0));
     m_hasFocus = false;
+
+    m_music.openFromFile(AUDIO_PATH + "music/music.ogg");
 }
+
+Music& Scene::getMusic() { return m_music; }
 
 int Scene::getIndex() const { return m_index; }
 

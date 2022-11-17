@@ -14,7 +14,11 @@ sf::Vector2f getCenter(sf::Text &shape);
 sf::Vector2i getMousePosition(sf::RenderWindow& window);
 bool DoMouseIntersect(sf::Vector2i mousePos, sf::FloatRect to_check);
 
+
+// Randomisation
 int randomNumber(int min_num, int max_num);
+void modulateSound(sf::Sound* sound, float lowest, float highest);
+
 
 // Button functions
 void doNothingFunc();
@@ -51,3 +55,8 @@ sf::Vector2f closestPointSeg(sf::Vector2f a, sf::Vector2f b, sf::Vector2f p);
 
 // sf::View
 sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight);
+
+
+// Min Max
+float getMin(float a, float b);
+float getMax(float a, float b);

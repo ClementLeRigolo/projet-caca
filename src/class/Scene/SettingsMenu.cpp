@@ -59,8 +59,8 @@ void SettingsMenu::updateLogic(RenderWindow& window)
         m_sliders.at(i).update(window);
 
     Settings::GLOBAL_VOLUME = m_sliders.at(0).getProgress() * 100.0;
-    Settings::SFX_VOLUME = m_sliders.at(1).getProgress() * 100.0;
-    Settings::MUSIC_VOLUME = m_sliders.at(2).getProgress() * 100.0;
+    Settings::SFX_VOLUME = (m_sliders.at(1).getProgress() * 100.0) * m_sliders.at(0).getProgress();
+    Settings::MUSIC_VOLUME = (m_sliders.at(2).getProgress() * 100.0) * m_sliders.at(0).getProgress();
     Settings::FRAMERATE_LIMIT = (m_sliders.at(3).getProgress() * 1000) + 10;
 
     if (Settings::FRAMERATE_LIMIT == 0 || Settings::FRAMERATE_LIMIT >= 1000) {

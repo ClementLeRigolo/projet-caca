@@ -18,6 +18,7 @@ class Scene
         Text m_fpsText;
         vector<Button> m_buttons;
         FadeLayer m_fadeLayer;
+        Music m_music;
 
     public:
         Scene();
@@ -32,6 +33,7 @@ class Scene
         View& getView();
         void setView(View view);
         Text& getText();
+        Music& getMusic();
         virtual void pollEvents(RenderWindow& window);
         virtual void updateLogic(RenderWindow& window);
         virtual void display(RenderWindow& window);

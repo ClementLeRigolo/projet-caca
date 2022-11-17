@@ -11,6 +11,8 @@ class Button
             hover,
             pressed,
         };
+        Sound m_clickSound;
+        Sound m_hoverSound;
         unsigned short m_state;
         void (*m_onClick)();
 
