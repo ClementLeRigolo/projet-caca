@@ -58,7 +58,6 @@ void Asset::loadAssets()
     SOUND_HOVER.loadFromFile("asset/audio/ui/hover.ogg");
 
     // music
-    MUSIC.openFromFile(AUDIO_PATH + "music/music.ogg");
 
     smoothTextures();
 }
@@ -89,6 +88,3 @@ Texture Asset::B_TICKBOX = Texture();
 // sounds
 SoundBuffer Asset::SOUND_CLICK = SoundBuffer();
 SoundBuffer Asset::SOUND_HOVER = SoundBuffer();
-
-// musics
-Music Asset::MUSIC = Music();

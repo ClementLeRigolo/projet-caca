@@ -13,6 +13,7 @@ class Game
         Scene* m_currentScene;
         Event m_event;
         Player m_player;
+        Music* m_music;
         void updateSceneLogic(Scene* scene);
         void updateFpsIndicator();
 
@@ -22,6 +23,8 @@ class Game
         Scene* getCurrentScene();
         void setCurrentScene(Scene* scene);
         void pollEvents();
+        void setMusic(Music* music);
+        Music* getMusic();
         Render* getRender();
         Player& getPlayer();
         Event& getEvent();

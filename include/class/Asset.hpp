@@ -38,5 +38,4 @@ class Asset
         static SoundBuffer SOUND_HOVER;
 
         // Musics
-        static Music MUSIC;
 };

@@ -12,7 +12,7 @@ Scene::Scene() {
     m_fpsText.setPosition(Vector2f(0, 0));
     m_hasFocus = false;
 
-    setMusic(&Asset::MUSIC);
+    setMusic(Game::getInstance().getMusic());
 }
 
 void Scene::setMusic(Music* music) { m_music = music; }
