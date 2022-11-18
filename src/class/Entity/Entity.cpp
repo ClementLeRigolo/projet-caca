@@ -1,5 +1,5 @@
 #include "class/Entity.hpp"
-#include "class/Timer.hpp"
+#include "class/system/Timer.hpp"
 #include "class/AssetManager.hpp"
 
 Entity::Entity()

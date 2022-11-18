@@ -1,4 +1,4 @@
-#include "class/Logger.hpp"
+#include "class/system/Logger.hpp"
 
 void logCurrentDate()
 {

@@ -2,7 +2,7 @@
 #include "class/AssetManager.hpp"
 #include "class/Collection.hpp"
 #include "prototypes.hpp"
-#include "class/Logger.hpp"
+#include "class/system/Logger.hpp"
 
 Level::Level()
 {

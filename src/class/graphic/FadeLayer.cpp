@@ -1,6 +1,6 @@
-#include "class/FadeLayer.hpp"
-#include "class/Timer.hpp"
-#include "class/Logger.hpp"
+#include "class/graphic/FadeLayer.hpp"
+#include "class/system/Timer.hpp"
+#include "class/system/Logger.hpp"
 
 FadeLayer::FadeLayer()
 {

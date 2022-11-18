@@ -1,8 +1,8 @@
-#include "class/TickBox.hpp"
+#include "class/ui/TickBox.hpp"
 #include "class/Game.hpp"
 #include "class/AssetManager.hpp"
-#include "class/Logger.hpp"
-#include "class/Settings.hpp"
+#include "class/system/Logger.hpp"
+#include "class/system/Settings.hpp"
 #include "prototypes.hpp"
 
 TickBox::TickBox(Vector2f size, Vector2f pos, Texture& texture, void (*onClick)(bool toggled))

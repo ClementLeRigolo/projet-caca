@@ -1,6 +1,6 @@
 #pragma once
 
-#include "class/Scene.hpp"
+#include "libs.hpp"
 
 class Render
 {

@@ -1,4 +1,4 @@
-#include "class/EText.hpp"
+#include "class/ui/EText.hpp"
 #include "class/AssetManager.hpp"
 
 EText::EText()

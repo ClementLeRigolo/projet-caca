@@ -1,4 +1,4 @@
-#include "class/Settings.hpp"
+#include "class/system/Settings.hpp"
 
 void Settings::loadSettings()
 {

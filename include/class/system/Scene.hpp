@@ -1,11 +1,11 @@
 #pragma once
 
 #include "libs.hpp"
-#include "TickBox.hpp"
-#include "Entity.hpp"
-#include "EText.hpp"
-#include "Slider.hpp"
-#include "class/FadeLayer.hpp"
+#include "class/ui/TickBox.hpp"
+#include "class/ui/EText.hpp"
+#include "class/ui/Slider.hpp"
+#include "class/Entity.hpp"
+#include "class/graphic/FadeLayer.hpp"
 
 class Scene
 {

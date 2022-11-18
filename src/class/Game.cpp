@@ -1,7 +1,8 @@
 #include "class/Game.hpp"
 #include "class/Collection.hpp"
-#include "class/Logger.hpp"
-#include "class/Settings.hpp"
+#include "class/system/Logger.hpp"
+#include "class/system/Settings.hpp"
+#include "class/system/Timer.hpp"
 
 Game::Game()
 {

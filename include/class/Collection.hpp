@@ -1,6 +1,6 @@
 #pragma once
 
-#include "class/Scene.hpp"
+#include "class/system/Scene.hpp"
 #include "class/Item.hpp"
 #include "class/Entity.hpp"
 

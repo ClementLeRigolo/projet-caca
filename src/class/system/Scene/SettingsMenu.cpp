@@ -1,6 +1,6 @@
 #include "class/AssetManager.hpp"
 #include "class/Game.hpp"
-#include "class/Settings.hpp"
+#include "class/system/Settings.hpp"
 #include "prototypes.hpp"
 
 SettingsMenu::SettingsMenu() {

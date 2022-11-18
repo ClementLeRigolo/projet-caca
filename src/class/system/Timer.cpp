@@ -1,4 +1,4 @@
-#include "class/Timer.hpp"
+#include "class/system/Timer.hpp"
 
 static Clock m_clock;
 static Time m_currentTime;

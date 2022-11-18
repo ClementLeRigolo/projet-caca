@@ -1,6 +1,6 @@
-#include "class/Slider.hpp"
-#include "class/Logger.hpp"
-#include "class/Settings.hpp"
+#include "class/ui/Slider.hpp"
+#include "class/system/Logger.hpp"
+#include "class/system/Settings.hpp"
 
 Slider::Slider() { m_progress = 0; };
 

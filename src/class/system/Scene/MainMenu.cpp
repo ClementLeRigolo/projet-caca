@@ -1,9 +1,9 @@
-#include "class/Scene.hpp"
+#include "class/system/Scene.hpp"
 #include "class/AssetManager.hpp"
 #include "class/Collection.hpp"
-#include "class/Timer.hpp"
+#include "class/system/Timer.hpp"
 #include "class/Game.hpp"
-#include "class/Logger.hpp"
+#include "class/system/Logger.hpp"
 #include "prototypes.hpp"
 
 MainMenu::MainMenu() {

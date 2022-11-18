@@ -1,7 +1,7 @@
 #pragma once
 
-#include "class/Render.hpp"
-#include "class/Timer.hpp"
+#include "class/graphic/Render.hpp"
+#include "class/system/Scene.hpp"
 #include "class/Entity.hpp"
 
 class Game

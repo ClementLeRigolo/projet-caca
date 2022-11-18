@@ -1,6 +1,6 @@
 #pragma once
 
-#include "class/Button.hpp"
+#include "Button.hpp"
 
 class TickBox : public Button
 {
