@@ -1,5 +1,4 @@
 #include "class/Game.hpp"
-#include "class/Collection.hpp"
 #include "class/system/Timer.hpp"
 
 void doNothingFunc() {};
@@ -34,5 +33,5 @@ void buttonPlayGameFunc()
 
 void toggleVsyncFunc(bool toggle)
 {
-    Game::getInstance().getRender()->getWindow().setVerticalSyncEnabled(toggle);
+    Game::getInstance().getRender()->setVsyncEnabled(toggle);
 }

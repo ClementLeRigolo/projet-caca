@@ -72,17 +72,19 @@ void SettingsMenu::updateLogic(RenderWindow& window)
     Settings::MUSIC_VOLUME = (m_sliders.at(2).getProgress() * 100.0) * m_sliders.at(0).getProgress();
     Settings::FRAMERATE_LIMIT = (m_sliders.at(3).getProgress() * 1000) + 10;
 
-    if (Settings::FRAMERATE_LIMIT == 0 || Settings::FRAMERATE_LIMIT >= 1000) {
-        Settings::FRAMERATE_LIMIT = 0;
-        m_text.at(6).setString("[" + (string)"unlimited" + "]");
+
+    if (!Game::getInstance().getRender()->isVsyncEnabled()) {
+        if (Settings::FRAMERATE_LIMIT == 0 || Settings::FRAMERATE_LIMIT >= 1000) {
+            Settings::FRAMERATE_LIMIT = 0;
+            m_text.at(6).setString("[unlimited]");
+        } else
+            m_text.at(6).setString("[" + to_string(Settings::FRAMERATE_LIMIT) + "]");
+        if (lastFrameRateLimit != Settings::FRAMERATE_LIMIT) {
+            Game::getInstance().getRender()->getWindow().setFramerateLimit(Settings::FRAMERATE_LIMIT);
+            lastFrameRateLimit = Settings::FRAMERATE_LIMIT;
+        }
     } else
-        m_text.at(6).setString("[" + to_string(Settings::FRAMERATE_LIMIT) + "]");
-
-    if (lastFrameRateLimit != Settings::FRAMERATE_LIMIT) {
-        Game::getInstance().getRender()->getWindow().setFramerateLimit(Settings::FRAMERATE_LIMIT);
-        lastFrameRateLimit = Settings::FRAMERATE_LIMIT;
-    }
-
+        m_text.at(6).setString("[Vsync enabled]");
 
     if (!hasFocus()) {
         m_fadeLayer.reset();

@@ -1,5 +1,4 @@
 #include "class/Game.hpp"
-#include "class/Collection.hpp"
 #include "class/system/Logger.hpp"
 #include "class/system/Settings.hpp"
 #include "class/system/Timer.hpp"
