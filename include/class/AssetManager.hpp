@@ -6,8 +6,8 @@
 class AssetManager
 {
     private:
-        static AssetManager s_instance;
         AssetManager();
+        static AssetManager s_instance;
         map<TextureID, unique_ptr<Texture>> m_textures;
         map<SoundID, unique_ptr<SoundBuffer>> m_sounds;
         map<FontID, unique_ptr<Font>> m_fonts;

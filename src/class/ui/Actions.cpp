@@ -19,17 +19,17 @@ void buttonExitGameFunc()
 
 void buttonBackMainMenuFunc()
 {
-    Game::getInstance().setCurrentScene(&Collection::MAIN_MENU);
+    Game::getInstance().setCurrentScene(&Game::getInstance().getScene(MAIN_MENU));
 }
 
 void buttonGoToSettingsFunc()
 {
-    Game::getInstance().setCurrentScene(&Collection::SETTINGS_MENU);
+    Game::getInstance().setCurrentScene(&Game::getInstance().getScene(SETTINGS_MENU));
 }
 
 void buttonPlayGameFunc()
 {
-    Game::getInstance().setCurrentScene(&Collection::LEVEL_1);
+    Game::getInstance().setCurrentScene(&Game::getInstance().getScene(LEVEL_1));
 }
 
 void toggleVsyncFunc(bool toggle)

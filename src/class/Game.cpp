@@ -6,10 +6,15 @@
 
 Game::Game()
 {
-    Collection::loadCollection();
     Timer::start();
+
+    addScene(INTRO_CREDITS, (unique_ptr<Scene>)(new MainMenu()));
+    addScene(MAIN_MENU, (unique_ptr<Scene>)(new MainMenu()));
+    addScene(SETTINGS_MENU, (unique_ptr<Scene>)(new SettingsMenu()));
+    addScene(LEVEL_1, (unique_ptr<Scene>)(new Level()));
+
     m_render = new Render();
-    m_currentScene = &Collection::MAIN_MENU;
+    m_currentScene = &getScene(MAIN_MENU);
     m_player = Player();
 }
 
@@ -21,6 +26,19 @@ void Game::Initialize()
     getCurrentScene()->setMusic(m_music);
     if (getCurrentScene()->getMusic())
         getCurrentScene()->getMusic()->play();
+}
+
+void Game::addScene(SceneID identifier, unique_ptr<Scene> scene)
+{
+    auto insert = m_scenes.insert(make_pair(identifier, move(scene)));
+    assert(insert.second);
+}
+
+Scene& Game::getScene(SceneID identifier)
+{
+    auto it = m_scenes.find(identifier);
+    assert(it!= m_scenes.end());
+    return *it->second;
 }
 
 Game Game::s_instance;

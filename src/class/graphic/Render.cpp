@@ -1,5 +1,4 @@
 #include "class/graphic/Render.hpp"
-#include "class/Collection.hpp"
 
 Render::Render()
 {

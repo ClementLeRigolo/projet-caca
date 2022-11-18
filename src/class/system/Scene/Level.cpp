@@ -1,6 +1,5 @@
 #include "class/Game.hpp"
 #include "class/AssetManager.hpp"
-#include "class/Collection.hpp"
 #include "prototypes.hpp"
 #include "class/system/Logger.hpp"
 

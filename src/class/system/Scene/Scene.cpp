@@ -1,5 +1,4 @@
 #include "class/system/Scene.hpp"
-#include "class/Collection.hpp"
 #include "class/AssetManager.hpp"
 #include "class/Game.hpp"
 #include "prototypes.hpp"
