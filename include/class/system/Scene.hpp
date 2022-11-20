@@ -6,6 +6,7 @@
 #include "class/ui/Slider.hpp"
 #include "class/Entity.hpp"
 #include "class/graphic/FadeLayer.hpp"
+#include "class/world/Obstacle.hpp"
 
 class Scene
 {
@@ -70,7 +71,8 @@ class Level : public Scene
 {
     private:
         Text m_levelTitle;
-        vector<Entity*> m_entities;
+        vector<Entity> m_entities;
+        vector<Obstacle> m_obstacles;
 
     public:
         Level();

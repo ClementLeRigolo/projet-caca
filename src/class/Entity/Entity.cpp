@@ -4,62 +4,58 @@
 
 Entity::Entity()
 {
-    m_acc = Vector2f(0, 0);
-    m_vel = Vector2f(0, 0);
-    m_pos = Vector2f(480, 270);
+    getCollider().m_acc = Vector2f(0, 0);
+    getCollider().m_vel = Vector2f(0, 0);
+    getCollider().setPosition(Vector2f(480, 270));
     m_sprite.setColor(Color::White);
-    m_sprite.setPosition(m_pos);
+    m_sprite.setPosition(getCollider().getPosition());
     m_hitbox.setFillColor(Color(255, 0, 0, 100));
     m_hitbox.setSize(Vector2f(100, 100));
     m_hitbox.setOutlineThickness(1);
     m_hitbox.setOutlineColor(Color(255, 0, 0, 200));
     m_hitbox.setOrigin(getCenter(m_hitbox));
-    m_hitbox.setPosition(m_pos);
     m_hitboxVisible = false;
     m_speed = 20;
 }
 
 Entity::Entity(Vector2f pos)
 {
-    m_acc = Vector2f(0, 0);
-    m_vel = Vector2f(0, 0);
-    m_pos = pos;
+    getCollider().m_acc = Vector2f(0, 0);
+    getCollider().m_vel = Vector2f(0, 0);
+    getCollider().setPosition(pos);
     m_sprite.setTexture(GET_TEXTURE(ENTITY_TEXTURE), true);
     m_sprite.setOrigin(getCenter(GET_TEXTURE(ENTITY_TEXTURE)));
     m_sprite.setColor(Color::White);
-    m_sprite.setPosition(m_pos);
+    m_sprite.setPosition(getCollider().getPosition());
+    m_sprite.setScale(0.5, 0.5);
     m_hitbox.setFillColor(Color(255, 0, 0, 100));
     m_hitbox.setSize(Vector2f(100, 100));
     m_hitbox.setOutlineThickness(1);
     m_hitbox.setOutlineColor(Color(255, 0, 0, 200));
     m_hitbox.setOrigin(getCenter(m_hitbox));
-    m_hitbox.setPosition(m_pos);
-    m_hitboxVisible = false;
+    setHitboxVisible(true);
     m_speed = 20;
 }
 
 Entity::Entity(Texture* texture, Vector2f scale)
 {
-    m_acc = Vector2f(0, 0);
-    m_vel = Vector2f(0, 0);
-    m_pos = Vector2f(480, 270);
+    getCollider().m_acc = Vector2f(0, 0);
+    getCollider().m_vel = Vector2f(0, 0);
+    getCollider().setPosition(480, 270);
     m_sprite.setColor(Color::White);
     m_sprite.setTexture(*texture, true);
     m_sprite.setOrigin(getCenter(*texture));
     m_sprite.setScale(scale);
-    m_sprite.setPosition(m_pos);
+    m_sprite.setPosition(getCollider().getPosition());
     m_hitbox.setScale(scale);
     m_hitbox.setFillColor(Color(255, 0, 0, 100));
     m_hitbox.setSize(Vector2f(100, 100));
     m_hitbox.setOutlineThickness(1);
     m_hitbox.setOutlineColor(Color(255, 0, 0, 200));
     m_hitbox.setOrigin(getCenter(m_hitbox));
-    m_hitbox.setPosition(m_pos);
     m_hitboxVisible = false;
     m_speed = 20;
 }
-
-void Entity::setPos(Vector2f pos) { m_pos = pos; }
 
 void Entity::setSpeed(float speed) { m_speed = speed; }
 
@@ -97,7 +93,7 @@ void Entity::setHitboxOffset(Vector2f offset)
 
 Sprite& Entity::getSprite() { return m_sprite; }
 
-RectangleShape& Entity::getHitbox() { return m_hitbox; }
+Collider& Entity::getCollider() { return m_hitbox; }
 
 void Entity::setHitboxVisible(bool visible)
 {
@@ -108,10 +104,7 @@ float Entity::getSpeed() const { return m_speed; }
 
 Vector2f Entity::getPosition()
 {
-    FloatRect bound = m_hitbox.getGlobalBounds();
-
-    return Vector2f(bound.left + (bound.width / 2.0),
-    bound.top + (bound.height / 2.0));
+    return getCollider().getPosition();
 }
 
 bool Entity::isHitboxVisible() const { return m_hitboxVisible; };
@@ -125,20 +118,15 @@ void Entity::draw(sf::RenderTarget &target)
 
 void Entity::reposition()
 {
-    //m_acc = vectUnit(m_acc);
-    m_acc *= Timer::getFrameDelta();
-    m_vel += vectMult(m_acc, 500.0);
-    m_pos += m_vel * Timer::getFrameDelta();
-    if (m_pos.y > SCREEN_SIZE.y - getSize().y) {
-        m_vel.y = 0;
-        m_pos.y = SCREEN_SIZE.y - getSize().y;
-    }
-    m_vel.x = damp(m_vel.x, 0.001f, Timer::getFrameDelta());
-    m_vel.y = damp(m_vel.y, 0.05f, Timer::getFrameDelta());
-    m_acc = Vector2f(0, 0);
-    m_acc.y += 2 * GRAVITY;
-    m_sprite.setPosition(m_pos);
-    m_hitbox.setPosition(m_pos);
+    getCollider().m_acc *= Timer::getFrameDelta();
+    getCollider().m_vel += vectMult(getCollider().m_acc, 500.0);
+    getCollider().move(getCollider().m_vel * Timer::getFrameDelta());
+    getCollider().m_vel.x = damp(getCollider().m_vel.x, 0.001f, Timer::getFrameDelta());
+    getCollider().m_vel.y = damp(getCollider().m_vel.y, 0.05f, Timer::getFrameDelta());
+    getCollider().m_acc = Vector2f(0, 0);
+    getCollider().m_acc.y += 2 * GRAVITY;
+    m_sprite.setPosition(getCollider().getPosition());
+    m_hitbox.setPosition(getCollider().getPosition());
 }
 
 void Entity::update()

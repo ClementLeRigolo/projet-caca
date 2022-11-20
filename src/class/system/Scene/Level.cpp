@@ -9,6 +9,8 @@ Level::Level()
 
     m_hasFocus = false;
 
+    m_obstacles.push_back(Obstacle(Vector2f(SCREEN_SIZE.x / 2, SCREEN_SIZE.y), Vector2f(2000, 100)));
+
     m_buttons.push_back(Button(Vector2f(250, 100), Vector2f(SCREEN_SIZE.x * 0.1,
     SCREEN_SIZE.y * 0.95), GET_TEXTURE(B_EXT_TEX), &buttonBackMainMenuFunc));
 
@@ -24,14 +26,31 @@ Level::Level()
 
 void Level::addEntity(Vector2f pos)
 {
-    m_entities.push_back(new Entity(pos));
+    m_entities.push_back(Entity(pos));
 }
 
 void Level::updateLogic(RenderWindow& window)
 {
-    Game::getInstance().getPlayer().update();
-    for (int i = 0; i < m_buttons.size(); i++)
+    Player& player = Game::getInstance().getPlayer();
+
+    player.update();
+
+    for (int i = 0; i < m_buttons.size(); i++) {
         m_buttons.at(i).update(getMousePosition(window));
+    }
+
+    for (int i = 0; i < m_entities.size(); i++) {
+        m_entities.at(i).update();
+        for (int j = 0; j < m_obstacles.size(); j++) {
+            m_obstacles.at(j).getCollider().checkCollision(m_entities.at(i).getCollider(), 1.0f);
+            m_entities.at(i).getSprite().setPosition(m_entities.at(i).getPosition());
+        }
+    }
+
+    for (int i = 0; i < m_obstacles.size(); i++) {
+        m_obstacles.at(i).getCollider().checkCollision(player.getCollider(), 1.0f);
+        player.getSprite().setPosition(player.getPosition());
+    }
 
     if (!hasFocus()) {
         m_fadeLayer.reset();
@@ -41,13 +60,20 @@ void Level::updateLogic(RenderWindow& window)
 
 void Level::display(RenderWindow& window)
 {
-    // Update player view and draw world
+    // Update player
     Player& player = Game::getInstance().getPlayer();
     player.viewFollow();
     window.setView(player.getView());
+
+    // Draw world
     window.draw(m_background);
+
     for (int i = 0; i < m_entities.size(); i++)
-        m_entities.at(i)->draw(window);
+        m_entities.at(i).draw(window);
+
+    for (int i = 0; i < m_obstacles.size(); i++)
+        window.draw(m_obstacles.at(i).getShape());
+
     player.draw(window);
 
     // Set view to static view and draw hud

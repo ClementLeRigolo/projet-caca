@@ -8,7 +8,7 @@ Player::Player()
     m_view.setCenter(Vector2f(SCREEN_SIZE.x / 2, SCREEN_SIZE.y / 2));
     setTexture(&GET_TEXTURE(ENTITY_TEXTURE));
     setScale(Vector2f(0.4, 0.4));
-    getHitbox().setOutlineThickness(2);
+    getCollider().setOutlineThickness(2);
     setHitboxSize(Vector2f(300, 400), true);
     setHitboxOffset(Vector2f(0, 0));
     setHitboxVisible(true);
@@ -28,16 +28,16 @@ float Player::getHealth() const { return m_health; }
 void Player::control()
 {
     if (Keyboard::isKeyPressed(Keyboard::Z))
-        m_acc.y += -getSpeed();
+        getCollider().m_acc.y += -getSpeed();
     if (Keyboard::isKeyPressed(Keyboard::S))
-        m_acc.y += getSpeed();
+        getCollider().m_acc.y += getSpeed();
     if (Keyboard::isKeyPressed(Keyboard::D))
-        m_acc.x += getSpeed();
+        getCollider().m_acc.x += getSpeed();
     if (Keyboard::isKeyPressed(Keyboard::Q))
-        m_acc.x += -getSpeed();
+        getCollider().m_acc.x += -getSpeed();
     if (Keyboard::isKeyPressed(Keyboard::Space) && !m_states.jumping) {
         m_states.jumping = true;
-        m_vel.y = -4000;
+        getCollider().m_vel.y = -4000;
     }
 }
 
@@ -55,7 +55,7 @@ void Player::viewFollow()
 
 void Player::updateStates()
 {
-    if (m_states.jumping && m_vel.y >= 0)
+    if (m_states.jumping && getCollider().m_vel.y >= 0)
         m_states.jumping = false;
 }
 

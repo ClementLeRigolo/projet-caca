@@ -2,16 +2,14 @@
 
 #include "libs.hpp"
 #include "class/Inventory.hpp"
+#include "class/Collider.hpp"
 
 class Entity {
     protected:
         bool m_hitboxVisible;
         Sprite m_sprite;
-        RectangleShape m_hitbox;
+        Collider m_hitbox;
         float m_speed;
-        Vector2f m_vel;
-        Vector2f m_pos;
-        Vector2f m_acc;
 
     public:
         Entity();
@@ -22,14 +20,13 @@ class Entity {
         bool isHitboxVisible() const;
         void setHitboxSize(Vector2f size, bool recenter);
         void setHitboxOffset(Vector2f offset);
-        void setPos(Vector2f pos);
         void setScale(Vector2f scale);
         void setSpeed(float speed);
         Vector2f getPosition();
         Vector2f getSize() const;
         float getSpeed() const;
         Sprite& getSprite();
-        RectangleShape& getHitbox();
+        Collider& getCollider();
         virtual void update();
         virtual void reposition();
         virtual void draw(sf::RenderTarget &target);
