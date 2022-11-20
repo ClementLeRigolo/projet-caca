@@ -17,6 +17,7 @@ enum TextureID
     SLIDER_IN,
     SLIDER_OUT,
     SLIDER_THINGY,
+    W_BRICK,
 };
 
 enum FontID

@@ -8,7 +8,7 @@ class Obstacle
     private:
         Collider m_shape;
     public:
-        Obstacle(Vector2f pos, Vector2f size);
+        Obstacle(Texture& texture, Vector2f pos, Vector2f size);
         RectangleShape& getShape();
         Collider& getCollider();
 };

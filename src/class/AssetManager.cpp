@@ -32,6 +32,8 @@ AssetManager::AssetManager()
     loadTexture(SLIDER_OUT, UI_PATH + "slider_out.png");
     loadTexture(SLIDER_THINGY, UI_PATH + "slider_thingy.png");
 
+    // walls
+    loadTexture(W_BRICK, WALL_PATH + "brick.png");
 
     // sound
     loadSound(CLICK_SOUND , AUDIO_PATH  + "ui/click.ogg");
@@ -47,6 +49,7 @@ void AssetManager::loadTexture(TextureID identifier, string filename)
     unique_ptr<Texture> texture(new Texture());
     texture.get()->loadFromFile(filename);
     texture.get()->setSmooth(true);
+    texture.get()->setRepeated(true);
     auto insert = m_textures.insert(make_pair(identifier, move(texture)));
     assert(insert.second);
 }

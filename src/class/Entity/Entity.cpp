@@ -27,7 +27,7 @@ Entity::Entity(Vector2f pos)
     m_sprite.setOrigin(getCenter(GET_TEXTURE(ENTITY_TEXTURE)));
     m_sprite.setColor(Color::White);
     m_sprite.setPosition(getCollider().getPosition());
-    m_sprite.setScale(0.5, 0.5);
+    m_sprite.setScale(0.3, 0.3);
     m_hitbox.setFillColor(Color(255, 0, 0, 100));
     m_hitbox.setSize(Vector2f(100, 100));
     m_hitbox.setOutlineThickness(1);
@@ -85,10 +85,10 @@ void Entity::setHitboxSize(Vector2f size, bool recenter)
     m_hitbox.setOrigin(m_hitbox.getSize().x / 2.0, m_hitbox.getSize().y / 2.0);
 }
 
-void Entity::setHitboxOffset(Vector2f offset)
+void Entity::setSpriteOffset(Vector2f offset)
 {
-    m_hitbox.setOrigin((m_hitbox.getSize().x / 2.0) + offset.x,
-    (m_hitbox.getSize().y / 2.0) + offset.y);
+    m_sprite.setOrigin((m_sprite.getGlobalBounds().width / 2.0) + offset.x,
+    (m_sprite.getGlobalBounds().height/ 2.0) + offset.y);
 }
 
 Sprite& Entity::getSprite() { return m_sprite; }

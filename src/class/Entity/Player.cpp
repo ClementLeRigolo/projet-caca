@@ -6,11 +6,11 @@ Player::Player()
 {
     m_view.setSize(SCREEN_SIZE);
     m_view.setCenter(Vector2f(SCREEN_SIZE.x / 2, SCREEN_SIZE.y / 2));
+    m_view.zoom(0.9);
     setTexture(&GET_TEXTURE(ENTITY_TEXTURE));
     setScale(Vector2f(0.4, 0.4));
     getCollider().setOutlineThickness(2);
     setHitboxSize(Vector2f(300, 400), true);
-    setHitboxOffset(Vector2f(0, 0));
     setHitboxVisible(true);
     setHealth(10);
     setSpeed(15);
@@ -46,7 +46,7 @@ View& Player::getView() { return m_view; }
 void Player::viewFollow()
 {
     Vector2f target = Player::getPosition();
-    target.y -= Player::getSize().y / 2.0;
+    target.y -= Player::getSize().y;
     Vector2f sign = Vector2f(1, 1);
     Vector2f diff = vectSub(target, m_view.getCenter());
     Vector2f pos = vectMult(diff, 9.0 * Timer::getFrameDelta());

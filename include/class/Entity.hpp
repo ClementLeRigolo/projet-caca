@@ -19,7 +19,7 @@ class Entity {
         void setHitboxVisible(bool visible);
         bool isHitboxVisible() const;
         void setHitboxSize(Vector2f size, bool recenter);
-        void setHitboxOffset(Vector2f offset);
+        void setSpriteOffset(Vector2f offset);
         void setScale(Vector2f scale);
         void setSpeed(float speed);
         Vector2f getPosition();
