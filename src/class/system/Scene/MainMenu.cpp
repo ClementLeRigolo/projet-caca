@@ -7,15 +7,15 @@
 
 MainMenu::MainMenu() {
     m_buttons.push_back(Button(Vector2f(300, 100), Vector2f(SCREEN_SIZE.x * 0.85,
-    SCREEN_SIZE.y * 0.4), GET_TEXTURE(B_CONTINUE_TEX), &buttonPlayGameFunc));
+    SCREEN_SIZE.y * 0.4), GET_TEXTURE(B_CONTINUE), &buttonPlayGameFunc));
     m_buttons.push_back(Button(Vector2f(300, 100), Vector2f(SCREEN_SIZE.x * 0.85,
-    SCREEN_SIZE.y * 0.5), GET_TEXTURE(B_NEW_GAME_TEX), &doNothingFunc));
+    SCREEN_SIZE.y * 0.5), GET_TEXTURE(B_NEW_GAME), &buttonGoToLevelEditor));
     m_buttons.push_back(Button(Vector2f(300, 100), Vector2f(SCREEN_SIZE.x * 0.85,
-    SCREEN_SIZE.y * 0.6), GET_TEXTURE(B_LOAD_GAME_TEX), &doNothingFunc));
+    SCREEN_SIZE.y * 0.6), GET_TEXTURE(B_LOAD_GAME), &doNothingFunc));
     m_buttons.push_back(Button(Vector2f(300, 100), Vector2f(SCREEN_SIZE.x * 0.85,
-    SCREEN_SIZE.y * 0.7), GET_TEXTURE(B_SETG_TEX), &buttonGoToSettingsFunc));
+    SCREEN_SIZE.y * 0.7), GET_TEXTURE(B_SETTINGS), &buttonGoToSettingsFunc));
     m_buttons.push_back(Button(Vector2f(300, 100), Vector2f(SCREEN_SIZE.x * 0.85,
-    SCREEN_SIZE.y * 0.8), GET_TEXTURE(B_EXT_TEX), &buttonExitGameFunc));
+    SCREEN_SIZE.y * 0.8), GET_TEXTURE(B_EXIT), &buttonExitGameFunc));
 
     for (int i = 0; i < 5; i++) {
         m_background.push_back(RectangleShape());

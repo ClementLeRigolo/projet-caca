@@ -11,6 +11,7 @@ Game::Game()
     addScene(MAIN_MENU, (unique_ptr<Scene>)(new MainMenu()));
     addScene(SETTINGS_MENU, (unique_ptr<Scene>)(new SettingsMenu()));
     addScene(LEVEL_1, (unique_ptr<Scene>)(new Level()));
+    addScene(LEVEL_EDITOR, (unique_ptr<Scene>)(new LevelEditor()));
 
     m_render = new Render();
     m_currentScene = &getScene(MAIN_MENU);

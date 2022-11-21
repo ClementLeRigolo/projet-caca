@@ -5,9 +5,9 @@
 
 SettingsMenu::SettingsMenu() {
     m_buttons.push_back(Button(Vector2f(300, 100), Vector2f(SCREEN_SIZE.x * 0.7,
-    SCREEN_SIZE.y * 0.9), GET_TEXTURE(B_APPLY_TEX), &doNothingFunc));
+    SCREEN_SIZE.y * 0.9), GET_TEXTURE(B_APPLY), &doNothingFunc));
     m_buttons.push_back(Button(Vector2f(300, 100), Vector2f(SCREEN_SIZE.x * 0.3,
-    SCREEN_SIZE.y * 0.9), GET_TEXTURE(B_BACK_TEX), &buttonBackMainMenuFunc));
+    SCREEN_SIZE.y * 0.9), GET_TEXTURE(B_BACK), &buttonBackMainMenuFunc));
 
     m_text.push_back(EText(Vector2f(SCREEN_SIZE.x * 0.5, SCREEN_SIZE.y * 0.06), "{ Audio }"));
     m_text.at(0).setCharacterSize(50);

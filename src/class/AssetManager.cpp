@@ -8,14 +8,19 @@ AssetManager::AssetManager()
     loadFont(DEBUG_FONT, DEBUG_FONT_PATH);
     loadFont(INGAME_FONT, GAME_FONT_PATH);
 
-    loadTexture(B_CONTINUE_TEX, UI_PATH + "continue.png");
-    loadTexture(B_LOAD_GAME_TEX,UI_PATH + "load_game.png");
-    loadTexture(B_NEW_GAME_TEX, UI_PATH + "new_game.png");
-    loadTexture(B_SETG_TEX, UI_PATH + "settings.png");
-    loadTexture(B_EXT_TEX, UI_PATH + "exit.png");
-    loadTexture(B_BACK_TEX, UI_PATH + "back.png");
-    loadTexture(B_APPLY_TEX, UI_PATH + "apply.png");
+    // buttons
+    loadTexture(B_CONTINUE, UI_PATH + "continue.png");
+    loadTexture(B_LOAD_GAME,UI_PATH + "load_game.png");
+    loadTexture(B_NEW_GAME, UI_PATH + "new_game.png");
+    loadTexture(B_SETTINGS, UI_PATH + "settings.png");
+    loadTexture(B_EXIT, UI_PATH + "exit.png");
+    loadTexture(B_BACK, UI_PATH + "back.png");
+    loadTexture(B_APPLY, UI_PATH + "apply.png");
     loadTexture(B_TICKBOX, UI_PATH + "tickbox.png");
+    loadTexture(B_MOVE, UI_PATH + "move.png");
+    loadTexture(B_SELECT, UI_PATH + "select.png");
+    loadTexture(B_RESIZE, UI_PATH + "resize.png");
+    loadTexture(B_ADD_EDITABLE, UI_PATH + "add_editable.png");
 
     // entities
     loadTexture(ENTITY_TEXTURE, "asset/texture/entity/entity.png");
@@ -34,6 +39,9 @@ AssetManager::AssetManager()
 
     // walls
     loadTexture(W_BRICK, WALL_PATH + "brick.png");
+
+    // Editor
+    loadTexture(E_RESIZE_HINT, UI_PATH + "resize_hint.png");
 
     // sound
     loadSound(CLICK_SOUND , AUDIO_PATH  + "ui/click.ogg");

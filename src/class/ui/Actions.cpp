@@ -26,6 +26,11 @@ void buttonGoToSettingsFunc()
     Game::getInstance().setCurrentScene(&Game::getInstance().getScene(SETTINGS_MENU));
 }
 
+void buttonGoToLevelEditor()
+{
+    Game::getInstance().setCurrentScene(&Game::getInstance().getScene(LEVEL_EDITOR));
+}
+
 void buttonPlayGameFunc()
 {
     Game::getInstance().setCurrentScene(&Game::getInstance().getScene(LEVEL_1));
@@ -34,4 +39,32 @@ void buttonPlayGameFunc()
 void toggleVsyncFunc(bool toggle)
 {
     Game::getInstance().getRender()->setVsyncEnabled(toggle);
+}
+
+void buttonLevelEditorMoveMode()
+{
+    LevelEditor* level = (LevelEditor*)Game::getInstance().getCurrentScene();
+
+    level->setEditMode(EditMode::MOVE);
+}
+
+void buttonLevelEditorSelectMode()
+{
+    LevelEditor* level = (LevelEditor*)Game::getInstance().getCurrentScene();
+
+    level->setEditMode(EditMode::SELECT);
+}
+
+void buttonLevelEditorResizeMode()
+{
+    LevelEditor* level = (LevelEditor*)Game::getInstance().getCurrentScene();
+
+    level->setEditMode(EditMode::RESIZE);
+}
+
+void buttonLevelEditorPlaceMode()
+{
+    LevelEditor* level = (LevelEditor*)Game::getInstance().getCurrentScene();
+
+    level->setEditMode(EditMode::PLACE);
 }

@@ -7,6 +7,8 @@
 #include "class/Entity.hpp"
 #include "class/graphic/FadeLayer.hpp"
 #include "class/world/Obstacle.hpp"
+#include "class/EditableShape.hpp"
+#include "enum/Editor.hpp"
 
 class Scene
 {
@@ -69,14 +71,37 @@ class SettingsMenu : public Scene
 
 class Level : public Scene
 {
-    private:
+    protected:
         Text m_levelTitle;
         vector<Entity> m_entities;
         vector<Obstacle> m_obstacles;
 
     public:
         Level();
+        virtual void addEntity(Vector2f pos);
+        virtual void updateLogic(RenderWindow& window);
+        virtual void display(RenderWindow& window);
+};
+
+class LevelEditor : public Scene
+{
+    private:
+        float m_zoomFactor;
+        View m_cameraView;
+        EditableShape* m_selectedShape;
+        vector<EditableShape> m_obstacles;
+        int m_selectedShapeIndex;
+        bool m_hoveringShape;
+        unsigned int m_mode;
+        void cameraController(RenderWindow& window);
+
+    public:
+        LevelEditor();
+        View& getCamera();
+        void setEditMode(EditMode::ID mode);
+        void pollEvents(RenderWindow& window);
         void addEntity(Vector2f pos);
         void updateLogic(RenderWindow& window);
+        void addObstacle(Vector2f pos);
         void display(RenderWindow& window);
 };

@@ -28,6 +28,11 @@ void buttonExitGameFunc();
 void buttonPlayGameFunc();
 void buttonBackMainMenuFunc();
 void toggleVsyncFunc(bool toggle);
+void buttonGoToLevelEditor();
+void buttonLevelEditorMoveMode();
+void buttonLevelEditorSelectMode();
+void buttonLevelEditorResizeMode();
+void buttonLevelEditorPlaceMode();
 
 // Easing functions
 double lerp(double a, double b, double t);

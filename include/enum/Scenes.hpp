@@ -4,4 +4,5 @@ enum SceneID
     MAIN_MENU,
     SETTINGS_MENU,
     LEVEL_1,
+    LEVEL_EDITOR,
 };

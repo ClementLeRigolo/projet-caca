@@ -9,10 +9,10 @@ Level::Level()
 
     m_hasFocus = false;
 
-    m_obstacles.push_back(Obstacle(GET_TEXTURE(W_BRICK), Vector2f(SCREEN_SIZE.x / 2, SCREEN_SIZE.y), Vector2f(6000, 800)));
+    m_obstacles.push_back(Obstacle(&GET_TEXTURE(W_BRICK), Vector2f(SCREEN_SIZE.x / 2, SCREEN_SIZE.y), Vector2f(6000, 800)));
 
     m_buttons.push_back(Button(Vector2f(250, 100), Vector2f(SCREEN_SIZE.x * 0.1,
-    SCREEN_SIZE.y * 0.95), GET_TEXTURE(B_EXT_TEX), &buttonBackMainMenuFunc));
+    SCREEN_SIZE.y * 0.95), GET_TEXTURE(B_EXIT), &buttonBackMainMenuFunc));
 
     m_levelTitle.setFont(GET_FONT(INGAME_FONT));
     m_levelTitle.setCharacterSize(100);
