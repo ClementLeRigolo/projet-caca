@@ -39,6 +39,24 @@ View& LevelEditor::getCamera()
     return m_cameraView;
 }
 
+void LevelEditor::saveLevel(const char *path, String saveName)
+{
+    if (!std::filesystem::exists(path))
+        std::filesystem::create_directory(path);
+    ofstream saveFile(path + saveName + ".save");
+
+    for (int i = 0; i < m_obstacles.size(); i++) {
+        saveFile << "#obstacle {" << endl;
+        saveFile << ("   position = (" + to_string((int)m_obstacles.at(i).getPosition().x) +\
+        ", " + to_string((int)m_obstacles.at(i).getPosition().y) + ")") << endl;
+        saveFile << ("   size = (" + to_string((int)m_obstacles.at(i).getSize().x) + ", " +\
+        to_string((int)m_obstacles.at(i).getSize().y) + ")") << endl;
+        saveFile << "}" << endl;
+    }
+
+    saveFile.close();
+}
+
 void LevelEditor::setEditMode(EditMode::ID mode)
 {
     m_mode = mode;
@@ -46,7 +64,7 @@ void LevelEditor::setEditMode(EditMode::ID mode)
 
 void LevelEditor::addObstacle(Vector2f pos)
 {
-    m_obstacles.push_back(EditableShape(&GET_TEXTURE(W_BRICK), pos, Vector2f(100, 100)));
+    m_obstacles.push_back(EditableShape(&GET_TEXTURE(W_BRICK), pos, Vector2f(GET_TEXTURE(W_BRICK).getSize())));
 }
 
 void LevelEditor::cameraController(RenderWindow& window)
@@ -90,6 +108,11 @@ void LevelEditor::pollEvents(RenderWindow& window)
                 addObstacle(Vector2f(getMousePosition(window)));
                 m_selectedShape = &m_obstacles.at(m_obstacles.size() - 1);
             }
+            break;
+        case Event::KeyPressed:
+            if (event.key.code == Keyboard::K)
+                saveLevel("saves/", "new_save");
+            break;
     }
 }
 
@@ -105,37 +128,38 @@ void LevelEditor::updateLogic(RenderWindow& window)
     cameraController(window);
     window.setView(m_cameraView);
 
-    for (int i = 0; i < m_obstacles.size(); i++) {
-        if (DoMouseIntersect(getMousePosition(window), m_obstacles.at(i).getGlobalBounds()) && m_mode == EditMode::SELECT) {
-            m_hoveringShape = true;
-            m_obstacles.at(i).setFillColor(smoothColor(Color::White, Color::Green, 0.5));
-            if (Mouse::isButtonPressed(Mouse::Left)) {
-                m_selectedShape = &m_obstacles.at(i);
-                m_selectedShapeIndex = i;
-                m_obstacles.at(i).setFillColor(smoothColor(Color::White, Color::Blue, 0.5));
+    if (!m_hoveringShape) {
+        for (int i = 0; i < m_obstacles.size(); i++) {
+            if (DoMouseIntersect(getMousePosition(window), m_obstacles.at(i).getGlobalBounds()) && m_mode == EditMode::SELECT) {
+                m_obstacles.at(i).setFillColor(smoothColor(Color::White, Color::Green, 0.5));
+                if (Mouse::isButtonPressed(Mouse::Left)) {
+                    m_selectedShape = &m_obstacles.at(i);
+                    m_selectedShapeIndex = i;
+                    m_obstacles.at(i).setFillColor(smoothColor(Color::White, Color::Blue, 0.5));
+                }
+            } else {
+                m_obstacles.at(i).setFillColor(Color::White);
+                m_obstacles.at(i).setResizableHintVisible(false);
             }
-        } else {
-            m_obstacles.at(i).setFillColor(Color::White);
-            m_obstacles.at(i).setResizableHintVisible(false);
         }
-    }
-    if (m_selectedShape != NULL) {
-        m_selectedShape->setFillColor(smoothColor(Color::White, Color::Blue, 0.5));
-
-        if (m_mode == EditMode::MOVE) {
-            m_selectedShape->dragMove(window);
-        }
-
-        if (m_mode == EditMode::RESIZE) {
-            m_selectedShape->resizeHintReposition(m_zoomFactor);
-            m_selectedShape->setResizableHintVisible(true);
-            m_selectedShape->dragResize(window);
-        } else
-            m_selectedShape->setResizableHintVisible(false);
-
-        if (Keyboard::isKeyPressed(Keyboard::Delete)) {
-            m_obstacles.erase(m_obstacles.begin() + m_selectedShapeIndex);
-            m_selectedShape = NULL;
+        if (m_selectedShape != NULL) {
+            m_selectedShape->setFillColor(smoothColor(Color::White, Color::Blue, 0.5));
+    
+            if (m_mode == EditMode::MOVE) {
+                m_selectedShape->dragMove(window);
+            }
+    
+            if (m_mode == EditMode::RESIZE) {
+                m_selectedShape->resizeHintReposition(m_zoomFactor);
+                m_selectedShape->setResizableHintVisible(true);
+                m_selectedShape->dragResize(window);
+            } else
+                m_selectedShape->setResizableHintVisible(false);
+    
+            if (Keyboard::isKeyPressed(Keyboard::Delete)) {
+                m_obstacles.erase(m_obstacles.begin() + m_selectedShapeIndex);
+                m_selectedShape = NULL;
+            }
         }
     }
 

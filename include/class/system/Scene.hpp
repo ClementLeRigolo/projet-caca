@@ -93,7 +93,10 @@ class LevelEditor : public Scene
         int m_selectedShapeIndex;
         bool m_hoveringShape;
         unsigned int m_mode;
+
+    private:
         void cameraController(RenderWindow& window);
+        void saveLevel(const char *path, String saveName);
 
     public:
         LevelEditor();
