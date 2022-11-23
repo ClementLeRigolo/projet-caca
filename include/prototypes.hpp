@@ -33,6 +33,10 @@ void buttonLevelEditorMoveMode();
 void buttonLevelEditorSelectMode();
 void buttonLevelEditorResizeMode();
 void buttonLevelEditorPlaceMode();
+void buttonShowLevelEditorSave();
+void buttonHideLevelEditorSave();
+void buttonApplyLevelEditorSave();
+
 
 // Easing functions
 double lerp(double a, double b, double t);

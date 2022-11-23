@@ -17,10 +17,6 @@ AssetManager::AssetManager()
     loadTexture(B_BACK, UI_PATH + "back.png");
     loadTexture(B_APPLY, UI_PATH + "apply.png");
     loadTexture(B_TICKBOX, UI_PATH + "tickbox.png");
-    loadTexture(B_MOVE, UI_PATH + "move.png");
-    loadTexture(B_SELECT, UI_PATH + "select.png");
-    loadTexture(B_RESIZE, UI_PATH + "resize.png");
-    loadTexture(B_ADD_EDITABLE, UI_PATH + "add_editable.png");
 
     // entities
     loadTexture(ENTITY_TEXTURE, "asset/texture/entity/entity.png");
@@ -42,6 +38,14 @@ AssetManager::AssetManager()
 
     // Editor
     loadTexture(E_RESIZE_HINT, UI_PATH + "resize_hint.png");
+    loadTexture(E_SAVE_GUI, UI_PATH + "saveGUI.png");
+    loadTexture(B_SAVE, UI_PATH + "save.png");
+    loadTexture(B_MOVE, UI_PATH + "move.png");
+    loadTexture(B_SELECT, UI_PATH + "select.png");
+    loadTexture(B_RESIZE, UI_PATH + "resize.png");
+    loadTexture(B_LOAD, UI_PATH + "load.png");
+    loadTexture(B_ADD_EDITABLE, UI_PATH + "add_editable.png");
+
 
     // sound
     loadSound(CLICK_SOUND , AUDIO_PATH  + "ui/click.ogg");

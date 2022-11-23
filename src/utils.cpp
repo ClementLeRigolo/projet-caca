@@ -158,3 +158,22 @@ float getMax(float a, float b)
         return b;
     return a;
 }
+
+void updateTextInputBox(Event& event, EText& inputBox)
+{
+    if (event.type == Event::TextEntered &&
+        event.key.code != 8 &&
+        !Keyboard::isKeyPressed(Keyboard::Enter)) {
+        if (event.text.unicode < 128) {
+            inputBox.setString(inputBox.getString() + event.text.unicode);
+        }
+    }
+
+    if (event.type == Event::TextEntered &&
+        event.key.code == 8) {
+        std::string str = inputBox.getString();
+        if (str.size() > 0)
+            str.pop_back();
+        inputBox.setString(str);
+    }
+}

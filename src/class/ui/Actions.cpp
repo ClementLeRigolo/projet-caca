@@ -68,3 +68,25 @@ void buttonLevelEditorPlaceMode()
 
     level->setEditMode(EditMode::PLACE);
 }
+
+void buttonShowLevelEditorSave()
+{
+    LevelEditor* level = (LevelEditor*)Game::getInstance().getCurrentScene();
+
+    level->toggleSaveGUI(true);
+}
+
+void buttonHideLevelEditorSave()
+{
+    LevelEditor* level = (LevelEditor*)Game::getInstance().getCurrentScene();
+
+    level->toggleSaveGUI(false);
+}
+
+void buttonApplyLevelEditorSave()
+{
+    LevelEditor* level = (LevelEditor*)Game::getInstance().getCurrentScene();
+
+    level->setSaving(true);
+    level->toggleSaveGUI(false);
+}

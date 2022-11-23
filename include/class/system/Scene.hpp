@@ -90,17 +90,28 @@ class LevelEditor : public Scene
         View m_cameraView;
         EditableShape* m_selectedShape;
         vector<EditableShape> m_obstacles;
+        RectangleShape m_saveGUIShape;
+        Button m_saveApllyButton;
+        Button m_saveCancelButton;
+        EText m_saveHintText;
+        EText m_saveText;
         int m_selectedShapeIndex;
         bool m_hoveringShape;
+        bool m_saving;
         unsigned int m_mode;
+        bool m_saveGUIopen;
 
     private:
+        void updateEditables(RenderWindow& window);
+        void updateButtons(RenderWindow& window);
         void cameraController(RenderWindow& window);
         void saveLevel(const char *path, String saveName);
 
     public:
         LevelEditor();
         View& getCamera();
+        void setSaving(bool toggle);
+        void toggleSaveGUI(bool toggle);
         void setEditMode(EditMode::ID mode);
         void pollEvents(RenderWindow& window);
         void addEntity(Vector2f pos);

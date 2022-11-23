@@ -92,31 +92,6 @@ void SettingsMenu::updateLogic(RenderWindow& window)
         m_fadeLayer.fade(0.02, Color::Transparent);
 }
 
-// Unused, keeping for later
-static void updateTextInputBox(Event& event, Text& inputBox)
-{
-    if (event.type == Event::TextEntered &&
-        event.key.code != 8 &&
-        !Keyboard::isKeyPressed(Keyboard::Enter)) {
-        if (event.text.unicode < 128)
-            inputBox.setString(inputBox.getString() + event.text.unicode);
-    }
-
-    if (event.type == Event::TextEntered &&
-        event.key.code == 8) {
-        std::string str = inputBox.getString();
-        if (str.size() > 0)
-            str.pop_back();
-        inputBox.setString(str);
-    }
-
-    if (event.type == Event::TextEntered && Keyboard::isKeyPressed(Keyboard::Enter)) {
-        std::string str = inputBox.getString();
-        str += "\n";
-        inputBox.setString(str);
-    }
-}
-
 void SettingsMenu::pollEvents(RenderWindow& window)
 {
     Event event = Game::getInstance().getEvent();
