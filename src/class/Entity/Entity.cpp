@@ -1,6 +1,6 @@
 #include "class/Entity.hpp"
 #include "class/system/Timer.hpp"
-#include "class/AssetManager.hpp"
+#include "class/Game.hpp"
 
 Entity::Entity()
 {

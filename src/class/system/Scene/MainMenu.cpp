@@ -1,5 +1,5 @@
 #include "class/system/Scene.hpp"
-#include "class/AssetManager.hpp"
+#include "class/Game.hpp"
 #include "class/system/Timer.hpp"
 #include "class/Game.hpp"
 #include "class/system/Logger.hpp"

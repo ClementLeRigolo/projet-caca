@@ -1,5 +1,5 @@
 #include "class/EditableShape.hpp"
-#include "class/AssetManager.hpp"
+#include "class/Game.hpp"
 
 EditableShape::EditableShape(Texture* texture, Vector2f pos, Vector2f size)
 {

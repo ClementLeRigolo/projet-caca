@@ -4,11 +4,17 @@
 #include "class/system/Scene.hpp"
 #include "class/Entity.hpp"
 #include "enum/Scenes.hpp"
+#include "class/AssetManager.hpp"
+
+#define GET_TEXTURE(TextureID) Game::getInstance().getAssetManager().getTexture(TextureID)
+#define GET_SOUND(SoundID) Game::getInstance().getAssetManager().getSound(SoundID)
+#define GET_FONT(FontID) Game::getInstance().getAssetManager().getFont(FontID)
 
 class Game
 {
     private:
         Game();
+        AssetManager m_assetManager;
         static Game s_instance;
         Render* m_render;
         Scene* m_currentScene;
@@ -22,6 +28,7 @@ class Game
     public:
         void addScene(SceneID identifier, unique_ptr<Scene> scene);
         Scene& getScene(SceneID identifier);
+        AssetManager& getAssetManager();
         static Game& getInstance();
         bool isRunning() const;
         Scene* getCurrentScene();
@@ -36,3 +43,4 @@ class Game
         void render();
         void Initialize();
 };
+

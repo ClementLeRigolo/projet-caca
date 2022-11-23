@@ -1,6 +1,6 @@
 #include "libs.hpp"
 #include "class/Game.hpp"
-#include "class/AssetManager.hpp"
+#include "class/Game.hpp"
 #include "class/world/Obstacle.hpp"
 
 int main()

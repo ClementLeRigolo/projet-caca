@@ -1,5 +1,5 @@
 #include "class/ui/EText.hpp"
-#include "class/AssetManager.hpp"
+#include "class/Game.hpp"
 
 EText::EText()
 {

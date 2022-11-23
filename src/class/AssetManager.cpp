@@ -1,9 +1,10 @@
-#include "class/AssetManager.hpp"
+#include "class/Game.hpp"
 
 // Loader
 
 AssetManager::AssetManager()
 {
+    cout << "loading assets" << endl;
     //fonts
     loadFont(DEBUG_FONT, DEBUG_FONT_PATH);
     loadFont(INGAME_FONT, GAME_FONT_PATH);
@@ -51,10 +52,6 @@ AssetManager::AssetManager()
     loadSound(CLICK_SOUND , AUDIO_PATH  + "ui/click.ogg");
     loadSound(HOVER_SOUND , AUDIO_PATH  + "ui/hover.ogg");
 }
-
-AssetManager AssetManager::s_instance;
-
-AssetManager& AssetManager::getInstance() { return s_instance; }
 
 void AssetManager::loadTexture(TextureID identifier, string filename)
 {

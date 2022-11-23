@@ -1,9 +1,10 @@
 #include "class/Entity.hpp"
-#include "class/AssetManager.hpp"
+#include "class/Game.hpp"
 #include "class/system/Timer.hpp"
 
 Player::Player()
 {
+    cout << "loading player" << endl;
     m_view.setSize(SCREEN_SIZE);
     m_view.setCenter(Vector2f(SCREEN_SIZE.x / 2, SCREEN_SIZE.y / 2));
     m_view.zoom(0.9);

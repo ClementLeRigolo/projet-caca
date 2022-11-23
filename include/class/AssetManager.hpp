@@ -6,14 +6,12 @@
 class AssetManager
 {
     private:
-        AssetManager();
-        static AssetManager s_instance;
         map<TextureID, unique_ptr<Texture>> m_textures;
         map<SoundID, unique_ptr<SoundBuffer>> m_sounds;
         map<FontID, unique_ptr<Font>> m_fonts;
 
     public:
-        static AssetManager& getInstance();
+        AssetManager();
         void loadTexture(TextureID identifier, string filename);
         Texture& getTexture(TextureID identifier);
 
@@ -22,5 +20,4 @@ class AssetManager
 
         void loadFont(FontID identifier, string filename);
         Font& getFont(FontID identifier);
-
 };

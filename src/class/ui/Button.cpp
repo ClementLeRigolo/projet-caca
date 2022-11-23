@@ -1,6 +1,6 @@
 #include "class/ui/Button.hpp"
 #include "class/Game.hpp"
-#include "class/AssetManager.hpp"
+#include "class/Game.hpp"
 #include "class/system/Logger.hpp"
 #include "class/system/Settings.hpp"
 #include "prototypes.hpp"

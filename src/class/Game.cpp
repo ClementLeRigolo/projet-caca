@@ -6,6 +6,7 @@
 Game::Game()
 {
     Timer::start();
+    m_assetManager = AssetManager();
 
     addScene(INTRO_CREDITS, (unique_ptr<Scene>)(new MainMenu()));
     addScene(MAIN_MENU, (unique_ptr<Scene>)(new MainMenu()));
@@ -26,6 +27,11 @@ void Game::Initialize()
     getCurrentScene()->setMusic(m_music);
     if (getCurrentScene()->getMusic())
         getCurrentScene()->getMusic()->play();
+}
+
+AssetManager& Game::getAssetManager()
+{
+    return m_assetManager;
 }
 
 void Game::addScene(SceneID identifier, unique_ptr<Scene> scene)
