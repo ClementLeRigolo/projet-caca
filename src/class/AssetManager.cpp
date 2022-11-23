@@ -4,7 +4,6 @@
 
 AssetManager::AssetManager()
 {
-    cout << "loading assets" << endl;
     //fonts
     loadFont(DEBUG_FONT, DEBUG_FONT_PATH);
     loadFont(INGAME_FONT, GAME_FONT_PATH);

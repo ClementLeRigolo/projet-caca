@@ -42,7 +42,6 @@ LevelEditor::LevelEditor()
     m_buttons.push_back(Button(Vector2f(250, 100), Vector2f(SCREEN_SIZE.x * 0.1,
     SCREEN_SIZE.y * 0.95), GET_TEXTURE(B_EXIT), &buttonBackMainMenuFunc));
 
-
     m_buttons.push_back(Button(Vector2f(64, 64), Vector2f(SCREEN_SIZE.x * 0.7,
     SCREEN_SIZE.y * 0.1), GET_TEXTURE(B_MOVE), &buttonLevelEditorMoveMode));
 
@@ -79,8 +78,8 @@ View& LevelEditor::getCamera()
 
 void LevelEditor::saveLevel(const char *path, String saveName)
 {
-    if (!std::filesystem::exists(path))
-        std::filesystem::create_directory(path);
+    if (!filesystem::exists(path))
+        filesystem::create_directory(path);
     ofstream saveFile(path + saveName + ".save");
 
     for (int i = 0; i < m_obstacles.size(); i++) {
@@ -155,10 +154,6 @@ void LevelEditor::pollEvents(RenderWindow& window)
                 addObstacle(Vector2f(getMousePosition(window)));
                 m_selectedShape = &m_obstacles.at(m_obstacles.size() - 1);
             }
-            break;
-        case Event::KeyPressed:
-            if (event.key.code == Keyboard::K)
-                saveLevel("saves/", "new_save");
             break;
     }
 }

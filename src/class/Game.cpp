@@ -6,7 +6,6 @@
 Game::Game()
 {
     Timer::start();
-    m_assetManager = AssetManager();
 
     addScene(INTRO_CREDITS, (unique_ptr<Scene>)(new MainMenu()));
     addScene(MAIN_MENU, (unique_ptr<Scene>)(new MainMenu()));
@@ -16,7 +15,6 @@ Game::Game()
 
     m_render = new Render();
     m_currentScene = &getScene(MAIN_MENU);
-    m_player = Player();
 }
 
 void Game::Initialize()

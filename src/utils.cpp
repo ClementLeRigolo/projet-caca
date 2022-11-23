@@ -168,7 +168,6 @@ void updateTextInputBox(Event& event, EText& inputBox)
             inputBox.setString(inputBox.getString() + event.text.unicode);
         }
     }
-
     if (event.type == Event::TextEntered &&
         event.key.code == 8) {
         std::string str = inputBox.getString();

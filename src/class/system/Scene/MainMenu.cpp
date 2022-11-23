@@ -67,7 +67,7 @@ void MainMenu::updateLogic(RenderWindow& window)
 void MainMenu::display(RenderWindow& window)
 {
     window.setView(m_view);
-    for (int i = 0; i < m_background.size() - 1; i++)
+    for (int i = 0; i < m_background.size(); i++)
         window.draw(m_background.at(i));
     for (int i = 0; i < m_buttons.size(); i++)
         window.draw(m_buttons.at(i).getShape());
