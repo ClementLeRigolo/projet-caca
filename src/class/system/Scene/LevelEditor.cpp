@@ -92,12 +92,8 @@ bool LevelEditor::loadLevel(const char* path, String levelName)
     bool parsed = false;
 
     parsed = reader.parse(content, root, false);
-
     auto entriesArray = root["obstacles"];
-
-
     m_obstacles.clear();
-
     for (int i = 0; i < entriesArray.size(); i++) {
         auto elem = entriesArray[i];
         pos.x = elem["position"]["x"].asInt();

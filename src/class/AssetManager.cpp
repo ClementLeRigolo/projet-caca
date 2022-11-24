@@ -9,42 +9,48 @@ AssetManager::AssetManager()
     loadFont(INGAME_FONT, GAME_FONT_PATH);
 
     // buttons
-    loadTexture(B_CONTINUE, UI_PATH + "continue.png");
-    loadTexture(B_LOAD_GAME,UI_PATH + "load_game.png");
-    loadTexture(B_NEW_GAME, UI_PATH + "new_game.png");
-    loadTexture(B_SETTINGS, UI_PATH + "settings.png");
-    loadTexture(B_EXIT, UI_PATH + "exit.png");
-    loadTexture(B_BACK, UI_PATH + "back.png");
-    loadTexture(B_APPLY, UI_PATH + "apply.png");
-    loadTexture(B_TICKBOX, UI_PATH + "tickbox.png");
+    loadTexture(B_CONTINUE, UI_PATH + "continue.png", true);
+    loadTexture(B_LOAD_GAME,UI_PATH + "load_game.png", true);
+    loadTexture(B_NEW_GAME, UI_PATH + "new_game.png", true);
+    loadTexture(B_SETTINGS, UI_PATH + "settings.png", true);
+    loadTexture(B_EXIT, UI_PATH + "exit.png", true);
+    loadTexture(B_BACK, UI_PATH + "back.png", true);
+    loadTexture(B_APPLY, UI_PATH + "apply.png", true);
+    loadTexture(B_TICKBOX, UI_PATH + "tickbox.png", true);
 
     // entities
-    loadTexture(ENTITY_TEXTURE, "asset/texture/entity/entity.png");
+    loadTexture(ENTITY_TEXTURE, "asset/texture/entity/entity.png", true);
 
     // background
-    loadTexture(MM_BG1, BCKGRD_PATH + "background_no_char.jpg");
-    loadTexture(MM_BG2, BCKGRD_PATH + "char.png");
-    loadTexture(MM_BG3, BCKGRD_PATH + "embers.png");
-    loadTexture(MM_BG4, BCKGRD_PATH + "smoke.png");
-    loadTexture(MM_BG5, BCKGRD_PATH + "title.png");
+    loadTexture(MM_BG1, BCKGRD_PATH + "background_no_char.jpg", true);
+    loadTexture(MM_BG2, BCKGRD_PATH + "char.png", true);
+    loadTexture(MM_BG3, BCKGRD_PATH + "embers.png", true);
+    loadTexture(MM_BG4, BCKGRD_PATH + "smoke.png", true);
+    loadTexture(MM_BG5, BCKGRD_PATH + "title.png", true);
 
     // slider
-    loadTexture(SLIDER_IN, UI_PATH + "slider_in.png");
-    loadTexture(SLIDER_OUT, UI_PATH + "slider_out.png");
-    loadTexture(SLIDER_THINGY, UI_PATH + "slider_thingy.png");
+    loadTexture(SLIDER_IN, UI_PATH + "slider_in.png", true);
+    loadTexture(SLIDER_OUT, UI_PATH + "slider_out.png", true);
+    loadTexture(SLIDER_THINGY, UI_PATH + "slider_thingy.png", true);
 
     // walls
-    loadTexture(W_BRICK, WALL_PATH + "brick.png");
+    loadTexture(W_BRICK, WALL_PATH + "brick.png", false);
 
     // Editor
-    loadTexture(E_RESIZE_HINT, UI_PATH + "resize_hint.png");
-    loadTexture(E_SAVE_GUI, UI_PATH + "saveGUI.png");
-    loadTexture(B_SAVE, UI_PATH + "save.png");
-    loadTexture(B_MOVE, UI_PATH + "move.png");
-    loadTexture(B_SELECT, UI_PATH + "select.png");
-    loadTexture(B_RESIZE, UI_PATH + "resize.png");
-    loadTexture(B_LOAD, UI_PATH + "load.png");
-    loadTexture(B_ADD_EDITABLE, UI_PATH + "add_editable.png");
+    loadTexture(E_RESIZE_HINT, UI_PATH + "resize_hint.png", true);
+    loadTexture(E_SAVE_GUI, UI_PATH + "saveGUI.png", true);
+    loadTexture(B_SAVE, UI_PATH + "save.png", true);
+    loadTexture(B_MOVE, UI_PATH + "move.png", true);
+    loadTexture(B_SELECT, UI_PATH + "select.png", true);
+    loadTexture(B_RESIZE, UI_PATH + "resize.png", true);
+    loadTexture(B_LOAD, UI_PATH + "load.png", true);
+    loadTexture(B_ADD_EDITABLE, UI_PATH + "add_editable.png", true);
+
+    // Player
+    loadTexture(P_IDLE, PLAYER_PATH + "idle.png", false);
+    loadTexture(P_RUN, PLAYER_PATH + "run.png", false);
+    loadTexture(P_JUMP, PLAYER_PATH + "jump.png", false);
+    loadTexture(P_FALL, PLAYER_PATH + "fall.png", false);
 
 
     // sound
@@ -52,11 +58,11 @@ AssetManager::AssetManager()
     loadSound(HOVER_SOUND , AUDIO_PATH  + "ui/hover.ogg");
 }
 
-void AssetManager::loadTexture(TextureID identifier, string filename)
+void AssetManager::loadTexture(TextureID identifier, string filename, bool smooth)
 {
     unique_ptr<Texture> texture(new Texture());
     texture.get()->loadFromFile(filename);
-    texture.get()->setSmooth(true);
+    texture.get()->setSmooth(smooth);
     texture.get()->setRepeated(true);
     auto insert = m_textures.insert(make_pair(identifier, move(texture)));
     assert(insert.second);

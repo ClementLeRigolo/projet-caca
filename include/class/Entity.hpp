@@ -3,12 +3,13 @@
 #include "libs.hpp"
 #include "class/Inventory.hpp"
 #include "class/Collider.hpp"
+#include "class/AnimSprite.hpp"
 
 class Entity
 {
     protected:
         bool m_hitboxVisible;
-        Sprite m_sprite;
+        AnimSprite m_sprite;
         Collider m_hitbox;
         float m_speed;
 
@@ -26,8 +27,8 @@ class Entity
         Vector2f getPosition();
         Vector2f getSize() const;
         float getSpeed() const;
-        Sprite& getSprite();
         Collider& getCollider();
+        AnimSprite& getSprite();
         virtual void update();
         virtual void reposition();
         virtual void draw(sf::RenderTarget &target);
@@ -43,7 +44,15 @@ class Player : public Entity
             bool falling;
             bool jumping;
             bool running;
+            bool canJump;
         } states_t;
+        enum PlayerTexture {
+            IDLE,
+            RUN,
+            JUMP,
+            FALL,
+        };
+        PlayerTexture m_currentTexture;
         View m_view;
         states_t m_states;
 
@@ -51,7 +60,8 @@ class Player : public Entity
         Player();
         void control();
         void update();
-        void updateStates();
+        void updateStates(CollisionInfo info);
+        void updateTexture();
         void setHealth(float health);
         void viewFollow();
         View& getView();

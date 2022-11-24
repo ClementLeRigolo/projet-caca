@@ -12,7 +12,7 @@ class AssetManager
 
     public:
         AssetManager();
-        void loadTexture(TextureID identifier, string filename);
+        void loadTexture(TextureID identifier, string filename, bool smooth);
         Texture& getTexture(TextureID identifier);
 
         void loadSound(SoundID identifier, string filename);

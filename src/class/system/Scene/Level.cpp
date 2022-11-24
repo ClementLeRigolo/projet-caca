@@ -81,7 +81,8 @@ void Level::updateLogic(RenderWindow& window)
     }
 
     for (int i = 0; i < m_obstacles.size(); i++) {
-        m_obstacles.at(i).getCollider().checkCollision(player.getCollider(), 1.0f);
+        CollisionInfo info = m_obstacles.at(i).getCollider().checkCollision(player.getCollider(), 1.0f);
+        player.updateStates(info);
         player.getSprite().setPosition(player.getPosition());
     }
 

@@ -91,7 +91,7 @@ void Entity::setSpriteOffset(Vector2f offset)
     (m_sprite.getGlobalBounds().height/ 2.0) + offset.y);
 }
 
-Sprite& Entity::getSprite() { return m_sprite; }
+AnimSprite& Entity::getSprite() { return m_sprite; }
 
 Collider& Entity::getCollider() { return m_hitbox; }
 
@@ -121,11 +121,15 @@ void Entity::reposition()
     getCollider().m_acc *= Timer::getFrameDelta();
     getCollider().m_vel += vectMult(getCollider().m_acc, 500.0);
     getCollider().move(getCollider().m_vel * Timer::getFrameDelta());
-    getCollider().m_vel.x = damp(getCollider().m_vel.x, 0.001f, Timer::getFrameDelta());
+    getCollider().m_vel.x = damp(getCollider().m_vel.x, getCollider().m_friction, Timer::getFrameDelta());
     getCollider().m_vel.y = damp(getCollider().m_vel.y, 0.05f, Timer::getFrameDelta());
     getCollider().m_acc = Vector2f(0, 0);
     getCollider().m_acc.y += 2 * GRAVITY;
     m_sprite.setPosition(getCollider().getPosition());
+    if (getCollider().m_vel.x > 0)
+        m_sprite.setScale(Vector2f(abs(m_sprite.getScale().x), m_sprite.getScale().y));
+    else if (getCollider().m_vel.x < 0)
+        m_sprite.setScale(Vector2f(-(abs(m_sprite.getScale().x)), m_sprite.getScale().y));
     m_hitbox.setPosition(getCollider().getPosition());
 }
 
