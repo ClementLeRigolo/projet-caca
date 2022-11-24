@@ -32,7 +32,7 @@ class Game
         static Game& getInstance();
         bool isRunning() const;
         Scene* getCurrentScene();
-        void setCurrentScene(Scene* scene);
+        void setCurrentScene(Scene* scene, bool reloadScene);
         void pollEvents();
         void setMusic(Music* music);
         Music* getMusic();

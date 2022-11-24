@@ -85,6 +85,7 @@ class Level : public Scene
         virtual void updateLogic(RenderWindow& window);
         virtual void display(RenderWindow& window);
         void reloadScene();
+        bool loadLevel(string path, string levelName);
 };
 
 class LevelEditor : public Scene
@@ -109,8 +110,8 @@ class LevelEditor : public Scene
         void updateEditables(RenderWindow& window);
         void updateButtons(RenderWindow& window);
         void cameraController(RenderWindow& window);
-        void saveLevel(const char *path, String saveName);
-        bool loadLevel(const char *path, String saveName);
+        void saveLevel(const char *path, String levelName);
+        bool loadLevel(const char *path, String levelName);
 
     public:
         LevelEditor();

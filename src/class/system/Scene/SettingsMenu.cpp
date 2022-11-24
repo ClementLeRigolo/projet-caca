@@ -5,11 +5,6 @@
 
 SettingsMenu::SettingsMenu()
 {
-    reloadScene();
-}
-
-void SettingsMenu::reloadScene()
-{
     m_buttons.push_back(Button(Vector2f(300, 100), Vector2f(SCREEN_SIZE.x * 0.7,
     SCREEN_SIZE.y * 0.9), GET_TEXTURE(B_APPLY), &doNothingFunc));
     m_buttons.push_back(Button(Vector2f(300, 100), Vector2f(SCREEN_SIZE.x * 0.3,
@@ -58,6 +53,11 @@ void SettingsMenu::reloadScene()
     m_tickboxs.push_back(TickBox(Vector2f(50, 50), Vector2f(SCREEN_SIZE.x * 0.6,
     SCREEN_SIZE.y * 0.665), GET_TEXTURE(B_TICKBOX), &toggleVsyncFunc));
     m_tickboxs.at(0).setBaseScale(Vector2f(0.8, 0.8));
+}
+
+void SettingsMenu::reloadScene()
+{
+
 }
 
 void SettingsMenu::updateLogic(RenderWindow& window)

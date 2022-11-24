@@ -81,10 +81,10 @@ View& LevelEditor::getCamera()
     return m_cameraView;
 }
 
-bool LevelEditor::loadLevel(const char* path, String saveName)
+bool LevelEditor::loadLevel(const char* path, String levelName)
 {
-    saveName += ".save";
-    string content = read_file((string)path + saveName);
+    levelName += ".lvl";
+    string content = read_file((string)path + levelName);
     Json::Reader reader;
     Json::Value root;
     Vector2f pos(0, 0);
@@ -111,14 +111,14 @@ bool LevelEditor::loadLevel(const char* path, String saveName)
     return parsed;
 }
 
-void LevelEditor::saveLevel(const char *path, String saveName)
+void LevelEditor::saveLevel(const char *path, String levelName)
 {
     Json::Value event;
     Json::Value finalEvent;
     Json::Value vec(Json::arrayValue);
     if (!filesystem::exists(path))
         filesystem::create_directory(path);
-    ofstream saveFile(path + saveName + ".save");
+    ofstream saveFile(path + levelName + ".lvl");
 
     for (int i = 0; i < m_obstacles.size(); i++) {
         event["position"]["x"] = m_obstacles.at(i).getPosition().x;
@@ -195,7 +195,7 @@ void LevelEditor::pollEvents(RenderWindow& window)
             break;
         case Event::KeyPressed:
             if (event.key.code == Keyboard::L) {
-                loadLevel("saves/", "preview");
+                loadLevel("levels/", "preview");
             }
             break;
     }
@@ -266,7 +266,7 @@ void LevelEditor::updateLogic(RenderWindow& window)
     }
 
     if (m_saving) {
-        saveLevel("saves/", m_saveText.getString());
+        saveLevel("levels/", m_saveText.getString());
         m_saving = false;
     }
 

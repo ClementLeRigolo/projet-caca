@@ -8,6 +8,32 @@ Level::Level()
     reloadScene();
 }
 
+bool Level::loadLevel(string path, string levelName)
+{
+    levelName += ".lvl";
+    string content = read_file((string)path + levelName);
+    Json::Reader reader;
+    Json::Value root;
+    Vector2f pos(0, 0);
+    Vector2f size(0, 0);
+    bool parsed = false;
+
+    parsed = reader.parse(content, root, false);
+    auto entriesArray = root["obstacles"];
+    m_obstacles.clear();
+    for (int i = 0; i < entriesArray.size(); i++) {
+        auto elem = entriesArray[i];
+        pos.x = elem["position"]["x"].asInt();
+        pos.y = elem["position"]["y"].asInt();
+        size.x = elem["size"]["x"].asInt();
+        size.y = elem["size"]["y"].asInt();
+        m_obstacles.push_back(Obstacle(&GET_TEXTURE(W_BRICK), pos, size));
+    }
+    if (!parsed)
+        Logger::error("Could not parse file");
+    return parsed;
+}
+
 void Level::reloadScene()
 {
     m_index = 0;
@@ -25,8 +51,10 @@ void Level::reloadScene()
     m_levelTitle.setOrigin(getCenter(m_levelTitle));
     m_levelTitle.setPosition(Vector2f(SCREEN_SIZE.x / 2, SCREEN_SIZE.y / 2));
 
-    for (int i = 0; i < 100; i++)
-        addEntity(Vector2f(randomNumber(-1920, 1920 * 2), randomNumber(-1080, 1080 * 2)));
+    loadLevel("levels/", "preview");
+
+    //for (int i = 0; i < 100; i++)
+    //    addEntity(Vector2f(randomNumber(-1920, 1920 * 2), randomNumber(-1080, 1080 * 2)));
 }
 
 void Level::addEntity(Vector2f pos)
