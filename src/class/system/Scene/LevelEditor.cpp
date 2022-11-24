@@ -100,7 +100,6 @@ bool LevelEditor::loadLevel(const char* path, String saveName)
 
     for (int i = 0; i < entriesArray.size(); i++) {
         auto elem = entriesArray[i];
-        cout << "\n\nObtsacle :" << endl;
         pos.x = elem["position"]["x"].asInt();
         pos.y = elem["position"]["y"].asInt();
         size.x = elem["size"]["x"].asInt();
