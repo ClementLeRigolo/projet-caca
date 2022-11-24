@@ -5,7 +5,13 @@
 #include "class/system/Logger.hpp"
 #include "prototypes.hpp"
 
-MainMenu::MainMenu() {
+MainMenu::MainMenu()
+{
+    reloadScene();
+}
+
+void MainMenu::reloadScene()
+{
     m_buttons.push_back(Button(Vector2f(300, 100), Vector2f(SCREEN_SIZE.x * 0.85,
     SCREEN_SIZE.y * 0.4), GET_TEXTURE(B_CONTINUE), &buttonPlayGameFunc));
     m_buttons.push_back(Button(Vector2f(300, 100), Vector2f(SCREEN_SIZE.x * 0.85,

@@ -5,6 +5,11 @@
 
 Level::Level()
 {
+    reloadScene();
+}
+
+void Level::reloadScene()
+{
     m_index = 0;
 
     m_hasFocus = false;

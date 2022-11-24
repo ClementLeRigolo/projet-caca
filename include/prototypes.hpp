@@ -70,3 +70,7 @@ sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight);
 // Min Max
 float getMin(float a, float b);
 float getMax(float a, float b);
+
+
+// filesystem functions
+std::string read_file(std::string path);

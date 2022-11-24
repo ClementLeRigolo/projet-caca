@@ -3,7 +3,13 @@
 #include "class/system/Settings.hpp"
 #include "prototypes.hpp"
 
-SettingsMenu::SettingsMenu() {
+SettingsMenu::SettingsMenu()
+{
+    reloadScene();
+}
+
+void SettingsMenu::reloadScene()
+{
     m_buttons.push_back(Button(Vector2f(300, 100), Vector2f(SCREEN_SIZE.x * 0.7,
     SCREEN_SIZE.y * 0.9), GET_TEXTURE(B_APPLY), &doNothingFunc));
     m_buttons.push_back(Button(Vector2f(300, 100), Vector2f(SCREEN_SIZE.x * 0.3,

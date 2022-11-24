@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <iostream>
 #include <fstream>
 #include <filesystem>
@@ -16,6 +17,7 @@
 #include <math.h>
 #include <dirent.h>
 #include <memory>
+#include <json/json.h>
 
 using namespace sf;
 using namespace std;

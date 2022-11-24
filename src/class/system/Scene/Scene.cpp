@@ -3,7 +3,13 @@
 #include "class/Game.hpp"
 #include "prototypes.hpp"
 
-Scene::Scene() {
+Scene::Scene()
+{
+    reloadScene();
+}
+
+void Scene::reloadScene()
+{
     m_view.setSize(SCREEN_SIZE);
     m_view.setCenter(Vector2f(SCREEN_SIZE.x / 2, SCREEN_SIZE.y / 2));
     m_fpsText.setFont(GET_FONT(DEBUG_FONT));

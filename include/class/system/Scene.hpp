@@ -38,6 +38,7 @@ class Scene
         Text& getText();
         void setMusic(Music* music);
         Music* getMusic();
+        virtual void reloadScene();
         virtual void pollEvents(RenderWindow& window);
         virtual void updateLogic(RenderWindow& window);
         virtual void display(RenderWindow& window);
@@ -53,6 +54,7 @@ class MainMenu : public Scene
         void pollEvents(RenderWindow& window);
         void updateLogic(RenderWindow& window);
         void display(RenderWindow& window);
+        void reloadScene();
 };
 
 class SettingsMenu : public Scene
@@ -67,6 +69,7 @@ class SettingsMenu : public Scene
         void pollEvents(RenderWindow& window);
         void updateLogic(RenderWindow& window);
         void display(RenderWindow& window);
+        void reloadScene();
 };
 
 class Level : public Scene
@@ -81,6 +84,7 @@ class Level : public Scene
         virtual void addEntity(Vector2f pos);
         virtual void updateLogic(RenderWindow& window);
         virtual void display(RenderWindow& window);
+        void reloadScene();
 };
 
 class LevelEditor : public Scene
@@ -106,6 +110,7 @@ class LevelEditor : public Scene
         void updateButtons(RenderWindow& window);
         void cameraController(RenderWindow& window);
         void saveLevel(const char *path, String saveName);
+        bool loadLevel(const char *path, String saveName);
 
     public:
         LevelEditor();
@@ -118,4 +123,5 @@ class LevelEditor : public Scene
         void updateLogic(RenderWindow& window);
         void addObstacle(Vector2f pos);
         void display(RenderWindow& window);
+        void reloadScene();
 };

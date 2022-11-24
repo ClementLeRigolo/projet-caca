@@ -4,7 +4,8 @@
 #include "class/Inventory.hpp"
 #include "class/Collider.hpp"
 
-class Entity {
+class Entity
+{
     protected:
         bool m_hitboxVisible;
         Sprite m_sprite;

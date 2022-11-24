@@ -7,6 +7,11 @@ void updateTextInputBox(Event& event, EText& inputBox);
 
 LevelEditor::LevelEditor()
 {
+    reloadScene();
+}
+
+void LevelEditor::reloadScene()
+{
     m_index = 0;
     m_hasFocus = false;
 
@@ -76,21 +81,55 @@ View& LevelEditor::getCamera()
     return m_cameraView;
 }
 
+bool LevelEditor::loadLevel(const char* path, String saveName)
+{
+    saveName += ".save";
+    string content = read_file((string)path + saveName);
+    Json::Reader reader;
+    Json::Value root;
+    Vector2f pos(0, 0);
+    Vector2f size(0, 0);
+    bool parsed = false;
+
+    parsed = reader.parse(content, root, false);
+
+    auto entriesArray = root["obstacles"];
+
+
+    m_obstacles.clear();
+
+    for (int i = 0; i < entriesArray.size(); i++) {
+        auto elem = entriesArray[i];
+        cout << "\n\nObtsacle :" << endl;
+        pos.x = elem["position"]["x"].asInt();
+        pos.y = elem["position"]["y"].asInt();
+        size.x = elem["size"]["x"].asInt();
+        size.y = elem["size"]["y"].asInt();
+        m_obstacles.push_back(EditableShape(&GET_TEXTURE(W_BRICK), pos, size));
+    }
+    if (!parsed)
+        Logger::error("Could not parse file");
+    return parsed;
+}
+
 void LevelEditor::saveLevel(const char *path, String saveName)
 {
+    Json::Value event;
+    Json::Value finalEvent;
+    Json::Value vec(Json::arrayValue);
     if (!filesystem::exists(path))
         filesystem::create_directory(path);
     ofstream saveFile(path + saveName + ".save");
 
     for (int i = 0; i < m_obstacles.size(); i++) {
-        saveFile << "#obstacle {" << endl;
-        saveFile << ("   position = (" + to_string((int)m_obstacles.at(i).getPosition().x) +\
-        ", " + to_string((int)m_obstacles.at(i).getPosition().y) + ")") << endl;
-        saveFile << ("   size = (" + to_string((int)m_obstacles.at(i).getSize().x) + ", " +\
-        to_string((int)m_obstacles.at(i).getSize().y) + ")") << endl;
-        saveFile << "}" << endl;
+        event["position"]["x"] = m_obstacles.at(i).getPosition().x;
+        event["position"]["y"] = m_obstacles.at(i).getPosition().y;
+        event["size"]["x"] = m_obstacles.at(i).getSize().x;
+        event["size"]["y"] = m_obstacles.at(i).getSize().y;
+        vec.append(event);
     }
-
+    finalEvent["obstacles"] = vec;
+    saveFile << finalEvent << std::endl;
     saveFile.close();
 }
 
@@ -155,6 +194,11 @@ void LevelEditor::pollEvents(RenderWindow& window)
                 m_selectedShape = &m_obstacles.at(m_obstacles.size() - 1);
             }
             break;
+        case Event::KeyPressed:
+            if (event.key.code == Keyboard::L) {
+                loadLevel("saves/", "preview");
+            }
+            break;
     }
 }
 
@@ -169,6 +213,7 @@ void LevelEditor::updateButtons(RenderWindow& window)
 
 void LevelEditor::updateEditables(RenderWindow& window)
 {
+    window.setView(m_cameraView);
     for (int i = 0; i < m_obstacles.size(); i++) {
         if (DoMouseIntersect(getMousePosition(window), m_obstacles.at(i).getGlobalBounds()) && m_mode == EditMode::SELECT) {
             m_obstacles.at(i).setFillColor(smoothColor(Color::White, Color::Green, 0.5));
@@ -201,6 +246,7 @@ void LevelEditor::updateEditables(RenderWindow& window)
             m_selectedShape = NULL;
         }
     }
+    window.setView(m_view);
 }
 
 void LevelEditor::updateLogic(RenderWindow& window)
@@ -211,7 +257,6 @@ void LevelEditor::updateLogic(RenderWindow& window)
         updateButtons(window);
 
     cameraController(window);
-    window.setView(m_cameraView);
 
     if (!m_hoveringShape && !m_saveGUIopen)
         updateEditables(window);

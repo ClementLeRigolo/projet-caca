@@ -16,7 +16,7 @@ SRC := $(shell find $(SOURCEDIR) -name '*.cpp')
 
 ## Build standard binary file
 
-FLAGS = -g -I include -lsfml-graphics -lsfml-audio -lsfml-system -lsfml-window -lm
+FLAGS = -g -I include -lsfml-graphics -lsfml-audio -lsfml-system -lsfml-window -lm -ljsoncpp
 
 NAME = RPG_MASTERCLASS
 
@@ -33,7 +33,7 @@ $(NAME): header $(OBJ) done
 
 ## Build Windows executable file
 
-WFLAGS = -g -I include -I../lib/SFML-mingw/include -L"../lib/SFML-mingw/lib" -lsfml-graphics -lsfml-audio -lsfml-system -lsfml-window -lm
+WFLAGS = -g -I include -I../lib/SFML-mingw/include -L"../lib/SFML-mingw/lib" -lsfml-graphics -lsfml-audio -lsfml-system -lsfml-window -lm -ljsoncpp
 
 WNAME = RPG_MASTERCLASS.exe
 
