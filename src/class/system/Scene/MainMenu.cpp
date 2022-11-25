@@ -1,7 +1,6 @@
+#include "class/Game.hpp"
 #include "class/system/Scene.hpp"
-#include "class/Game.hpp"
 #include "class/system/Timer.hpp"
-#include "class/Game.hpp"
 #include "class/system/Logger.hpp"
 #include "prototypes.hpp"
 
@@ -16,6 +15,8 @@ MainMenu::MainMenu() {
     SCREEN_SIZE.y * 0.7), GET_TEXTURE(B_SETTINGS), &buttonGoToSettingsFunc));
     m_buttons.push_back(Button(Vector2f(300, 100), Vector2f(SCREEN_SIZE.x * 0.85,
     SCREEN_SIZE.y * 0.8), GET_TEXTURE(B_EXIT), &buttonExitGameFunc));
+    popup = Popup(EText(Vector2f(50, 50), "Title"), EText(Vector2f(50, 60), "desc"), &buttonExitGameFunc);
+    popup.setDisplayed(true);
 
     for (int i = 0; i < 5; i++) {
         m_background.push_back(RectangleShape());
@@ -40,7 +41,7 @@ void MainMenu::pollEvents(RenderWindow& window)
     static Vector2f offset = Vector2f(0, 0);
 
     switch (event.type) {
-        case Event::MouseMoved:
+        case Event::MouseMoved: {
             Vector2f pos = vectMult(SCREEN_SIZE, 0.5);
             offset.x += (last_pos.x - m_pos.x) * Timer::getFrameDelta() * 20;
             offset.x = clamp(-30, 30, offset.x);
@@ -49,14 +50,21 @@ void MainMenu::pollEvents(RenderWindow& window)
             m_background.at(3).setPosition(vectAdd(pos, vectMult(offset, 0.6)));
             last_pos = m_pos;
             break;
+        }
+        case Event::KeyPressed:
+            if (event.key.code == Keyboard::D)
+                popup.setDisplayed(false);
+            break;
     }
 }
 
 void MainMenu::updateLogic(RenderWindow& window)
 {
-    for (int i = 0; i < m_buttons.size(); i++)
-        m_buttons.at(i).update(getMousePosition(window));
-
+    if (!popup.isDisplayed()) {
+        for (int i = 0; i < m_buttons.size(); i++)
+            m_buttons.at(i).update(getMousePosition(window));
+    }
+    popup.update(window);
 
     if (!hasFocus()) {
         m_fadeLayer.reset();
@@ -71,6 +79,7 @@ void MainMenu::display(RenderWindow& window)
         window.draw(m_background.at(i));
     for (int i = 0; i < m_buttons.size(); i++)
         window.draw(m_buttons.at(i).getShape());
+    popup.display(window);
     window.draw(m_fadeLayer);
     window.draw(m_fpsText);
 }

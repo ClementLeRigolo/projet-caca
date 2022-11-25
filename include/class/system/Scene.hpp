@@ -1,9 +1,8 @@
 #pragma once
 
-#include "libs.hpp"
 #include "class/ui/TickBox.hpp"
-#include "class/ui/EText.hpp"
 #include "class/ui/Slider.hpp"
+#include "class/ui/Popup.hpp"
 #include "class/Entity.hpp"
 #include "class/graphic/FadeLayer.hpp"
 #include "class/world/Obstacle.hpp"
@@ -47,6 +46,7 @@ class MainMenu : public Scene
 {
     private:
         vector<RectangleShape> m_background;
+        Popup popup;
 
     public:
         MainMenu();
