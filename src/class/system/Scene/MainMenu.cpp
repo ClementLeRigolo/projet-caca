@@ -6,15 +6,15 @@
 
 MainMenu::MainMenu() {
     m_buttons.push_back(Button(Vector2f(300, 100), Vector2f(SCREEN_SIZE.x * 0.85,
-    SCREEN_SIZE.y * 0.4), GET_TEXTURE(B_CONTINUE), &buttonPlayGameFunc));
+    SCREEN_SIZE.y * 0.4), "Continue", &buttonPlayGameFunc));
     m_buttons.push_back(Button(Vector2f(300, 100), Vector2f(SCREEN_SIZE.x * 0.85,
-    SCREEN_SIZE.y * 0.5), GET_TEXTURE(B_NEW_GAME), &buttonGoToLevelEditor));
+    SCREEN_SIZE.y * 0.5), "New Game", &buttonGoToLevelEditor));
     m_buttons.push_back(Button(Vector2f(300, 100), Vector2f(SCREEN_SIZE.x * 0.85,
-    SCREEN_SIZE.y * 0.6), GET_TEXTURE(B_LOAD_GAME), &doNothingFunc));
+    SCREEN_SIZE.y * 0.6), "Credits", &doNothingFunc));
     m_buttons.push_back(Button(Vector2f(300, 100), Vector2f(SCREEN_SIZE.x * 0.85,
-    SCREEN_SIZE.y * 0.7), GET_TEXTURE(B_SETTINGS), &buttonGoToSettingsFunc));
+    SCREEN_SIZE.y * 0.7), "Settings", &buttonGoToSettingsFunc));
     m_buttons.push_back(Button(Vector2f(300, 100), Vector2f(SCREEN_SIZE.x * 0.85,
-    SCREEN_SIZE.y * 0.8), GET_TEXTURE(B_EXIT), &buttonExitGameFunc));
+    SCREEN_SIZE.y * 0.8), "Quit", &buttonExitGameFunc));
     popup = Popup(EText(Vector2f(50, 50), "Title"), EText(Vector2f(50, 60), "desc"), &buttonExitGameFunc);
     popup.setDisplayed(true);
 
@@ -78,7 +78,7 @@ void MainMenu::display(RenderWindow& window)
     for (int i = 0; i < m_background.size(); i++)
         window.draw(m_background.at(i));
     for (int i = 0; i < m_buttons.size(); i++)
-        window.draw(m_buttons.at(i).getShape());
+        m_buttons.at(i).display(window);
     popup.display(window);
     window.draw(m_fadeLayer);
     window.draw(m_fpsText);

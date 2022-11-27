@@ -1,11 +1,13 @@
 #pragma once
 
 #include "libs.hpp"
+#include "class/ui/EText.hpp"
 
 class Button
 {
     protected:
         RectangleShape m_shape;
+        EText m_label;
         enum ButtonStates {
             idle,
             hover,
@@ -19,7 +21,7 @@ class Button
 
     public:
         Button();
-        Button(Vector2f size, Vector2f pos, Texture& texture, void (*onClick)());
+        Button(Vector2f size, Vector2f pos, string label, void (*onClick)());
         void setPos(Vector2f pos);
         void setScale(Vector2f scale);
         void setBaseScale(Vector2f scale);
@@ -32,4 +34,5 @@ class Button
         void setTexture(Texture* texture);
         RectangleShape& getShape();
         virtual void update(Vector2i mousePos);
+        void display(RenderTarget& target);
 };

@@ -1,5 +1,6 @@
 enum TextureID
 {
+    B_GENERIC,
     B_CONTINUE,
     B_LOAD_GAME,
     B_NEW_GAME,

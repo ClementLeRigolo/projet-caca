@@ -1,6 +1,5 @@
+#include "class/Game.hpp"
 #include "class/ui/Button.hpp"
-#include "class/Game.hpp"
-#include "class/Game.hpp"
 #include "class/system/Logger.hpp"
 #include "class/system/Settings.hpp"
 #include "prototypes.hpp"
@@ -15,15 +14,18 @@ Button::Button()
     m_baseScale = Vector2f(1, 1);
 }
 
-Button::Button(Vector2f size, Vector2f pos, Texture& texture, void (*onClick)())
+Button::Button(Vector2f size, Vector2f pos, string label, void (*onClick)())
 {
     m_shape.setFillColor(Color::White);
     m_shape.setSize(size);
-    m_shape.setTexture(&texture);
+    m_shape.setTexture(&GET_TEXTURE(B_GENERIC));
     m_shape.setTextureRect(IntRect(0, 0,
-    texture.getSize().x / 3, texture.getSize().y));
-    m_shape.setOrigin(getCenter(m_shape));
+        m_shape.getTexture()->getSize().x / 3, m_shape.getTexture()->getSize().y));
     m_shape.setPosition(pos);
+    m_label.setString(label);
+    m_label.setColor(Color(107, 107, 107, 255));
+    m_label.setPosition(m_shape.getPosition());
+    m_shape.setOrigin(getCenter(m_shape));
     m_state = idle;
     m_onClick = onClick;
     m_clickSound.setBuffer(GET_SOUND(CLICK_SOUND));
@@ -126,4 +128,10 @@ void Button::update(Vector2i mousePos)
     }
     m_shape.setTextureRect(t_rect);
     m_shape.setOrigin(getCenter(m_shape));
+}
+
+void Button::display(RenderTarget& target)
+{
+    target.draw(m_shape);
+    target.draw(m_label);
 }

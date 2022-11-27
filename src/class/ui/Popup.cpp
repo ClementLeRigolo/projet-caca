@@ -15,7 +15,7 @@ Popup::Popup(EText title, EText message, void (*onClick)())
 
     m_button.getShape().setScale(Vector2f(0.7, 0.7));
     m_button = Button(Vector2f(250, 100), Vector2f(SCREEN_SIZE.x * 0.6,
-    SCREEN_SIZE.y * 0.65), GET_TEXTURE(B_APPLY), onClick);
+    SCREEN_SIZE.y * 0.65), "Close", onClick);
 }
 
 void Popup::setDisplayed(bool display) { m_display = display; }
@@ -36,6 +36,6 @@ void Popup::display(RenderTarget& target)
         target.draw(m_background);
         target.draw(m_title);
         target.draw(m_message);
-        target.draw(m_button.getShape());
+        m_button.display(target);
     }
 }

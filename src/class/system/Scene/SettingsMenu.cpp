@@ -5,9 +5,9 @@
 
 SettingsMenu::SettingsMenu() {
     m_buttons.push_back(Button(Vector2f(300, 100), Vector2f(SCREEN_SIZE.x * 0.7,
-    SCREEN_SIZE.y * 0.9), GET_TEXTURE(B_APPLY), &doNothingFunc));
+    SCREEN_SIZE.y * 0.9), "Apply", &doNothingFunc));
     m_buttons.push_back(Button(Vector2f(300, 100), Vector2f(SCREEN_SIZE.x * 0.3,
-    SCREEN_SIZE.y * 0.9), GET_TEXTURE(B_BACK), &buttonBackMainMenuFunc));
+    SCREEN_SIZE.y * 0.9), "Back", &buttonBackMainMenuFunc));
 
     m_text.push_back(EText(Vector2f(SCREEN_SIZE.x * 0.5, SCREEN_SIZE.y * 0.06), "{ Audio }"));
     m_text.at(0).setCharacterSize(50);
@@ -107,7 +107,7 @@ void SettingsMenu::display(RenderWindow& window)
 {
     window.setView(m_view);
     for (int i = 0; i < m_buttons.size(); i++)
-        window.draw(m_buttons.at(i).getShape());
+        m_buttons.at(i).display(window);
     for (int i = 0; i < m_tickboxs.size(); i++)
         window.draw(m_tickboxs.at(i).getShape());
     for (int i = 0; i < m_text.size(); i++)

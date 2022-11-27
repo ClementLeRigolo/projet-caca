@@ -9,13 +9,7 @@ AssetManager::AssetManager()
     loadFont(INGAME_FONT, GAME_FONT_PATH);
 
     // buttons
-    loadTexture(B_CONTINUE, UI_PATH + "continue.png");
-    loadTexture(B_LOAD_GAME,UI_PATH + "load_game.png");
-    loadTexture(B_NEW_GAME, UI_PATH + "new_game.png");
-    loadTexture(B_SETTINGS, UI_PATH + "settings.png");
-    loadTexture(B_EXIT, UI_PATH + "exit.png");
-    loadTexture(B_BACK, UI_PATH + "back.png");
-    loadTexture(B_APPLY, UI_PATH + "apply.png");
+    loadTexture(B_GENERIC, UI_PATH + "generic_button.png");
     loadTexture(B_TICKBOX, UI_PATH + "tickbox.png");
 
     // entities
@@ -56,7 +50,6 @@ void AssetManager::loadTexture(TextureID identifier, string filename)
 {
     unique_ptr<Texture> texture(new Texture());
     texture.get()->loadFromFile(filename);
-    texture.get()->setSmooth(true);
     texture.get()->setRepeated(true);
     auto insert = m_textures.insert(make_pair(identifier, move(texture)));
     assert(insert.second);
