@@ -4,9 +4,9 @@
 #include "prototypes.hpp"
 
 SettingsMenu::SettingsMenu() {
-    m_buttons.push_back(Button(Vector2f(300, 100), Vector2f(SCREEN_SIZE.x * 0.7,
+    m_buttons.push_back(Button(Vector2f(SCREEN_SIZE.x * 0.7,
     SCREEN_SIZE.y * 0.9), "Apply", &doNothingFunc));
-    m_buttons.push_back(Button(Vector2f(300, 100), Vector2f(SCREEN_SIZE.x * 0.3,
+    m_buttons.push_back(Button(Vector2f(SCREEN_SIZE.x * 0.3,
     SCREEN_SIZE.y * 0.9), "Back", &buttonBackMainMenuFunc));
 
     m_text.push_back(EText(Vector2f(SCREEN_SIZE.x * 0.5, SCREEN_SIZE.y * 0.06), "{ Audio }"));

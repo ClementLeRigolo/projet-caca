@@ -17,7 +17,7 @@ sf::Vector2f getCenter(float width, float height)
 
 sf::Vector2f getCenter(sf::Shape &shape)
 {
-    return sf::Vector2f(shape.getGlobalBounds().width / 2.0, shape.getGlobalBounds().height / 2.0);
+    return sf::Vector2f(shape.getLocalBounds().width / 2.0, shape.getLocalBounds().height / 2.0);
 }
 
 sf::Vector2f getCenter(sf::Text &shape)

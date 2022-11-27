@@ -21,7 +21,7 @@ class Button
 
     public:
         Button();
-        Button(Vector2f size, Vector2f pos, string label, void (*onClick)());
+        Button(Vector2f pos, string label, void (*onClick)());
         void setPos(Vector2f pos);
         void setScale(Vector2f scale);
         void setBaseScale(Vector2f scale);

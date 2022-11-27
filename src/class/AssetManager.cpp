@@ -15,12 +15,11 @@ AssetManager::AssetManager()
     // entities
     loadTexture(ENTITY_TEXTURE, "asset/texture/entity/entity.png");
 
+    // titles
+    loadTexture(TITLE_TEXTURE, UI_PATH + "rpg_masterclass.png");
+
     // background
-    loadTexture(MM_BG1, BCKGRD_PATH + "background_no_char.jpg");
-    loadTexture(MM_BG2, BCKGRD_PATH + "char.png");
-    loadTexture(MM_BG3, BCKGRD_PATH + "embers.png");
-    loadTexture(MM_BG4, BCKGRD_PATH + "smoke.png");
-    loadTexture(MM_BG5, BCKGRD_PATH + "title.png");
+    loadTexture(MM_BG, BCKGRD_PATH + "main_menu_background.png");
 
     // slider
     loadTexture(SLIDER_IN, UI_PATH + "slider_in.png");
@@ -39,7 +38,6 @@ AssetManager::AssetManager()
     loadTexture(B_RESIZE, UI_PATH + "resize.png");
     loadTexture(B_LOAD, UI_PATH + "load.png");
     loadTexture(B_ADD_EDITABLE, UI_PATH + "add_editable.png");
-
 
     // sound
     loadSound(CLICK_SOUND , AUDIO_PATH  + "ui/click.ogg");

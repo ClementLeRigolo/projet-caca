@@ -14,18 +14,20 @@ Button::Button()
     m_baseScale = Vector2f(1, 1);
 }
 
-Button::Button(Vector2f size, Vector2f pos, string label, void (*onClick)())
+Button::Button(Vector2f pos, string label, void (*onClick)())
 {
     m_shape.setFillColor(Color::White);
-    m_shape.setSize(size);
     m_shape.setTexture(&GET_TEXTURE(B_GENERIC));
     m_shape.setTextureRect(IntRect(0, 0,
         m_shape.getTexture()->getSize().x / 3, m_shape.getTexture()->getSize().y));
+    m_shape.setSize(Vector2f(m_shape.getTextureRect().width, m_shape.getTextureRect().height));
     m_shape.setPosition(pos);
-    m_label.setString(label);
-    m_label.setColor(Color(107, 107, 107, 255));
-    m_label.setPosition(m_shape.getPosition());
     m_shape.setOrigin(getCenter(m_shape));
+    m_shape.setScale(Vector2f(3, 3));
+    m_label.setString(label);
+    m_label.setFillColor(Color(80, 80, 80, 255));
+    m_label.setPosition(m_shape.getPosition());
+    m_label.setOrigin(getCenter(m_label));
     m_state = idle;
     m_onClick = onClick;
     m_clickSound.setBuffer(GET_SOUND(CLICK_SOUND));
@@ -107,24 +109,30 @@ void Button::update(Vector2i mousePos)
             modulateSound(&m_hoverSound, 1.0, 1.15);
             m_hoverSound.play();
         }
-        if (m_state == 2 && !Mouse::isButtonPressed(Mouse::Left)) {
+        if (m_state == pressed && !Mouse::isButtonPressed(Mouse::Left)) {
             m_clickSound.setVolume(Settings::SFX_VOLUME);
             modulateSound(&m_clickSound, 0.95, 1.05);
             m_clickSound.play();
             onClick();
-            m_state = 0;
+            m_state = idle;
         } else if (Mouse::isButtonPressed(Mouse::Left)) {
-            m_state = 2;
+            m_state = pressed;
             t_rect.left = t_size.x / 1.5;
+            m_shape.setScale(Vector2f(2.9, 2.9));
+            m_label.setFillColor(Color::White);
         }
-        if (m_state == 0) {
-            m_state = 1;
+        if (m_state == idle) {
+            m_state = hover;
             t_rect.left = t_size.x / 3;
+            m_shape.setScale(Vector2f(3.1, 3.1));
+            m_label.setFillColor(Color::White);
         }
-    } else if (m_state != 0) {
+    } else if (m_state != idle) {
         playHoverSound = true;
-        m_state = 0;
+        m_state = idle;
         t_rect.left = 0;
+        m_shape.setScale(Vector2f(3, 3));
+        m_label.setFillColor(Color(80, 80, 80, 255));
     }
     m_shape.setTextureRect(t_rect);
     m_shape.setOrigin(getCenter(m_shape));

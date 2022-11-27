@@ -45,8 +45,7 @@ class Scene
 class MainMenu : public Scene
 {
     private:
-        vector<RectangleShape> m_background;
-        Popup popup;
+        RectangleShape m_title;
 
     public:
         MainMenu();

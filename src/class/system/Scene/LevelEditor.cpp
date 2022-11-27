@@ -32,32 +32,32 @@ LevelEditor::LevelEditor()
 
 
     m_saveApllyButton.getShape().setScale(Vector2f(0.7, 0.7));
-    m_saveApllyButton = Button(Vector2f(250, 100), Vector2f(SCREEN_SIZE.x * 0.6,
+    m_saveApllyButton = Button(Vector2f(SCREEN_SIZE.x * 0.6,
     SCREEN_SIZE.y * 0.65), "", &buttonApplyLevelEditorSave);
 
     m_saveCancelButton.getShape().setScale(Vector2f(0.7, 0.7));
-    m_saveCancelButton = Button(Vector2f(250, 100), Vector2f(SCREEN_SIZE.x * 0.4,
+    m_saveCancelButton = Button(Vector2f(SCREEN_SIZE.x * 0.4,
     SCREEN_SIZE.y * 0.65), "", &buttonHideLevelEditorSave);
 
-    m_buttons.push_back(Button(Vector2f(250, 100), Vector2f(SCREEN_SIZE.x * 0.1,
+    m_buttons.push_back(Button(Vector2f(SCREEN_SIZE.x * 0.1,
     SCREEN_SIZE.y * 0.95), "", &buttonBackMainMenuFunc));
 
-    m_buttons.push_back(Button(Vector2f(64, 64), Vector2f(SCREEN_SIZE.x * 0.7,
+    m_buttons.push_back(Button(Vector2f(SCREEN_SIZE.x * 0.7,
     SCREEN_SIZE.y * 0.1), "", &buttonLevelEditorMoveMode));
 
-    m_buttons.push_back(Button(Vector2f(64, 64), Vector2f(SCREEN_SIZE.x * 0.75,
+    m_buttons.push_back(Button(Vector2f(SCREEN_SIZE.x * 0.75,
     SCREEN_SIZE.y * 0.1), "", &buttonLevelEditorSelectMode));
 
-    m_buttons.push_back(Button(Vector2f(64, 64), Vector2f(SCREEN_SIZE.x * 0.80,
+    m_buttons.push_back(Button(Vector2f(SCREEN_SIZE.x * 0.80,
     SCREEN_SIZE.y * 0.1), "", &buttonLevelEditorResizeMode));
 
-    m_buttons.push_back(Button(Vector2f(64, 64), Vector2f(SCREEN_SIZE.x * 0.85,
+    m_buttons.push_back(Button(Vector2f(SCREEN_SIZE.x * 0.85,
     SCREEN_SIZE.y * 0.1), "", &buttonLevelEditorPlaceMode));
 
-    m_buttons.push_back(Button(Vector2f(64, 64), Vector2f(SCREEN_SIZE.x * 0.90,
+    m_buttons.push_back(Button(Vector2f(SCREEN_SIZE.x * 0.90,
     SCREEN_SIZE.y * 0.1), "", &buttonShowLevelEditorSave));
 
-    m_buttons.push_back(Button(Vector2f(64, 64), Vector2f(SCREEN_SIZE.x * 0.95,
+    m_buttons.push_back(Button(Vector2f(SCREEN_SIZE.x * 0.95,
     SCREEN_SIZE.y * 0.1), "", &doNothingFunc));
 }
 
