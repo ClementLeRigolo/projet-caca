@@ -51,6 +51,7 @@ AssetManager::AssetManager()
     loadTexture(P_RUN, PLAYER_PATH + "run.png", false);
     loadTexture(P_JUMP, PLAYER_PATH + "jump.png", false);
     loadTexture(P_FALL, PLAYER_PATH + "fall.png", false);
+    loadTexture(P_HANG, PLAYER_PATH + "hang.png", false);
 
 
     // sound

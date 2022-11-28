@@ -265,12 +265,6 @@ void LevelEditor::updateLogic(RenderWindow& window)
         saveLevel("levels/", m_saveText.getString());
         m_saving = false;
     }
-
-    // Scene transition
-    if (!hasFocus()) {
-        m_fadeLayer.reset();
-    } else
-        m_fadeLayer.fade(0.02, Color::Transparent);
 }
 
 void LevelEditor::display(RenderWindow& window)

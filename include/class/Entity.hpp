@@ -45,12 +45,14 @@ class Player : public Entity
             bool jumping;
             bool running;
             bool canJump;
+            bool hanging;
         } states_t;
         enum PlayerTexture {
             IDLE,
             RUN,
             JUMP,
             FALL,
+            HANG,
         };
         PlayerTexture m_currentTexture;
         View m_view;

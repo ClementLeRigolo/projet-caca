@@ -118,19 +118,22 @@ void Entity::draw(sf::RenderTarget &target)
 
 void Entity::reposition()
 {
-    getCollider().m_acc *= Timer::getFrameDelta();
-    getCollider().m_vel += vectMult(getCollider().m_acc, 500.0);
-    getCollider().move(getCollider().m_vel * Timer::getFrameDelta());
-    getCollider().m_vel.x = damp(getCollider().m_vel.x, getCollider().m_friction, Timer::getFrameDelta());
-    getCollider().m_vel.y = damp(getCollider().m_vel.y, 0.05f, Timer::getFrameDelta());
-    getCollider().m_acc = Vector2f(0, 0);
-    getCollider().m_acc.y += 2 * GRAVITY;
-    m_sprite.setPosition(getCollider().getPosition());
-    if (getCollider().m_vel.x > 0)
+    Collider &coll = getCollider();
+
+    coll.m_acc *= Timer::getFrameDelta();
+    coll.m_vel += vectMult(coll.m_acc, 500.0);
+    coll.move(coll.m_vel * Timer::getFrameDelta());
+    coll.m_vel.x = damp(coll.m_vel.x, coll.m_friction, Timer::getFrameDelta());
+    coll.m_vel.y = damp(coll.m_vel.y, 0.05f, Timer::getFrameDelta());
+    coll.m_acc = Vector2f(0, 0);
+    if (coll.isGravityEnabled())
+        coll.m_acc.y += 2 * GRAVITY;
+    m_sprite.setPosition(coll.getPosition());
+    if (coll.m_vel.x > 0)
         m_sprite.setScale(Vector2f(abs(m_sprite.getScale().x), m_sprite.getScale().y));
-    else if (getCollider().m_vel.x < 0)
+    else if (coll.m_vel.x < 0)
         m_sprite.setScale(Vector2f(-(abs(m_sprite.getScale().x)), m_sprite.getScale().y));
-    m_hitbox.setPosition(getCollider().getPosition());
+    m_hitbox.setPosition(coll.getPosition());
 }
 
 void Entity::update()

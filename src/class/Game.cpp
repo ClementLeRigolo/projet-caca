@@ -127,6 +127,7 @@ void Game::pollEvents()
 void Game::updateSceneLogic(Scene* scene)
 {
     // Updates scene logic
+    scene->doTransition();
     scene->updateLogic(getRender()->getWindow());
     if (scene->getMusic())
         scene->getMusic()->setVolume(Settings::MUSIC_VOLUME);

@@ -2,28 +2,34 @@
 
 #include "libs.hpp"
 
-enum CollisionSide {
-    C_NONE,
-    C_LEFT,
-    C_RIGHT,
-    C_TOP,
-    C_BOTTOM,
-};
+namespace Collision {
+    enum Side {
+        NONE,
+        LEFT,
+        RIGHT,
+        TOP,
+        BOTTOM,
+    };
+}
 
 class CollisionInfo
 {
     private:
         const RectangleShape* m_shape;
-        CollisionSide m_side;
+        Collision::Side m_side;
 
     public:
-        CollisionInfo(const RectangleShape* shape, CollisionSide side);
+        CollisionInfo();
+        CollisionInfo(const RectangleShape* shape, Collision::Side side);
         const RectangleShape* getShape();
-        CollisionSide getSide();
+        Collision::Side getSide();
 };
 
 class Collider : public RectangleShape
 {
+    private:
+        bool m_gravityEnabled;
+
     public:
         Collider();
 
@@ -32,6 +38,8 @@ class Collider : public RectangleShape
         float m_friction;
 
         CollisionInfo checkCollision(Collider& other, float push);
+        bool isGravityEnabled();
+        void setGravityEnabled(bool toggle);
     
         Vector2f getHalfSize();
 };

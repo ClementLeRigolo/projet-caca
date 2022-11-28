@@ -91,11 +91,6 @@ void SettingsMenu::updateLogic(RenderWindow& window)
         }
     } else
         m_text.at(6).setString("[Vsync enabled]");
-
-    if (!hasFocus()) {
-        m_fadeLayer.reset();
-    } else
-        m_fadeLayer.fade(0.02, Color::Transparent);
 }
 
 void SettingsMenu::pollEvents(RenderWindow& window)

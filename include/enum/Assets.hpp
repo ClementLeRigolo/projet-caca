@@ -43,6 +43,7 @@ enum TextureID
     P_RUN,
     P_FALL,
     P_JUMP,
+    P_HANG,
 };
 
 enum FontID

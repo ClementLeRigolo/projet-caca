@@ -25,6 +25,7 @@ class Scene
 
     public:
         Scene();
+        void doTransition();
         int getIndex() const;
         void setIndex(int index);
         void setFocus(bool boolean);

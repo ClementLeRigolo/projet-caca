@@ -62,12 +62,6 @@ void MainMenu::updateLogic(RenderWindow& window)
 {
     for (int i = 0; i < m_buttons.size(); i++)
         m_buttons.at(i).update(getMousePosition(window));
-
-
-    if (!hasFocus()) {
-        m_fadeLayer.reset();
-    } else
-        m_fadeLayer.fade(0.02, Color::Transparent);
 }
 
 void MainMenu::display(RenderWindow& window)

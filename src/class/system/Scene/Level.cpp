@@ -64,6 +64,7 @@ void Level::addEntity(Vector2f pos)
 
 void Level::updateLogic(RenderWindow& window)
 {
+    CollisionInfo info;
     Player& player = Game::getInstance().getPlayer();
 
     player.update();
@@ -80,16 +81,15 @@ void Level::updateLogic(RenderWindow& window)
         }
     }
 
+    // process collision with player
     for (int i = 0; i < m_obstacles.size(); i++) {
-        CollisionInfo info = m_obstacles.at(i).getCollider().checkCollision(player.getCollider(), 1.0f);
-        player.updateStates(info);
-        player.getSprite().setPosition(player.getPosition());
+        CollisionInfo tempInfo = m_obstacles.at(i).getCollider().checkCollision(player.getCollider(), 1.0f);
+        if (tempInfo.getSide() != Collision::NONE)
+            info = tempInfo;
     }
-
-    if (!hasFocus()) {
-        m_fadeLayer.reset();
-    } else
-        m_fadeLayer.fade(0.02, Color::Transparent);
+    // update player states
+    player.updateStates(info);
+    player.getSprite().setPosition(player.getPosition());
 }
 
 void Level::display(RenderWindow& window)
