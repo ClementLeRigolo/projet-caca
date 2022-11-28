@@ -128,9 +128,15 @@ void Player::updateStates(CollisionInfo info)
     } else
         getCollider().setGravityEnabled(true);
 
-    if (!m_states.hanging && !m_states.grounded && !m_states.jumping
+    if ((info.getSide() == Collision::LEFT || info.getSide() == Collision::RIGHT) && m_states.wallJumping)
+        m_states.wallJumping = false;
+
+    // wall sliding
+    if (!m_states.hanging && !m_states.grounded
         && ((info.getSide() == Collision::LEFT && Keyboard::isKeyPressed(Keyboard::Q))
-        || info.getSide() == Collision::RIGHT && Keyboard::isKeyPressed(Keyboard::D))) {
+        || info.getSide() == Collision::RIGHT && Keyboard::isKeyPressed(Keyboard::D))
+        && (info.getShape()->getGlobalBounds().top < getCollider().getGlobalBounds().top)
+        && getCollider().m_vel.y > 0) {            
         getCollider().setGravityMultiplier(0.1);
         m_states.wallJumping = false;
         m_states.wallSliding = true;
@@ -152,6 +158,7 @@ void Player::updateStates(CollisionInfo info)
         getCollider().setGravityMultiplier(1.0f);
     }
 
+    // update texture
     lastPosY = getCollider().getPosition().y;
     updateTexture();
 }
