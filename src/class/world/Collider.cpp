@@ -12,6 +12,10 @@ CollisionInfo::CollisionInfo(const RectangleShape* shape, Collision::Side side)
     m_side = side;
 }
 
+float Collider::getGravityMultiplier() { return m_gravityMultiplier; }
+
+void Collider::setGravityMultiplier(float multiplier) { m_gravityMultiplier = multiplier; }
+
 const RectangleShape* CollisionInfo::getShape() { return m_shape; }
 
 Collision::Side CollisionInfo::getSide() { return m_side; }
@@ -28,6 +32,7 @@ Collider::Collider()
     m_vel = Vector2f(0.0f, 0.0f);
     m_friction = 0.0003;
     m_gravityEnabled = true;
+    setGravityMultiplier(1);
 }
 
 CollisionInfo Collider::checkCollision(Collider& other, float push)

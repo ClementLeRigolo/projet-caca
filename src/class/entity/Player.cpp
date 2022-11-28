@@ -21,6 +21,8 @@ Player::Player()
     m_states.jumping = false;
     m_states.running = false;
     m_states.canJump = true;
+    m_states.wallJumping = false;
+    m_states.wallSliding = false;
 }
 
 void Player::setHealth(float health) { m_health = health; }
@@ -34,16 +36,16 @@ void Player::control()
     else
         getCollider().m_friction = 0.0003;
 
-    if (Keyboard::isKeyPressed(Keyboard::D)) {
+    if (Keyboard::isKeyPressed(Keyboard::D) && !m_states.wallJumping) {
         getCollider().m_acc.x += getSpeed();
         getCollider().m_friction = 0.0003;
     }
-    if (Keyboard::isKeyPressed(Keyboard::Q)) {
+    if (Keyboard::isKeyPressed(Keyboard::Q) && !m_states.wallJumping) {
         getCollider().m_acc.x += -getSpeed();
         getCollider().m_friction = 0.0003;
     }
     if (Keyboard::isKeyPressed(Keyboard::Space) &&
-        !m_states.jumping && m_states.canJump) {
+        !m_states.jumping && m_states.canJump && !m_states.wallJumping) {
         m_states.jumping = true;
         getCollider().m_vel.y = -4000;
     }
@@ -71,6 +73,7 @@ void Player::updateStates(CollisionInfo info)
         m_states.falling = false;
         m_states.grounded = true;
         m_states.hanging = false;
+        m_states.wallJumping = false;
     } else if (lastPosY < getCollider().getPosition().y) {
         m_states.falling = true;
         m_states.grounded = false;
@@ -120,8 +123,31 @@ void Player::updateStates(CollisionInfo info)
         m_states.falling = false;
         getCollider().m_vel.y = 0;
         getCollider().setGravityEnabled(false);
-    } else {
+    } else
         getCollider().setGravityEnabled(true);
+
+    if (!m_states.hanging && !m_states.grounded && !m_states.jumping
+        && ((info.getSide() == Collision::LEFT && Keyboard::isKeyPressed(Keyboard::Q))
+        || info.getSide() == Collision::RIGHT && Keyboard::isKeyPressed(Keyboard::D))) {
+        getCollider().setGravityMultiplier(0.1);
+        m_states.wallJumping = false;
+        m_states.wallSliding = true;
+        m_states.falling = false;
+        Vector2f origin = getCenter(getSprite());
+        getSprite().setOrigin(origin.x - 7, origin.y - 3);
+        if (Keyboard::isKeyPressed(Keyboard::Space)) {
+            m_states.jumping = true;
+            m_states.wallSliding = false;
+            m_states.wallJumping = true;
+            if (info.getSide() == Collision::LEFT)
+                getCollider().m_vel.x = 1000;
+            if (info.getSide() == Collision::RIGHT)
+                getCollider().m_vel.x = -1000;
+            getCollider().m_vel.y -= 3000;
+        }
+    } else {
+        m_states.wallSliding = false;
+        getCollider().setGravityMultiplier(1.0f);
     }
 
     lastPosY = getCollider().getPosition().y;
@@ -158,7 +184,7 @@ void Player::updateTexture()
         return;
     }
 
-    if (m_states.hanging && m_currentTexture != HANG) {
+    if ((m_states.wallSliding || m_states.hanging) && m_currentTexture != HANG) {
         //cout << "hanging" << endl;
         getSprite().init(GET_TEXTURE(P_HANG), 4, 2, false);
         m_currentTexture = HANG;

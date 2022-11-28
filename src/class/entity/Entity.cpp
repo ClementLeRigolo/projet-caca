@@ -127,7 +127,7 @@ void Entity::reposition()
     coll.m_vel.y = damp(coll.m_vel.y, 0.05f, Timer::getFrameDelta());
     coll.m_acc = Vector2f(0, 0);
     if (coll.isGravityEnabled())
-        coll.m_acc.y += 2 * GRAVITY;
+        coll.m_acc.y += (2 * GRAVITY) * getCollider().getGravityMultiplier();
     m_sprite.setPosition(coll.getPosition());
     if (coll.m_vel.x > 0)
         m_sprite.setScale(Vector2f(abs(m_sprite.getScale().x), m_sprite.getScale().y));

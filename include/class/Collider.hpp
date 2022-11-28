@@ -29,6 +29,7 @@ class Collider : public RectangleShape
 {
     private:
         bool m_gravityEnabled;
+        float m_gravityMultiplier;
 
     public:
         Collider();
@@ -40,6 +41,8 @@ class Collider : public RectangleShape
         CollisionInfo checkCollision(Collider& other, float push);
         bool isGravityEnabled();
         void setGravityEnabled(bool toggle);
+        float getGravityMultiplier();
+        void setGravityMultiplier(float multiplier);
     
         Vector2f getHalfSize();
 };
