@@ -18,12 +18,13 @@ class Scene
         RectangleShape m_foreground;
         View m_view;
         Text m_fpsText;
-        vector<Button> m_buttons;
+        vector<Button*> m_buttons;
         FadeLayer m_fadeLayer;
         Music* m_music;
 
     public:
         Scene();
+        ~Scene();
         int getIndex() const;
         void setIndex(int index);
         void setFocus(bool boolean);

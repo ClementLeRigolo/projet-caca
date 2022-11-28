@@ -5,15 +5,15 @@
 #include "prototypes.hpp"
 
 MainMenu::MainMenu() {
-    m_buttons.push_back(Button(Vector2f(SCREEN_SIZE.x * 0.85,
+    m_buttons.push_back(new Button(Vector2f(SCREEN_SIZE.x * 0.85,
     SCREEN_SIZE.y * 0.4), "Continue", &buttonPlayGameFunc));
-    m_buttons.push_back(Button(Vector2f(SCREEN_SIZE.x * 0.85,
+    m_buttons.push_back(new Button(Vector2f(SCREEN_SIZE.x * 0.85,
     SCREEN_SIZE.y * 0.5), "New Game", &buttonGoToLevelEditor));
-    m_buttons.push_back(Button(Vector2f(SCREEN_SIZE.x * 0.85,
+    m_buttons.push_back(new Button(Vector2f(SCREEN_SIZE.x * 0.85,
     SCREEN_SIZE.y * 0.6), "Credits", &doNothingFunc));
-    m_buttons.push_back(Button(Vector2f(SCREEN_SIZE.x * 0.85,
+    m_buttons.push_back(new Button(Vector2f(SCREEN_SIZE.x * 0.85,
     SCREEN_SIZE.y * 0.7), "Settings", &buttonGoToSettingsFunc));
-    m_buttons.push_back(Button(Vector2f(SCREEN_SIZE.x * 0.85,
+    m_buttons.push_back(new Button(Vector2f(SCREEN_SIZE.x * 0.85,
     SCREEN_SIZE.y * 0.8), "Quit", &buttonExitGameFunc));
 
     m_background.setTexture(&GET_TEXTURE(MM_BG));
@@ -42,7 +42,7 @@ void MainMenu::pollEvents(RenderWindow& window)
 void MainMenu::updateLogic(RenderWindow& window)
 {
     for (int i = 0; i < m_buttons.size(); i++)
-        m_buttons.at(i).update(getMousePosition(window));
+        m_buttons.at(i)->update(getMousePosition(window));
 
     static float timer = Timer::getSeconds();
     IntRect rect = m_background.getTextureRect();
@@ -64,7 +64,7 @@ void MainMenu::display(RenderWindow& window)
     window.draw(m_background);
     window.draw(m_title);
     for (int i = 0; i < m_buttons.size(); i++)
-        m_buttons.at(i).display(window);
+        m_buttons.at(i)->display(window);
     window.draw(m_fadeLayer);
     window.draw(m_fpsText);
 }

@@ -9,8 +9,14 @@ AssetManager::AssetManager()
     loadFont(INGAME_FONT, GAME_FONT_PATH);
 
     // buttons
-    loadTexture(B_GENERIC, UI_PATH + "generic_button.png");
+    loadTexture(B_GENERIC, UI_PATH + "button_generic.png");
+    loadTexture(B_ICON, UI_PATH + "button_icon.png");
     loadTexture(B_TICKBOX, UI_PATH + "tickbox.png");
+
+    // icons
+    loadTexture(I_ADD, UI_PATH + "icon_add.png");
+    loadTexture(I_RESIZE, UI_PATH + "icon_resize.png");
+    loadTexture(I_SELECT, UI_PATH + "icon_select.png");
 
     // entities
     loadTexture(ENTITY_TEXTURE, "asset/texture/entity/entity.png");

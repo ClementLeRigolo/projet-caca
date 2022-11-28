@@ -10,7 +10,7 @@ Level::Level()
 
     m_obstacles.push_back(Obstacle(&GET_TEXTURE(W_BRICK), Vector2f(SCREEN_SIZE.x / 2, SCREEN_SIZE.y), Vector2f(6000, 800)));
 
-    m_buttons.push_back(Button(Vector2f(SCREEN_SIZE.x * 0.1,
+    m_buttons.push_back(new Button(Vector2f(SCREEN_SIZE.x * 0.1,
     SCREEN_SIZE.y * 0.95), "Exit", &buttonBackMainMenuFunc));
 
     m_levelTitle.setFont(GET_FONT(INGAME_FONT));
@@ -35,7 +35,7 @@ void Level::updateLogic(RenderWindow& window)
     player.update();
 
     for (int i = 0; i < m_buttons.size(); i++) {
-        m_buttons.at(i).update(getMousePosition(window));
+        m_buttons.at(i)->update(getMousePosition(window));
     }
 
     for (int i = 0; i < m_entities.size(); i++) {
@@ -78,7 +78,7 @@ void Level::display(RenderWindow& window)
     // Set view to static view and draw hud
     window.setView(m_view);
     for (int i = 0; i < m_buttons.size(); i++)
-        m_buttons.at(i).display(window);
+        m_buttons.at(i)->display(window);
     window.draw(m_levelTitle);
     window.draw(m_fadeLayer);
     window.draw(m_fpsText);

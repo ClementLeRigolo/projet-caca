@@ -34,5 +34,17 @@ class Button
         void setTexture(Texture* texture);
         RectangleShape& getShape();
         virtual void update(Vector2i mousePos);
-        void display(RenderTarget& target);
+        virtual void display(RenderTarget& target);
+};
+
+class IconButton : public Button
+{
+    private:
+        RectangleShape m_icon;
+
+    public:
+        IconButton();
+        IconButton(Vector2f pos, Texture* icon, void (*onClick)());
+        RectangleShape& getIcon();
+        void display(RenderTarget& target) override;
 };

@@ -13,6 +13,12 @@ Scene::Scene() {
     setMusic(Game::getInstance().getMusic());
 }
 
+Scene::~Scene()
+{
+    for (int i = 0; i < m_buttons.size(); i++)
+        delete m_buttons.at(i);
+}
+
 void Scene::setMusic(Music* music) { m_music = music; }
 
 Music* Scene::getMusic() { return m_music; }

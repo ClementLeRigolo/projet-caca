@@ -33,32 +33,32 @@ LevelEditor::LevelEditor()
 
     m_saveApllyButton.getShape().setScale(Vector2f(0.7, 0.7));
     m_saveApllyButton = Button(Vector2f(SCREEN_SIZE.x * 0.6,
-    SCREEN_SIZE.y * 0.65), "", &buttonApplyLevelEditorSave);
+    SCREEN_SIZE.y * 0.65), "Apply", &buttonApplyLevelEditorSave);
 
     m_saveCancelButton.getShape().setScale(Vector2f(0.7, 0.7));
     m_saveCancelButton = Button(Vector2f(SCREEN_SIZE.x * 0.4,
-    SCREEN_SIZE.y * 0.65), "", &buttonHideLevelEditorSave);
+    SCREEN_SIZE.y * 0.65), "Cancel", &buttonHideLevelEditorSave);
 
-    m_buttons.push_back(Button(Vector2f(SCREEN_SIZE.x * 0.1,
-    SCREEN_SIZE.y * 0.95), "", &buttonBackMainMenuFunc));
+    m_buttons.push_back(new Button(Vector2f(SCREEN_SIZE.x * 0.1,
+    SCREEN_SIZE.y * 0.95), "Back", &buttonBackMainMenuFunc));
 
-    m_buttons.push_back(Button(Vector2f(SCREEN_SIZE.x * 0.7,
-    SCREEN_SIZE.y * 0.1), "", &buttonLevelEditorMoveMode));
+    m_buttons.push_back(new IconButton(Vector2f(SCREEN_SIZE.x * 0.7,
+    SCREEN_SIZE.y * 0.1), &GET_TEXTURE(I_ADD), &buttonLevelEditorMoveMode));
 
-    m_buttons.push_back(Button(Vector2f(SCREEN_SIZE.x * 0.75,
-    SCREEN_SIZE.y * 0.1), "", &buttonLevelEditorSelectMode));
+    m_buttons.push_back(new IconButton(Vector2f(SCREEN_SIZE.x * 0.75,
+    SCREEN_SIZE.y * 0.1), &GET_TEXTURE(I_SELECT), &buttonLevelEditorSelectMode));
 
-    m_buttons.push_back(Button(Vector2f(SCREEN_SIZE.x * 0.80,
-    SCREEN_SIZE.y * 0.1), "", &buttonLevelEditorResizeMode));
+    m_buttons.push_back(new IconButton(Vector2f(SCREEN_SIZE.x * 0.80,
+    SCREEN_SIZE.y * 0.1), &GET_TEXTURE(I_RESIZE), &buttonLevelEditorResizeMode));
 
-    m_buttons.push_back(Button(Vector2f(SCREEN_SIZE.x * 0.85,
-    SCREEN_SIZE.y * 0.1), "", &buttonLevelEditorPlaceMode));
+    m_buttons.push_back(new IconButton(Vector2f(SCREEN_SIZE.x * 0.85,
+    SCREEN_SIZE.y * 0.1), &GET_TEXTURE(I_ADD), &buttonLevelEditorPlaceMode));
 
-    m_buttons.push_back(Button(Vector2f(SCREEN_SIZE.x * 0.90,
-    SCREEN_SIZE.y * 0.1), "", &buttonShowLevelEditorSave));
+    m_buttons.push_back(new IconButton(Vector2f(SCREEN_SIZE.x * 0.90,
+    SCREEN_SIZE.y * 0.1), &GET_TEXTURE(I_ADD), &buttonShowLevelEditorSave));
 
-    m_buttons.push_back(Button(Vector2f(SCREEN_SIZE.x * 0.95,
-    SCREEN_SIZE.y * 0.1), "", &doNothingFunc));
+    m_buttons.push_back(new IconButton(Vector2f(SCREEN_SIZE.x * 0.95,
+    SCREEN_SIZE.y * 0.1), &GET_TEXTURE(I_ADD), &doNothingFunc));
 }
 
 void LevelEditor::toggleSaveGUI(bool toggle)
@@ -161,8 +161,8 @@ void LevelEditor::pollEvents(RenderWindow& window)
 void LevelEditor::updateButtons(RenderWindow& window)
 {
     for (int i = 0; i < m_buttons.size(); i++) {
-        m_buttons.at(i).update(getMousePosition(window));
-        if (DoMouseIntersect(getMousePosition(window), m_buttons.at(i).getShape().getGlobalBounds()))
+        m_buttons.at(i)->update(getMousePosition(window));
+        if (DoMouseIntersect(getMousePosition(window), m_buttons.at(i)->getShape().getGlobalBounds()))
             m_hoveringShape = true;
     }
 }
@@ -250,7 +250,7 @@ void LevelEditor::display(RenderWindow& window)
     // Set view to static view and draw hud
     window.setView(m_view);
     for (int i = 0; i < m_buttons.size(); i++)
-        m_buttons.at(i).display(window);
+        m_buttons.at(i)->display(window);
     if (m_saveGUIopen) {
         window.draw(m_saveGUIShape);
         window.draw(m_saveApllyButton.getShape());

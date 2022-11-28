@@ -4,9 +4,9 @@
 #include "prototypes.hpp"
 
 SettingsMenu::SettingsMenu() {
-    m_buttons.push_back(Button(Vector2f(SCREEN_SIZE.x * 0.7,
+    m_buttons.push_back(new Button(Vector2f(SCREEN_SIZE.x * 0.7,
     SCREEN_SIZE.y * 0.9), "Apply", &doNothingFunc));
-    m_buttons.push_back(Button(Vector2f(SCREEN_SIZE.x * 0.3,
+    m_buttons.push_back(new Button(Vector2f(SCREEN_SIZE.x * 0.3,
     SCREEN_SIZE.y * 0.9), "Back", &buttonBackMainMenuFunc));
 
     m_text.push_back(EText(Vector2f(SCREEN_SIZE.x * 0.5, SCREEN_SIZE.y * 0.06), "{ Audio }"));
@@ -59,7 +59,7 @@ void SettingsMenu::updateLogic(RenderWindow& window)
     static int lastFrameRateLimit = Settings::FRAMERATE_LIMIT;
 
     for (int i = 0; i < m_buttons.size(); i++)
-        m_buttons.at(i).update(getMousePosition(window));
+        m_buttons.at(i)->update(getMousePosition(window));
 
     for (int i = 0; i < m_tickboxs.size(); i++)
         m_tickboxs.at(i).update(getMousePosition(window));
@@ -107,7 +107,7 @@ void SettingsMenu::display(RenderWindow& window)
 {
     window.setView(m_view);
     for (int i = 0; i < m_buttons.size(); i++)
-        m_buttons.at(i).display(window);
+        m_buttons.at(i)->display(window);
     for (int i = 0; i < m_tickboxs.size(); i++)
         window.draw(m_tickboxs.at(i).getShape());
     for (int i = 0; i < m_text.size(); i++)
