@@ -4,13 +4,19 @@
 #include "class/system/Logger.hpp"
 #include "prototypes.hpp"
 
-MainMenu::MainMenu() {
+MainMenu::MainMenu()
+{
+    reloadScene();
+}
+
+void MainMenu::reloadScene()
+{
     m_buttons.push_back(new Button(Vector2f(SCREEN_SIZE.x * 0.85,
     SCREEN_SIZE.y * 0.4), "Continue", &buttonPlayGameFunc));
     m_buttons.push_back(new Button(Vector2f(SCREEN_SIZE.x * 0.85,
     SCREEN_SIZE.y * 0.5), "New Game", &buttonGoToLevelEditor));
     m_buttons.push_back(new Button(Vector2f(SCREEN_SIZE.x * 0.85,
-    SCREEN_SIZE.y * 0.6), "Credits", &doNothingFunc));
+    SCREEN_SIZE.y * 0.6), "Load Game", &doNothingFunc));
     m_buttons.push_back(new Button(Vector2f(SCREEN_SIZE.x * 0.85,
     SCREEN_SIZE.y * 0.7), "Settings", &buttonGoToSettingsFunc));
     m_buttons.push_back(new Button(Vector2f(SCREEN_SIZE.x * 0.85,
