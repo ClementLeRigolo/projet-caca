@@ -1,9 +1,8 @@
 #pragma once
 
-#include "libs.hpp"
 #include "class/ui/TickBox.hpp"
-#include "class/ui/EText.hpp"
 #include "class/ui/Slider.hpp"
+#include "class/ui/Popup.hpp"
 #include "class/Entity.hpp"
 #include "class/graphic/FadeLayer.hpp"
 #include "class/world/Obstacle.hpp"
@@ -19,12 +18,13 @@ class Scene
         RectangleShape m_foreground;
         View m_view;
         Text m_fpsText;
-        vector<Button> m_buttons;
+        vector<Button*> m_buttons;
         FadeLayer m_fadeLayer;
         Music* m_music;
 
     public:
         Scene();
+        ~Scene();
         int getIndex() const;
         void setIndex(int index);
         void setFocus(bool boolean);
@@ -47,7 +47,7 @@ class Scene
 class MainMenu : public Scene
 {
     private:
-        vector<RectangleShape> m_background;
+        RectangleShape m_title;
 
     public:
         MainMenu();

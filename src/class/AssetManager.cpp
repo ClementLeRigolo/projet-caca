@@ -9,24 +9,23 @@ AssetManager::AssetManager()
     loadFont(INGAME_FONT, GAME_FONT_PATH);
 
     // buttons
-    loadTexture(B_CONTINUE, UI_PATH + "continue.png");
-    loadTexture(B_LOAD_GAME,UI_PATH + "load_game.png");
-    loadTexture(B_NEW_GAME, UI_PATH + "new_game.png");
-    loadTexture(B_SETTINGS, UI_PATH + "settings.png");
-    loadTexture(B_EXIT, UI_PATH + "exit.png");
-    loadTexture(B_BACK, UI_PATH + "back.png");
-    loadTexture(B_APPLY, UI_PATH + "apply.png");
+    loadTexture(B_GENERIC, UI_PATH + "button_generic.png");
+    loadTexture(B_ICON, UI_PATH + "button_icon.png");
     loadTexture(B_TICKBOX, UI_PATH + "tickbox.png");
+
+    // icons
+    loadTexture(I_ADD, UI_PATH + "icon_add.png");
+    loadTexture(I_RESIZE, UI_PATH + "icon_resize.png");
+    loadTexture(I_SELECT, UI_PATH + "icon_select.png");
 
     // entities
     loadTexture(ENTITY_TEXTURE, "asset/texture/entity/entity.png");
 
+    // titles
+    loadTexture(TITLE_TEXTURE, UI_PATH + "rpg_masterclass.png");
+
     // background
-    loadTexture(MM_BG1, BCKGRD_PATH + "background_no_char.jpg");
-    loadTexture(MM_BG2, BCKGRD_PATH + "char.png");
-    loadTexture(MM_BG3, BCKGRD_PATH + "embers.png");
-    loadTexture(MM_BG4, BCKGRD_PATH + "smoke.png");
-    loadTexture(MM_BG5, BCKGRD_PATH + "title.png");
+    loadTexture(MM_BG, BCKGRD_PATH + "main_menu_background.png");
 
     // slider
     loadTexture(SLIDER_IN, UI_PATH + "slider_in.png");
@@ -46,7 +45,6 @@ AssetManager::AssetManager()
     loadTexture(B_LOAD, UI_PATH + "load.png");
     loadTexture(B_ADD_EDITABLE, UI_PATH + "add_editable.png");
 
-
     // sound
     loadSound(CLICK_SOUND , AUDIO_PATH  + "ui/click.ogg");
     loadSound(HOVER_SOUND , AUDIO_PATH  + "ui/hover.ogg");
@@ -56,7 +54,6 @@ void AssetManager::loadTexture(TextureID identifier, string filename)
 {
     unique_ptr<Texture> texture(new Texture());
     texture.get()->loadFromFile(filename);
-    texture.get()->setSmooth(true);
     texture.get()->setRepeated(true);
     auto insert = m_textures.insert(make_pair(identifier, move(texture)));
     assert(insert.second);
