@@ -12,7 +12,7 @@ Player::Player()
     getSprite().init(GET_TEXTURE(P_IDLE), 4, 2, true);
     getSprite().setScale(Vector2f(4, 4));
     setHitboxSize(Vector2f(120, 200), true);
-    setHitboxVisible(true);
+    setHitboxVisible(false);
     setHealth(10);
     setSpeed(15);
     m_states.falling = false;
@@ -119,6 +119,8 @@ void Player::updateStates(CollisionInfo info)
         Vector2f origin = getCenter(getSprite());
         getSprite().setOrigin(origin.x - 7, origin.y - 3);
         m_states.canJump = true;
+        m_states.wallJumping = false;
+        m_states.wallSliding = false;
         m_states.jumping = false;
         m_states.falling = false;
         getCollider().m_vel.y = 0;
