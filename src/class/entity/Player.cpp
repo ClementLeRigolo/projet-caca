@@ -47,7 +47,7 @@ void Player::control()
     if (Keyboard::isKeyPressed(Keyboard::Space) &&
         !m_states.jumping && m_states.canJump && !m_states.wallJumping) {
         m_states.jumping = true;
-        getCollider().m_vel.y = -4000;
+        getCollider().m_vel.y = -3500;
     }
 }
 
