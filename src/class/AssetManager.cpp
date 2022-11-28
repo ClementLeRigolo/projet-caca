@@ -45,6 +45,13 @@ AssetManager::AssetManager()
     loadTexture(B_LOAD, UI_PATH + "load.png");
     loadTexture(B_ADD_EDITABLE, UI_PATH + "add_editable.png");
 
+    // Player
+    loadTexture(P_IDLE, PLAYER_PATH + "idle.png");
+    loadTexture(P_RUN, PLAYER_PATH + "run.png");
+    loadTexture(P_JUMP, PLAYER_PATH + "jump.png");
+    loadTexture(P_FALL, PLAYER_PATH + "fall.png");
+    loadTexture(P_HANG, PLAYER_PATH + "hang.png");
+
     // sound
     loadSound(CLICK_SOUND , AUDIO_PATH  + "ui/click.ogg");
     loadSound(HOVER_SOUND , AUDIO_PATH  + "ui/hover.ogg");

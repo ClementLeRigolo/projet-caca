@@ -25,6 +25,14 @@ Scene::~Scene()
         delete m_buttons.at(i);
 }
 
+void Scene::doTransition()
+{
+    if (!hasFocus()) {
+        m_fadeLayer.reset();
+    } else
+        m_fadeLayer.fade(0.02, Color::Transparent);
+}
+
 void Scene::setMusic(Music* music) { m_music = music; }
 
 Music* Scene::getMusic() { return m_music; }
@@ -63,10 +71,6 @@ void Scene::pollEvents(RenderWindow& window)
 
 void Scene::updateLogic(RenderWindow& window)
 {
-    if (!hasFocus()) {
-        m_fadeLayer.reset();
-    } else
-        m_fadeLayer.fade(0.02, Color::Transparent);
 }
 
 void Scene::display(RenderWindow& window)

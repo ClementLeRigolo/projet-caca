@@ -11,6 +11,7 @@ void Timer::start()
 {
     m_fps = 0;
     m_frameDelta = 0;
+    m_seconds = 0;
 }
 
 void Timer::update()

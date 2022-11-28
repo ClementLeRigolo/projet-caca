@@ -21,7 +21,16 @@ enum TextureID
     SLIDER_IN,
     SLIDER_OUT,
     SLIDER_THINGY,
+
+    // Obstacles
     W_BRICK,
+
+    // Player
+    P_IDLE,
+    P_RUN,
+    P_FALL,
+    P_JUMP,
+    P_HANG,
 };
 
 enum FontID

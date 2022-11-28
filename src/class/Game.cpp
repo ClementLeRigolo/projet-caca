@@ -65,7 +65,7 @@ Render* Game::getRender() { return m_render; }
 
 Scene* Game::getCurrentScene() { return m_currentScene; }
 
-void Game::setCurrentScene(Scene* scene)
+void Game::setCurrentScene(Scene* scene, bool reloadScene)
 {
     RenderWindow& window = getRender()->getWindow();
 
@@ -74,6 +74,8 @@ void Game::setCurrentScene(Scene* scene)
             getCurrentScene()->getMusic()->stop();
         getCurrentScene()->setFocus(false);
     }
+    if (reloadScene)
+       scene->reloadScene();
     scene->getView() = getLetterboxView(getCurrentScene()->getView(),
     window.getSize().x, window.getSize().y);
     scene->setMusic(m_music);
@@ -125,6 +127,7 @@ void Game::pollEvents()
 void Game::updateSceneLogic(Scene* scene)
 {
     // Updates scene logic
+    scene->doTransition();
     scene->updateLogic(getRender()->getWindow());
     if (scene->getMusic())
         scene->getMusic()->setVolume(Settings::MUSIC_VOLUME);

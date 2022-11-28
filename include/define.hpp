@@ -9,5 +9,6 @@
 #define GAME_FONT_PATH (std::string)"asset/font/MinimalPixel.ttf"
 #define AUDIO_PATH (std::string)"asset/audio/"
 #define WALL_PATH (std::string)"asset/texture/wall/"
+#define PLAYER_PATH (std::string)"asset/texture/entity/player/"
 
-#define GRAVITY 9.81;
+#define GRAVITY 9.81
