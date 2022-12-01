@@ -12,11 +12,18 @@ Popup::Popup(EText title, EText message, void (*onClick)())
 
     m_title = title;
     m_message = message;
+    m_display = false;
 
-    m_button.getShape().setScale(Vector2f(0.7, 0.7));
-    m_button = Button(Vector2f(SCREEN_SIZE.x * 0.6,
+    m_buttonClose.getShape().setScale(Vector2f(0.7, 0.7));
+    m_buttonClose = Button(Vector2f(SCREEN_SIZE.x * 0.5,
     SCREEN_SIZE.y * 0.65), "Close", onClick);
 }
+
+RectangleShape& Popup::getBackground() { return m_background; }
+
+EText& Popup::getTitle() { return m_title; }
+
+EText& Popup::getMessage() { return m_message; }
 
 void Popup::setDisplayed(bool display) { m_display = display; }
 
@@ -25,7 +32,7 @@ bool Popup::isDisplayed() const { return m_display; }
 void Popup::update(RenderWindow& target)
 {
     if (m_display) {
-        m_button.update(getMousePosition(target));
+        m_buttonClose.update(getMousePosition(target));
     }   
 }
 
@@ -36,6 +43,6 @@ void Popup::display(RenderTarget& target)
         target.draw(m_background);
         target.draw(m_title);
         target.draw(m_message);
-        m_button.display(target);
+        m_buttonClose.display(target);
     }
 }

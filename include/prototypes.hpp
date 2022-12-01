@@ -37,6 +37,7 @@ void buttonLevelEditorPlaceMode();
 void buttonShowLevelEditorSave();
 void buttonHideLevelEditorSave();
 void buttonApplyLevelEditorSave();
+void buttonCloseLevelEditorSave();
 
 
 // Easing functions

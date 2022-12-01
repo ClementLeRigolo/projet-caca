@@ -80,7 +80,7 @@ void Player::updateStates(CollisionInfo info)
         m_states.canJump = false;
     }
 
-    if (m_states.grounded && abs(getCollider().m_vel.x) < 150 && abs(getCollider().m_vel.y == 0))
+    if (abs(getCollider().m_vel.x) < 150 && abs(getCollider().m_vel.y == 0) && !m_states.hanging)
         m_states.idle = true;
     else
         m_states.idle = false;
@@ -154,6 +154,8 @@ void Player::updateStates(CollisionInfo info)
             getCollider().m_vel.y -= 3000;
         }
     } else {
+        if (m_states.wallSliding && !m_states.hanging)
+            m_states.falling = false;
         m_states.wallSliding = false;
         getCollider().setGravityMultiplier(1.0f);
     }

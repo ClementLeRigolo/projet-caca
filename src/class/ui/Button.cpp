@@ -135,7 +135,6 @@ void Button::update(Vector2i mousePos)
         m_label.setFillColor(Color(80, 80, 80, 255));
     }
     m_shape.setTextureRect(t_rect);
-    m_shape.setOrigin(getCenter(m_shape));
 }
 
 void Button::display(RenderTarget& target)

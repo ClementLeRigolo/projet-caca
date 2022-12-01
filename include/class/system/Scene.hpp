@@ -7,6 +7,7 @@
 #include "class/graphic/FadeLayer.hpp"
 #include "class/world/Obstacle.hpp"
 #include "class/EditableShape.hpp"
+#include "class/ISprite.hpp"
 #include "enum/Editor.hpp"
 
 class Scene
@@ -95,17 +96,19 @@ class LevelEditor : public Scene
         float m_zoomFactor;
         View m_cameraView;
         EditableShape* m_selectedShape;
-        vector<EditableShape> m_obstacles;
-        RectangleShape m_saveGUIShape;
-        Button m_saveApllyButton;
-        Button m_saveCancelButton;
-        EText m_saveHintText;
-        EText m_saveText;
-        int m_selectedShapeIndex;
+        vector<EditableShape*> m_obstacles;
+        vector<EditableShape> m_decorations;
+        vector<ISprite> m_assetsTextures;
+        RectangleShape m_texturePickerBG;
+        RectangleShape m_texturePickerFG;
         bool m_hoveringShape;
         bool m_saving;
+        bool m_hoveringTexturePicker;
+        bool m_resizableAsset;
+        ITexture* m_selectedTexture;
+        float m_texturePickerOffset;
         unsigned int m_mode;
-        bool m_saveGUIopen;
+        TextInputPopup m_savePopup;
 
     private:
         void updateEditables(RenderWindow& window);
@@ -117,13 +120,13 @@ class LevelEditor : public Scene
     public:
         LevelEditor();
         View& getCamera();
+        void toggleSavePopup(bool toggle);
         void setSaving(bool toggle);
-        void toggleSaveGUI(bool toggle);
         void setEditMode(EditMode::ID mode);
         void pollEvents(RenderWindow& window);
         void addEntity(Vector2f pos);
         void updateLogic(RenderWindow& window);
-        void addObstacle(Vector2f pos);
+        void addObstacle(Vector2f pos, bool resizable);
         void display(RenderWindow& window);
         void reloadScene();
 };

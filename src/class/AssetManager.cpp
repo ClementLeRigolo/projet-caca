@@ -4,7 +4,10 @@
 
 AssetManager::AssetManager()
 {
-    //fonts
+    // test
+    loadTextureFromDirectory("asset/texture/tileset/village");
+
+    // fonts
     loadFont(DEBUG_FONT, DEBUG_FONT_PATH);
     loadFont(INGAME_FONT, GAME_FONT_PATH);
 
@@ -17,6 +20,9 @@ AssetManager::AssetManager()
     loadTexture(I_ADD, UI_PATH + "icon_add.png");
     loadTexture(I_RESIZE, UI_PATH + "icon_resize.png");
     loadTexture(I_SELECT, UI_PATH + "icon_select.png");
+    loadTexture(I_MOVE, UI_PATH + "icon_move.png");
+    loadTexture(I_SAVE, UI_PATH + "icon_save.png");
+    loadTexture(I_LOAD, UI_PATH + "icon_load.png");
 
     // entities
     loadTexture(ENTITY_TEXTURE, "asset/texture/entity/entity.png");
@@ -38,12 +44,8 @@ AssetManager::AssetManager()
     // Editor
     loadTexture(E_RESIZE_HINT, UI_PATH + "resize_hint.png");
     loadTexture(E_SAVE_GUI, UI_PATH + "saveGUI.png");
-    loadTexture(B_SAVE, UI_PATH + "save.png");
-    loadTexture(B_MOVE, UI_PATH + "move.png");
-    loadTexture(B_SELECT, UI_PATH + "select.png");
-    loadTexture(B_RESIZE, UI_PATH + "resize.png");
-    loadTexture(B_LOAD, UI_PATH + "load.png");
-    loadTexture(B_ADD_EDITABLE, UI_PATH + "add_editable.png");
+    loadTexture(E_TEXTURE_PICKER_BG, UI_PATH + "texturePickerBG.png");
+    loadTexture(E_TEXTURE_PICKER_FG, UI_PATH + "texturePickerFG.png");
 
     // Player
     loadTexture(P_IDLE, PLAYER_PATH + "idle.png");
@@ -64,6 +66,19 @@ void AssetManager::loadTexture(TextureID identifier, string filename)
     texture.get()->setRepeated(true);
     auto insert = m_textures.insert(make_pair(identifier, move(texture)));
     assert(insert.second);
+}
+
+void AssetManager::loadTextureFromDirectory(string directory)
+{
+    for (const auto & entry : filesystem::directory_iterator(directory)) {
+        std::cout << entry.path().filename() << std::endl;
+        unique_ptr<ITexture> texture(new ITexture());
+        texture.get()->loadFromFile(entry.path());
+        texture.get()->setRepeated(true);
+        texture.get()->setIdentifier(entry.path().filename());
+        auto insert = m_assetTextures.insert(make_pair(entry.path().filename(), move(texture)));
+        assert(insert.second);
+    }
 }
 
 void AssetManager::loadSound(SoundID identifier, string filename)
@@ -90,6 +105,18 @@ Texture& AssetManager::getTexture(TextureID identifier)
     auto found = m_textures.find(identifier);
     assert(found != m_textures.end());
     return *found->second.get();
+}
+
+ITexture& AssetManager::getTexture2(String identifier)
+{
+    auto found = m_assetTextures.find(identifier);
+    assert(found != m_assetTextures.end());
+    return *found->second.get();
+}
+
+map<String, unique_ptr<ITexture>>& AssetManager::getTextureMap()
+{
+    return m_assetTextures;
 }
 
 SoundBuffer& AssetManager::getSound(SoundID identifier)

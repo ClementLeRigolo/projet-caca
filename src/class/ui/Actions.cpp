@@ -73,14 +73,14 @@ void buttonShowLevelEditorSave()
 {
     LevelEditor* level = (LevelEditor*)Game::getInstance().getCurrentScene();
 
-    level->toggleSaveGUI(true);
+    level->toggleSavePopup(true);
 }
 
 void buttonHideLevelEditorSave()
 {
     LevelEditor* level = (LevelEditor*)Game::getInstance().getCurrentScene();
 
-    level->toggleSaveGUI(false);
+    level->toggleSavePopup(false);
 }
 
 void buttonApplyLevelEditorSave()
@@ -88,5 +88,12 @@ void buttonApplyLevelEditorSave()
     LevelEditor* level = (LevelEditor*)Game::getInstance().getCurrentScene();
 
     level->setSaving(true);
-    level->toggleSaveGUI(false);
+    level->toggleSavePopup(false);
+}
+
+void buttonCloseLevelEditorSave()
+{
+    LevelEditor* level = (LevelEditor*)Game::getInstance().getCurrentScene();
+
+    level->toggleSavePopup(false);
 }

@@ -9,9 +9,9 @@ IconButton::IconButton(Vector2f pos, Texture* icon, void (*onClick)())
 {
     m_shape.setTexture(&GET_TEXTURE(B_ICON));
     m_shape.setTextureRect(IntRect(0, 0,
-        m_shape.getTexture()->getSize().x / 3, m_shape.getTexture()->getSize().y));
+    m_shape.getTexture()->getSize().x / 3, m_shape.getTexture()->getSize().y));
     m_shape.setSize(Vector2f(m_shape.getTextureRect().width, m_shape.getTextureRect().height));
-    m_shape.setOrigin(getCenter(m_shape));
+    m_shape.setOrigin(Vector2f(m_shape.getTextureRect().width / 2, m_shape.getTextureRect().height / 2));
 
     if (icon != NULL)
         m_icon.setTexture(icon);

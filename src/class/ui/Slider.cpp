@@ -5,28 +5,36 @@
 Slider::Slider() { m_progress = 0; };
 
 Slider::Slider(Texture* outTexture, Texture* inTexture,
-Texture* sliderThingyTexture, Vector2f size, Vector2f pos)
+Texture* sliderThingyTexture, Vector2f size, Vector2f pos, bool vertical)
 {
     m_progress = 0.5;
     m_grabbed = false;
 
-    getInShape().setSize(Vector2f(size.x * 0.9, size.y));
+    getInShape().setSize(Vector2f(outTexture->getSize().x * 0.83, outTexture->getSize().y * 3));
     getInShape().setOrigin(getCenter(getInShape()));
     getInShape().setTexture(inTexture);
     getInShape().setPosition(pos);
+    getInShape().setOutlineColor(Color(255, 0, 0, 150));
 
-    getOutShape().setSize(Vector2f(size.x, size.y));
+    getOutShape().setSize(Vector2f(outTexture->getSize()));
     getOutShape().setOrigin(getCenter(getOutShape()));
     getOutShape().setTexture(outTexture);
     getOutShape().setPosition(pos);
 
-    getSliderThingy().setSize(Vector2f(size.y, size.y));
+    getSliderThingy().setSize(Vector2f(sliderThingyTexture->getSize()));
     getSliderThingy().setOrigin(getCenter(getSliderThingy()));
     getSliderThingy().setTexture(sliderThingyTexture);
     getSliderThingy().setPosition(pos);
 
-    setScale(Vector2f(1, 0.2));
-    m_thingyBaseScale = Vector2f(0.5, 0.5);
+    if (vertical) {
+       getOutShape().setRotation(90);
+       getInShape().setRotation(90);
+       getSliderThingy().setRotation(90);
+    }
+
+    setScale(Vector2f(1.5, 1.5));
+
+    m_thingyBaseScale = Vector2f(2, 2);
 };
 
 RectangleShape& Slider::getOutShape()
@@ -63,6 +71,7 @@ void Slider::setPosition(Vector2f pos)
 
 void Slider::setScale(Vector2f scale)
 {
+    getInShape().setScale(scale);
     getOutShape().setScale(scale);
     getSliderThingy().setScale(vectFmult(scale, m_thingyBaseScale));
 }
@@ -113,7 +122,8 @@ void Slider::update(RenderWindow& window)
         mousePos.y - m_lastMousePos.y);
         diff.y = 0;
         if ((mousePos.x >= getSliderThingy().getGlobalBounds().left && diff.x > 0)
-            || (mousePos.x <= getSliderThingy().getGlobalBounds().left + getSliderThingy().getGlobalBounds().width && diff.x < 0)) {
+            || (mousePos.x <= getSliderThingy().getGlobalBounds().left\
+            + getSliderThingy().getGlobalBounds().width && diff.x < 0)) {
             getSliderThingy().setPosition(getSliderThingy().getPosition() + diff);
             if (getSliderThingy().getPosition().x > (getInShape().getGlobalBounds().left\
             + getInShape().getGlobalBounds().width))
@@ -126,7 +136,7 @@ void Slider::update(RenderWindow& window)
         m_lastMousePos = mousePos;
         m_progress = distFrom(getSliderThingy().getPosition(),
         Vector2f(getInShape().getGlobalBounds().left,
-        getSliderThingy().getPosition().y)) / getInShape().getSize().x;
+        getSliderThingy().getPosition().y)) / getInShape().getGlobalBounds().width;
     } 
 }
 

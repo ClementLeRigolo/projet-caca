@@ -118,9 +118,8 @@ void Game::pollEvents()
             case Event::Closed:
                 window.close();
                 break;
-            default:
-                getCurrentScene()->pollEvents(getRender()->getWindow());
         }
+        getCurrentScene()->pollEvents(getRender()->getWindow());
     }
 }
 
@@ -144,7 +143,7 @@ void Game::update()
 
 void Game::render()
 {
-    m_render->getWindow().clear();
+    m_render->getWindow().clear(Color(16, 12, 12, 255));
     m_currentScene->display(getRender()->getWindow());
     m_render->getWindow().display();
 }

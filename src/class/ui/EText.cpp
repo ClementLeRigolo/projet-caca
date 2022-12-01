@@ -12,5 +12,6 @@ EText::EText(Vector2f pos, String str)
 {
     setFont(GET_FONT(INGAME_FONT));
     setString(str);
+    setOrigin(getCenter(*this));
     setPosition(pos);
 }

@@ -5,15 +5,15 @@
 #include "class/system/Settings.hpp"
 #include "prototypes.hpp"
 
-TickBox::TickBox(Vector2f size, Vector2f pos, Texture& texture, void (*onClick)(bool toggled))
+TickBox::TickBox(Vector2f pos, Texture& texture, void (*onClick)(bool toggled))
 {
     m_shape.setFillColor(Color::White);
-    m_shape.setSize(size);
+    m_shape.setSize(Vector2f(texture.getSize().x / 3, texture.getSize().y));
     m_shape.setTexture(&texture);
     m_shape.setTextureRect(IntRect(0, 0,
     texture.getSize().x / 3, texture.getSize().y));
     m_shape.setOrigin(getCenter(m_shape));
-    setBaseScale(Vector2f(1, 1));
+    setBaseScale(Vector2f(3, 3));
     m_shape.setPosition(pos);
     m_state = idle;
     m_toggled = false;
@@ -74,5 +74,4 @@ void TickBox::update(Vector2i mousePos)
         }
     }
     m_shape.setTextureRect(t_rect);
-
 }

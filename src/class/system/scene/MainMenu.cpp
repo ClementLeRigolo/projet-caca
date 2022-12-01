@@ -6,11 +6,6 @@
 
 MainMenu::MainMenu()
 {
-    reloadScene();
-}
-
-void MainMenu::reloadScene()
-{
     m_buttons.push_back(new Button(Vector2f(SCREEN_SIZE.x * 0.85,
     SCREEN_SIZE.y * 0.4), "Continue", &buttonPlayGameFunc));
     m_buttons.push_back(new Button(Vector2f(SCREEN_SIZE.x * 0.85,
@@ -26,8 +21,8 @@ void MainMenu::reloadScene()
     m_background.setTextureRect(IntRect(0, 0,
         m_background.getTexture()->getSize().x / 8, m_background.getTexture()->getSize().y));
     m_background.setSize(Vector2f(m_background.getTextureRect().width, m_background.getTextureRect().height));
-    m_background.setOrigin(getCenter(m_background));
     m_background.setPosition(Vector2f(SCREEN_SIZE.x * 0.5, SCREEN_SIZE.y * 0.5));
+    m_background.setOrigin(getCenter(m_background));
     m_background.setScale(Vector2f(3.1, 3.1));
 
     m_title.setTexture(&GET_TEXTURE(TITLE_TEXTURE));
@@ -35,6 +30,14 @@ void MainMenu::reloadScene()
     m_title.setOrigin(getCenter(m_title));
     m_title.setPosition(Vector2f(SCREEN_SIZE.x * 0.5, 80));
     m_title.setScale(Vector2f(3.5, 3.5));
+
+    reloadScene();
+}
+
+void MainMenu::reloadScene()
+{
+    m_background.setTextureRect(IntRect(0, 0,
+        m_background.getTexture()->getSize().x / 8, m_background.getTexture()->getSize().y));
 }
 
 void MainMenu::pollEvents(RenderWindow& window)
@@ -47,8 +50,8 @@ void MainMenu::pollEvents(RenderWindow& window)
 
 void MainMenu::updateLogic(RenderWindow& window)
 {
-    for (int i = 0; i < m_buttons.size(); i++)
-        m_buttons.at(i)->update(getMousePosition(window));
+    for (auto i : m_buttons)
+        i->update(getMousePosition(window));
 
     static float timer = Timer::getSeconds();
     IntRect rect = m_background.getTextureRect();
@@ -57,11 +60,6 @@ void MainMenu::updateLogic(RenderWindow& window)
         m_background.setTextureRect(rect);
         timer = Timer::getSeconds();
     }
-
-    if (!hasFocus()) {
-        m_fadeLayer.reset();
-    } else
-        m_fadeLayer.fade(0.02, Color::Transparent);
 }
 
 void MainMenu::display(RenderWindow& window)

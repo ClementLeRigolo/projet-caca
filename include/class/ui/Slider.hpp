@@ -17,7 +17,7 @@ class Slider
         Slider();
         Slider(Texture* outTexture, Texture* inTexture,
         Texture* sliderThingyTexture, Vector2f size,
-        Vector2f pos);
+        Vector2f pos, bool vertical);
         RectangleShape& getOutShape();
         RectangleShape& getInShape();
         RectangleShape& getSliderThingy();

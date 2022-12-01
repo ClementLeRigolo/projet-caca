@@ -33,7 +33,7 @@ void SettingsMenu::reloadScene()
     m_sliders.push_back(Slider(&GET_TEXTURE(SLIDER_OUT),
     &GET_TEXTURE(SLIDER_IN),
     &GET_TEXTURE(SLIDER_THINGY),
-    Vector2f(400, 50), Vector2f(SCREEN_SIZE.x * 0.6, SCREEN_SIZE.y * 0.17)));
+    Vector2f(400, 50), Vector2f(SCREEN_SIZE.x * 0.55, SCREEN_SIZE.y * 0.15), false));
     m_sliders.at(0).getSliderThingy().setPosition(Vector2f((m_sliders.at(0).getInShape().getGlobalBounds().left\
     + m_sliders.at(0).getInShape().getGlobalBounds().width),
     m_sliders.at(0).getSliderThingy().getPosition().y));
@@ -42,22 +42,22 @@ void SettingsMenu::reloadScene()
     m_sliders.push_back(Slider(&GET_TEXTURE(SLIDER_OUT),
     &GET_TEXTURE(SLIDER_IN),
     &GET_TEXTURE(SLIDER_THINGY),
-    Vector2f(400, 50), Vector2f(SCREEN_SIZE.x * 0.6, SCREEN_SIZE.y * 0.27)));
+    Vector2f(400, 50), Vector2f(SCREEN_SIZE.x * 0.55, SCREEN_SIZE.y * 0.25), false));
 
     m_sliders.push_back(Slider(&GET_TEXTURE(SLIDER_OUT),
     &GET_TEXTURE(SLIDER_IN),
     &GET_TEXTURE(SLIDER_THINGY),
-    Vector2f(400, 50), Vector2f(SCREEN_SIZE.x * 0.6, SCREEN_SIZE.y * 0.37)));
+    Vector2f(400, 50), Vector2f(SCREEN_SIZE.x * 0.55, SCREEN_SIZE.y * 0.35), false));
 
     m_sliders.push_back(Slider(&GET_TEXTURE(SLIDER_OUT),
     &GET_TEXTURE(SLIDER_IN),
     &GET_TEXTURE(SLIDER_THINGY),
-    Vector2f(400, 50), Vector2f(SCREEN_SIZE.x * 0.6, SCREEN_SIZE.y * 0.57)));
+    Vector2f(400, 50), Vector2f(SCREEN_SIZE.x * 0.55, SCREEN_SIZE.y * 0.55), false));
 
 
-    m_tickboxs.push_back(TickBox(Vector2f(50, 50), Vector2f(SCREEN_SIZE.x * 0.6,
-    SCREEN_SIZE.y * 0.665), GET_TEXTURE(B_TICKBOX), &toggleVsyncFunc));
-    m_tickboxs.at(0).setBaseScale(Vector2f(0.8, 0.8));
+    m_tickboxs.push_back(TickBox(Vector2f(SCREEN_SIZE.x * 0.55,
+    SCREEN_SIZE.y * 0.65), GET_TEXTURE(B_TICKBOX), &toggleVsyncFunc));
+    m_tickboxs.at(0).setBaseScale(Vector2f(2, 2));
 }
 
 void SettingsMenu::updateLogic(RenderWindow& window)

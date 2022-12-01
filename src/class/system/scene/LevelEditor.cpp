@@ -7,48 +7,26 @@ void updateTextInputBox(Event& event, EText& inputBox);
 
 LevelEditor::LevelEditor()
 {
-    reloadScene();
-}
 
-void LevelEditor::reloadScene()
-{
-    m_index = 0;
-    m_hasFocus = false;
+    m_texturePickerBG.setSize(Vector2f(600, SCREEN_SIZE.y));
+    m_texturePickerBG.setOrigin(getCenter(m_texturePickerBG));
+    m_texturePickerBG.setTexture(&GET_TEXTURE(E_TEXTURE_PICKER_BG));
+    m_texturePickerBG.setPosition(300, SCREEN_SIZE.y / 2.0);
 
-    m_saving = false;
-    m_saveGUIopen = false;
-    m_mode = EditMode::MOVE;
-    m_hoveringShape = false;
-    m_cameraView.setSize(SCREEN_SIZE);
-    m_cameraView.setCenter(Vector2f(SCREEN_SIZE.x / 2, SCREEN_SIZE.y / 2));
-    m_zoomFactor = 1;
-    m_selectedShape = NULL;
-    m_selectedShapeIndex = -1;
+    m_texturePickerFG = m_texturePickerBG;
+    m_texturePickerFG.setTexture(&GET_TEXTURE(E_TEXTURE_PICKER_FG));
 
-    m_saveGUIShape.setTexture(&GET_TEXTURE(E_SAVE_GUI), false);
-    m_saveGUIShape.setSize((Vector2f)GET_TEXTURE(E_SAVE_GUI).getSize());
-    m_saveGUIShape.setOrigin(getCenter(m_saveGUIShape));
-    m_saveGUIShape.setPosition(Vector2f(SCREEN_SIZE.x / 2, SCREEN_SIZE.y / 2));
-
-    m_saveHintText = EText(Vector2f(SCREEN_SIZE.x * 0.5, SCREEN_SIZE.y * 0.45), "Enter save name");
-    m_saveHintText.setCharacterSize(35);
-    m_saveHintText.setOrigin(getCenter(m_saveHintText));
-    m_saveText = EText(Vector2f(SCREEN_SIZE.x * 0.5, SCREEN_SIZE.y * 0.52), "");
-
-
-    m_saveApllyButton.getShape().setScale(Vector2f(0.7, 0.7));
-    m_saveApllyButton = Button(Vector2f(SCREEN_SIZE.x * 0.6,
-    SCREEN_SIZE.y * 0.65), "Apply", &buttonApplyLevelEditorSave);
-
-    m_saveCancelButton.getShape().setScale(Vector2f(0.7, 0.7));
-    m_saveCancelButton = Button(Vector2f(SCREEN_SIZE.x * 0.4,
-    SCREEN_SIZE.y * 0.65), "Cancel", &buttonHideLevelEditorSave);
+    m_savePopup = TextInputPopup(EText(Vector2f(SCREEN_SIZE.x / 2, SCREEN_SIZE.y / 2), ""),
+    EText(Vector2f(500, 500), "Enter save name"), &buttonCloseLevelEditorSave, &buttonApplyLevelEditorSave);
+    m_savePopup.getBackground().setScale(3.5, 3.5);
+    m_savePopup.getMessage().setPosition(SCREEN_SIZE.x / 2, SCREEN_SIZE.y * 0.45);
+    m_savePopup.getInput().setPosition(SCREEN_SIZE.x / 2, SCREEN_SIZE.y * 0.54);
 
     m_buttons.push_back(new Button(Vector2f(SCREEN_SIZE.x * 0.1,
     SCREEN_SIZE.y * 0.95), "Back", &buttonBackMainMenuFunc));
 
     m_buttons.push_back(new IconButton(Vector2f(SCREEN_SIZE.x * 0.7,
-    SCREEN_SIZE.y * 0.1), &GET_TEXTURE(I_ADD), &buttonLevelEditorMoveMode));
+    SCREEN_SIZE.y * 0.1), &GET_TEXTURE(I_MOVE), &buttonLevelEditorMoveMode));
 
     m_buttons.push_back(new IconButton(Vector2f(SCREEN_SIZE.x * 0.75,
     SCREEN_SIZE.y * 0.1), &GET_TEXTURE(I_SELECT), &buttonLevelEditorSelectMode));
@@ -60,26 +38,66 @@ void LevelEditor::reloadScene()
     SCREEN_SIZE.y * 0.1), &GET_TEXTURE(I_ADD), &buttonLevelEditorPlaceMode));
 
     m_buttons.push_back(new IconButton(Vector2f(SCREEN_SIZE.x * 0.90,
-    SCREEN_SIZE.y * 0.1), &GET_TEXTURE(I_ADD), &buttonShowLevelEditorSave));
+    SCREEN_SIZE.y * 0.1), &GET_TEXTURE(I_SAVE), &buttonShowLevelEditorSave));
 
     m_buttons.push_back(new IconButton(Vector2f(SCREEN_SIZE.x * 0.95,
-    SCREEN_SIZE.y * 0.1), &GET_TEXTURE(I_ADD), &doNothingFunc));
+    SCREEN_SIZE.y * 0.1), &GET_TEXTURE(I_LOAD), &doNothingFunc));
+
+    reloadScene();
 }
 
-void LevelEditor::toggleSaveGUI(bool toggle)
+void LevelEditor::reloadScene()
 {
-    m_saveGUIopen = toggle;
+    m_index = 0;
+    m_hasFocus = false;
+
+    m_saving = false;
+    m_mode = EditMode::MOVE;
+    m_hoveringShape = false;
+    m_hoveringTexturePicker = false;
+    m_cameraView.setSize(SCREEN_SIZE);
+    m_cameraView.setCenter(Vector2f(SCREEN_SIZE.x / 2, SCREEN_SIZE.y / 2));
+    m_zoomFactor = 1;
+    m_selectedShape = NULL;
+    m_texturePickerOffset = 0;
+    m_resizableAsset = true;
+    m_selectedTexture = NULL;
+    m_obstacles.clear();
+
+    map<String, unique_ptr<ITexture>>& map = Game::getInstance().getAssetManager().getTextureMap();
+    
+    {
+        int i = 0;
+        float posy = 0;
+        float posx = SCREEN_SIZE.x * 0.2;
+        for (auto const& [key, val] : map)
+        {
+            m_assetsTextures.push_back(ISprite());
+            m_assetsTextures.at(i).setIdentifier(val.get()->getIdentifier());
+            m_assetsTextures.at(i).setTexture(*val);
+            m_assetsTextures.at(i).setOrigin(getCenter(m_assetsTextures.at(i)));
+            m_assetsTextures.at(i).setScale(3, 3);
+            if (i > 1) {
+                posy = m_assetsTextures.at(i - 2).getGlobalBounds().height\
+                + m_assetsTextures.at(i - 2).getGlobalBounds().top\
+                + (m_assetsTextures.at(i).getGlobalBounds().height);
+            }
+            if (i % 2 == 0) {
+                posx = SCREEN_SIZE.x * 0.1;
+            } else if (i > 0) {
+                posx = SCREEN_SIZE.x * 0.2;
+            }
+            m_assetsTextures.at(i).setPosition(posx, posy);
+            i++;
+        }
+    }
 }
 
-void LevelEditor::setSaving(bool toggle)
-{
-    m_saving = toggle;
-}
+void LevelEditor::toggleSavePopup(bool toggle) { m_savePopup.setDisplayed(toggle); }
 
-View& LevelEditor::getCamera()
-{
-    return m_cameraView;
-}
+void LevelEditor::setSaving(bool toggle) { m_saving = toggle; }
+
+View& LevelEditor::getCamera() { return m_cameraView; }
 
 bool LevelEditor::loadLevel(const char* path, String levelName)
 {
@@ -88,19 +106,29 @@ bool LevelEditor::loadLevel(const char* path, String levelName)
     Json::Reader reader;
     Json::Value root;
     Vector2f pos(0, 0);
+    Vector2f origin(0, 0);
     Vector2f size(0, 0);
+    Vector2f scale(0, 0);
     bool parsed = false;
+    map<String, unique_ptr<ITexture>>& map = Game::getInstance().getAssetManager().getTextureMap();
 
     parsed = reader.parse(content, root, false);
     auto entriesArray = root["obstacles"];
     m_obstacles.clear();
-    for (int i = 0; i < entriesArray.size(); i++) {
-        auto elem = entriesArray[i];
+    for (auto elem : entriesArray) {
+        bool hasCollision = elem["hasCollision"].asBool();
+        string textureIdentifier = elem["textureIdentifier"].asString();
+        origin.x = elem["origin"]["x"].asFloat();
+        origin.y = elem["origin"]["y"].asFloat();
+        scale.x = elem["scale"]["x"].asFloat();
+        scale.y = elem["scale"]["y"].asFloat();
         pos.x = elem["position"]["x"].asInt();
         pos.y = elem["position"]["y"].asInt();
         size.x = elem["size"]["x"].asInt();
         size.y = elem["size"]["y"].asInt();
-        m_obstacles.push_back(EditableShape(&GET_TEXTURE(W_BRICK), pos, size));
+        EditableShape* newShape = new EditableShape(map.at(textureIdentifier).get(),
+        pos, size, hasCollision);
+        m_obstacles.push_back(newShape);
     }
     if (!parsed)
         Logger::error("Could not parse file");
@@ -116,11 +144,17 @@ void LevelEditor::saveLevel(const char *path, String levelName)
         filesystem::create_directory(path);
     ofstream saveFile(path + levelName + ".lvl");
 
-    for (int i = 0; i < m_obstacles.size(); i++) {
-        event["position"]["x"] = m_obstacles.at(i).getPosition().x;
-        event["position"]["y"] = m_obstacles.at(i).getPosition().y;
-        event["size"]["x"] = m_obstacles.at(i).getSize().x;
-        event["size"]["y"] = m_obstacles.at(i).getSize().y;
+    for (auto i : m_obstacles) {
+        event["textureIdentifier"] = i->getTextureIdentifier();
+        event["hasCollision"] = i->hasCollision();
+        event["position"]["x"] = i->getPosition().x;
+        event["position"]["y"] = i->getPosition().y;
+        event["size"]["x"] = i->getSize().x;
+        event["size"]["y"] = i->getSize().y;
+        event["origin"]["x"] = i->getOrigin().x;
+        event["origin"]["y"] = i->getOrigin().y;
+        event["scale"]["x"] = i->getScale().x;
+        event["scale"]["y"] = i->getScale().y;
         vec.append(event);
     }
     finalEvent["obstacles"] = vec;
@@ -128,14 +162,12 @@ void LevelEditor::saveLevel(const char *path, String levelName)
     saveFile.close();
 }
 
-void LevelEditor::setEditMode(EditMode::ID mode)
-{
-    m_mode = mode;
-}
+void LevelEditor::setEditMode(EditMode::ID mode) { m_mode = mode; }
 
-void LevelEditor::addObstacle(Vector2f pos)
+void LevelEditor::addObstacle(Vector2f pos, bool hasCollision)
 {
-    m_obstacles.push_back(EditableShape(&GET_TEXTURE(W_BRICK), pos, Vector2f(GET_TEXTURE(W_BRICK).getSize())));
+    m_obstacles.push_back(new EditableShape(m_selectedTexture,
+    pos, Vector2f(m_selectedTexture->getSize()), hasCollision));
 }
 
 void LevelEditor::cameraController(RenderWindow& window)
@@ -164,34 +196,48 @@ void LevelEditor::pollEvents(RenderWindow& window)
     Event event = Game::getInstance().getEvent();
 
     switch (event.type) {
+        case Event::Resized:
+            getCamera() = getLetterboxView(getCamera(), window.getSize().x, window.getSize().y);
+            break;
         case Event::TextEntered:
-            if (m_saveGUIopen) {
-                updateTextInputBox(event, m_saveText);
-                string s = m_saveText.getString(); 
-                s.erase(std::remove_if(s.begin(), s.end(), [](char c) { return !std::isalnum(c); }), s.end());
-                m_saveText.setString(s);
-                m_saveText.setOrigin(getCenter(m_saveText));
-            }
+            m_savePopup.updateEvent(event);
             break;
         case Event::MouseWheelScrolled:
-            if (event.mouseWheelScroll.delta > 0 && m_zoomFactor > 0.15f) {
-                m_cameraView.zoom(0.9);
-                m_zoomFactor *= 0.9;
-            } else if (event.mouseWheelScroll.delta < 0 && m_zoomFactor < 4.0f) {
-                m_cameraView.zoom(1.1);
-                m_zoomFactor *= 1.1;
+            if (!m_hoveringTexturePicker) {
+                if (event.mouseWheelScroll.delta > 0 && m_zoomFactor > 0.15f) {
+                    m_cameraView.zoom(0.9);
+                    m_zoomFactor *= 0.9;
+                } else if (event.mouseWheelScroll.delta < 0 && m_zoomFactor < 4.0f) {
+                    m_cameraView.zoom(1.1);
+                    m_zoomFactor *= 1.1;
+                }
+            } else {
+                if (event.mouseWheelScroll.delta > 0) {
+                    m_texturePickerOffset = 20;
+                } else if (event.mouseWheelScroll.delta < 0) {
+                    m_texturePickerOffset = -20;
+                }
             }
             break;
         case Event::MouseButtonPressed:
-            if (event.mouseButton.button == Mouse::Left && !m_hoveringShape && m_mode == EditMode::PLACE) {
-                window.setView(m_cameraView);
-                addObstacle(Vector2f(getMousePosition(window)));
-                m_selectedShape = &m_obstacles.at(m_obstacles.size() - 1);
+            if (!m_hoveringTexturePicker) {
+                if (event.mouseButton.button == Mouse::Left && !m_hoveringShape
+                    && m_mode == EditMode::PLACE && m_selectedTexture && !m_savePopup.isDisplayed()) {
+                    window.setView(m_cameraView);
+                    addObstacle(Vector2f(getMousePosition(window)), true);
+                    m_selectedShape = m_obstacles.at(m_obstacles.size() - 1);
+                }
             }
             break;
         case Event::KeyPressed:
             if (event.key.code == Keyboard::L) {
-                loadLevel("levels/", "preview");
+                loadLevel("levels/", "test");
+            }
+            if (event.key.code == Keyboard::Add) {
+                m_selectedShape->setLayer(m_selectedShape->getLayer() + 1);
+            }
+            if (event.key.code == Keyboard::Subtract) {
+                m_selectedShape->setLayer(m_selectedShape->getLayer() - 1);
             }
             break;
     }
@@ -209,25 +255,23 @@ void LevelEditor::updateButtons(RenderWindow& window)
 void LevelEditor::updateEditables(RenderWindow& window)
 {
     window.setView(m_cameraView);
-    for (int i = 0; i < m_obstacles.size(); i++) {
-        if (DoMouseIntersect(getMousePosition(window), m_obstacles.at(i).getGlobalBounds()) && m_mode == EditMode::SELECT) {
-            m_obstacles.at(i).setFillColor(smoothColor(Color::White, Color::Green, 0.5));
+    for (auto obs : m_obstacles) {
+        if (DoMouseIntersect(getMousePosition(window), obs->getGlobalBounds()) && m_mode == EditMode::SELECT) {
+            obs->setFillColor(smoothColor(Color::White, Color::Green, 0.5));
             if (Mouse::isButtonPressed(Mouse::Left)) {
-                m_selectedShape = &m_obstacles.at(i);
-                m_selectedShapeIndex = i;
-                m_obstacles.at(i).setFillColor(smoothColor(Color::White, Color::Blue, 0.5));
+                m_selectedShape = obs;
+                obs->setFillColor(smoothColor(Color::White, Color::Blue, 0.5));
             }
         } else {
-            m_obstacles.at(i).setFillColor(Color::White);
-            m_obstacles.at(i).setResizableHintVisible(false);
+            obs->setFillColor(Color::White);
+            obs->setResizableHintVisible(false);
         }
     }
     if (m_selectedShape != NULL) {
         m_selectedShape->setFillColor(smoothColor(Color::White, Color::Blue, 0.5));
 
-        if (m_mode == EditMode::MOVE) {
+        if (m_mode == EditMode::MOVE)
             m_selectedShape->dragMove(window);
-        }
 
         if (m_mode == EditMode::RESIZE) {
             m_selectedShape->resizeHintReposition(m_zoomFactor);
@@ -237,10 +281,15 @@ void LevelEditor::updateEditables(RenderWindow& window)
             m_selectedShape->setResizableHintVisible(false);
 
         if (Keyboard::isKeyPressed(Keyboard::Delete)) {
-            m_obstacles.erase(m_obstacles.begin() + m_selectedShapeIndex);
+            auto it = std::find(m_obstacles.begin(), m_obstacles.end(), m_selectedShape);
+            if (it != m_obstacles.end())
+                m_obstacles.erase(it);
             m_selectedShape = NULL;
         }
     }
+
+    std::sort(m_obstacles.begin(), m_obstacles.end(), EditableShape::comp);
+
     window.setView(m_view);
 }
 
@@ -248,23 +297,40 @@ void LevelEditor::updateLogic(RenderWindow& window)
 {
     m_hoveringShape = false;
 
-    if (!m_saveGUIopen)
+    if (DoMouseIntersect(getMousePosition(window), m_texturePickerBG.getGlobalBounds())) {
+        m_hoveringTexturePicker = true;
+        for (auto &i : m_assetsTextures) {
+            if (DoMouseIntersect(getMousePosition(window), i.getGlobalBounds())) {
+                if (Mouse::isButtonPressed(Mouse::Left)) {
+                    m_selectedTexture = (ITexture*)i.getTexture();
+                    m_selectedTexture->setIdentifier(i.getIdentifier());
+                    m_resizableAsset = false;
+                }
+                i.setScale(Vector2f(3.1, 3.1));
+            } else
+                i.setScale(Vector2f(3.0, 3.0));
+            i.move(0.0f, m_texturePickerOffset);
+        }
+    } else {
+        m_hoveringTexturePicker = false;
+    }
+
+    if (!m_savePopup.isDisplayed())
         updateButtons(window);
 
-    cameraController(window);
+    if (!m_hoveringTexturePicker)
+        cameraController(window);
 
-    if (!m_hoveringShape && !m_saveGUIopen)
+    if (!m_hoveringShape && !m_savePopup.isDisplayed() && !m_hoveringTexturePicker)
         updateEditables(window);
 
-    if (m_saveGUIopen) {
-        m_saveApllyButton.update(getMousePosition(window));
-        m_saveCancelButton.update(getMousePosition(window));
-    }
+    m_savePopup.update(window);
 
     if (m_saving) {
-        saveLevel("levels/", m_saveText.getString());
+        saveLevel("levels/", m_savePopup.getInput().getString());
         m_saving = false;
     }
+    m_texturePickerOffset = 0;
 }
 
 void LevelEditor::display(RenderWindow& window)
@@ -276,22 +342,20 @@ void LevelEditor::display(RenderWindow& window)
     // Draw world
     window.draw(m_background);
 
-    for (int i = 0; i < m_obstacles.size(); i++)
-        m_obstacles.at(i).draw(window);
+    for (auto i : m_obstacles)
+        i->draw(window);
 
     player.draw(window);
 
     // Set view to static view and draw hud
     window.setView(m_view);
+    window.draw(m_texturePickerBG);
+    for (auto const& i : m_assetsTextures)
+        window.draw(i);
+    window.draw(m_texturePickerFG);
     for (int i = 0; i < m_buttons.size(); i++)
         m_buttons.at(i)->display(window);
-    if (m_saveGUIopen) {
-        window.draw(m_saveGUIShape);
-        window.draw(m_saveApllyButton.getShape());
-        window.draw(m_saveCancelButton.getShape());
-        window.draw(m_saveHintText);
-        window.draw(m_saveText);
-    }
+    m_savePopup.display(window);
     window.draw(m_fadeLayer);
     window.draw(m_fpsText);
 }

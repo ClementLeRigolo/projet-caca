@@ -15,7 +15,7 @@ class TickBox : public Button
 
     public:
         TickBox();
-        TickBox(Vector2f size, Vector2f pos, Texture& texture, void (*onClick)(bool toggled));
+        TickBox(Vector2f pos, Texture& texture, void (*onClick)(bool toggled));
         void setOnClick(void (*onClick)(bool toggled));
         void onClick(bool toggled);
         void update(Vector2i mousePos);
