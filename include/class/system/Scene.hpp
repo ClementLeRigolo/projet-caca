@@ -103,12 +103,14 @@ class LevelEditor : public Scene
         RectangleShape m_texturePickerFG;
         bool m_hoveringShape;
         bool m_saving;
+        bool m_loading;
         bool m_hoveringTexturePicker;
         bool m_resizableAsset;
         ITexture* m_selectedTexture;
         float m_texturePickerOffset;
         unsigned int m_mode;
         TextInputPopup m_savePopup;
+        TextInputPopup m_loadPopup;
 
     private:
         void updateEditables(RenderWindow& window);
@@ -121,7 +123,9 @@ class LevelEditor : public Scene
         LevelEditor();
         View& getCamera();
         void toggleSavePopup(bool toggle);
+        void toggleLoadPopup(bool toggle);
         void setSaving(bool toggle);
+        void setLoading(bool toggle);
         void setEditMode(EditMode::ID mode);
         void pollEvents(RenderWindow& window);
         void addEntity(Vector2f pos);

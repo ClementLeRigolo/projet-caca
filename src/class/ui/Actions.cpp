@@ -83,6 +83,21 @@ void buttonHideLevelEditorSave()
     level->toggleSavePopup(false);
 }
 
+void buttonShowLevelEditorLoad()
+{
+    LevelEditor* level = (LevelEditor*)Game::getInstance().getCurrentScene();
+
+    level->toggleLoadPopup(true);
+}
+
+void buttonHideLevelEditorLoad()
+{
+    LevelEditor* level = (LevelEditor*)Game::getInstance().getCurrentScene();
+
+    level->toggleLoadPopup(false);
+}
+
+
 void buttonApplyLevelEditorSave()
 {
     LevelEditor* level = (LevelEditor*)Game::getInstance().getCurrentScene();
@@ -96,4 +111,19 @@ void buttonCloseLevelEditorSave()
     LevelEditor* level = (LevelEditor*)Game::getInstance().getCurrentScene();
 
     level->toggleSavePopup(false);
+}
+
+void buttonApplyLevelEditorLoad()
+{
+    LevelEditor* level = (LevelEditor*)Game::getInstance().getCurrentScene();
+
+    level->setLoading(true);
+    level->toggleLoadPopup(false);
+}
+
+void buttonCloseLevelEditorLoad()
+{
+    LevelEditor* level = (LevelEditor*)Game::getInstance().getCurrentScene();
+
+    level->toggleLoadPopup(false);
 }

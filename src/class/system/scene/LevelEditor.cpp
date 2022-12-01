@@ -16,11 +16,21 @@ LevelEditor::LevelEditor()
     m_texturePickerFG = m_texturePickerBG;
     m_texturePickerFG.setTexture(&GET_TEXTURE(E_TEXTURE_PICKER_FG));
 
-    m_savePopup = TextInputPopup(EText(Vector2f(SCREEN_SIZE.x / 2, SCREEN_SIZE.y / 2), ""),
+    m_savePopup = TextInputPopup(EText(Vector2f(SCREEN_SIZE.x / 2, SCREEN_SIZE.y / 2), "Save Level"),
     EText(Vector2f(500, 500), "Enter save name"), &buttonCloseLevelEditorSave, &buttonApplyLevelEditorSave);
     m_savePopup.getBackground().setScale(3.5, 3.5);
-    m_savePopup.getMessage().setPosition(SCREEN_SIZE.x / 2, SCREEN_SIZE.y * 0.45);
+    m_savePopup.getMessage().setPosition(SCREEN_SIZE.x / 2, SCREEN_SIZE.y * 0.47);
+    m_savePopup.getTitle().setPosition(SCREEN_SIZE.x / 2, SCREEN_SIZE.y * 0.42);
+    m_savePopup.getTitle().setStyle(Text::Underlined);
     m_savePopup.getInput().setPosition(SCREEN_SIZE.x / 2, SCREEN_SIZE.y * 0.54);
+
+    m_loadPopup = TextInputPopup(EText(Vector2f(SCREEN_SIZE.x / 2, SCREEN_SIZE.y / 2), "Load Level"),
+    EText(Vector2f(500, 500), "Enter level name"), &buttonCloseLevelEditorLoad, &buttonApplyLevelEditorLoad);
+    m_loadPopup.getBackground().setScale(3.5, 3.5);
+    m_loadPopup.getMessage().setPosition(SCREEN_SIZE.x / 2, SCREEN_SIZE.y * 0.47);
+    m_loadPopup.getTitle().setPosition(SCREEN_SIZE.x / 2, SCREEN_SIZE.y * 0.42);
+    m_loadPopup.getTitle().setStyle(Text::Underlined);
+    m_loadPopup.getInput().setPosition(SCREEN_SIZE.x / 2, SCREEN_SIZE.y * 0.54);
 
     m_buttons.push_back(new Button(Vector2f(SCREEN_SIZE.x * 0.1,
     SCREEN_SIZE.y * 0.95), "Back", &buttonBackMainMenuFunc));
@@ -41,7 +51,7 @@ LevelEditor::LevelEditor()
     SCREEN_SIZE.y * 0.1), &GET_TEXTURE(I_SAVE), &buttonShowLevelEditorSave));
 
     m_buttons.push_back(new IconButton(Vector2f(SCREEN_SIZE.x * 0.95,
-    SCREEN_SIZE.y * 0.1), &GET_TEXTURE(I_LOAD), &doNothingFunc));
+    SCREEN_SIZE.y * 0.1), &GET_TEXTURE(I_LOAD), &buttonShowLevelEditorLoad));
 
     reloadScene();
 }
@@ -95,7 +105,11 @@ void LevelEditor::reloadScene()
 
 void LevelEditor::toggleSavePopup(bool toggle) { m_savePopup.setDisplayed(toggle); }
 
+void LevelEditor::toggleLoadPopup(bool toggle) { m_loadPopup.setDisplayed(toggle); }
+
 void LevelEditor::setSaving(bool toggle) { m_saving = toggle; }
+
+void LevelEditor::setLoading(bool toggle) { m_loading = toggle; }
 
 View& LevelEditor::getCamera() { return m_cameraView; }
 
@@ -126,12 +140,17 @@ bool LevelEditor::loadLevel(const char* path, String levelName)
         pos.y = elem["position"]["y"].asInt();
         size.x = elem["size"]["x"].asInt();
         size.y = elem["size"]["y"].asInt();
-        EditableShape* newShape = new EditableShape(map.at(textureIdentifier).get(),
-        pos, size, hasCollision);
+        EditableShape* newShape;
+        if (textureIdentifier.compare("NULL") != 0)
+            newShape = new EditableShape(map.at(textureIdentifier).get(),
+            pos, size, hasCollision);
+        else
+            newShape = new EditableShape(NULL,
+            pos, size, hasCollision);  
         m_obstacles.push_back(newShape);
     }
     if (!parsed)
-        Logger::error("Could not parse file");
+        Logger::error("Could not load file");
     return parsed;
 }
 
@@ -201,6 +220,7 @@ void LevelEditor::pollEvents(RenderWindow& window)
             break;
         case Event::TextEntered:
             m_savePopup.updateEvent(event);
+            m_loadPopup.updateEvent(event);
             break;
         case Event::MouseWheelScrolled:
             if (!m_hoveringTexturePicker) {
@@ -230,9 +250,6 @@ void LevelEditor::pollEvents(RenderWindow& window)
             }
             break;
         case Event::KeyPressed:
-            if (event.key.code == Keyboard::L) {
-                loadLevel("levels/", "test");
-            }
             if (event.key.code == Keyboard::Add) {
                 m_selectedShape->setLayer(m_selectedShape->getLayer() + 1);
             }
@@ -325,10 +342,15 @@ void LevelEditor::updateLogic(RenderWindow& window)
         updateEditables(window);
 
     m_savePopup.update(window);
+    m_loadPopup.update(window);
 
     if (m_saving) {
         saveLevel("levels/", m_savePopup.getInput().getString());
         m_saving = false;
+    }
+    if (m_loading) {
+        loadLevel("levels/", m_loadPopup.getInput().getString());
+        m_loading = false;
     }
     m_texturePickerOffset = 0;
 }
@@ -356,6 +378,7 @@ void LevelEditor::display(RenderWindow& window)
     for (int i = 0; i < m_buttons.size(); i++)
         m_buttons.at(i)->display(window);
     m_savePopup.display(window);
+    m_loadPopup.display(window);
     window.draw(m_fadeLayer);
     window.draw(m_fpsText);
 }

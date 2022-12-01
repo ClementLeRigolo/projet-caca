@@ -38,6 +38,10 @@ void buttonShowLevelEditorSave();
 void buttonHideLevelEditorSave();
 void buttonApplyLevelEditorSave();
 void buttonCloseLevelEditorSave();
+void buttonApplyLevelEditorLoad();
+void buttonCloseLevelEditorLoad();
+void buttonShowLevelEditorLoad();
+void buttonHideLevelEditorLoad();
 
 
 // Easing functions
