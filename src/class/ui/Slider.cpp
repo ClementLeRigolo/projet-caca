@@ -137,7 +137,7 @@ void Slider::update(RenderWindow& window)
         m_progress = distFrom(getSliderThingy().getPosition(),
         Vector2f(getInShape().getGlobalBounds().left,
         getSliderThingy().getPosition().y)) / getInShape().getGlobalBounds().width;
-    } 
+    }
 }
 
 void Slider::limit(float limit, bool keepValue)

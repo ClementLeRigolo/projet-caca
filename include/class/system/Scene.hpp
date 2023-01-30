@@ -96,7 +96,7 @@ class LevelEditor : public Scene
         float m_zoomFactor;
         View m_cameraView;
         EditableShape* m_selectedShape;
-        vector<EditableShape*> m_obstacles;
+        vector<EditableShape*> m_assets;
         vector<EditableShape> m_decorations;
         vector<ISprite> m_assetsTextures;
         RectangleShape m_texturePickerBG;
@@ -133,4 +133,5 @@ class LevelEditor : public Scene
         void addObstacle(Vector2f pos, bool resizable);
         void display(RenderWindow& window);
         void reloadScene();
+        float getZoom() const;
 };

@@ -29,4 +29,12 @@ class EditableShape : public RectangleShape
         void setResizableHintVisible(bool toggle);
         void resizeHintReposition(float zoomFactor);
         void draw(RenderTarget &target);
+        Vector2f getOffset() const;
+        Vector2u getGrabbedSide() const;
+        int getGrabbed() const;
+        void setGrabbed(int grabbed);
+        void setGrabbedSide(Vector2u grabbedSide);
+        void setOffset(Vector2f offset);
+        RectangleShape* getResizeHints();
+        void init();
 };

@@ -145,6 +145,46 @@ void EditableShape::dragResize(RenderWindow& window)
     lastPos = getMousePosition(window);
 }
 
+void EditableShape::init()
+{
+    setTextureRect(IntRect(m_offset.x / 2, getTextureRect().top, getSize().x, getSize().y));
+}
+
+RectangleShape* EditableShape::getResizeHints()
+{
+    return m_resizeHint;
+}
+
+Vector2f EditableShape::getOffset() const
+{
+    return m_offset;
+}
+
+Vector2u EditableShape::getGrabbedSide() const
+{
+    return m_grabbedSide;
+}
+
+void EditableShape::setGrabbedSide(Vector2u GrabbedSide)
+{
+    m_grabbedSide = GrabbedSide;
+}
+
+int EditableShape::getGrabbed() const
+{
+    return m_grabbed;
+}
+
+void EditableShape::setGrabbed(int grabbed)
+{
+    m_grabbed = grabbed;
+}
+
+void EditableShape::setOffset(Vector2f Offset)
+{
+    m_offset = Offset;
+}
+
 void EditableShape::draw(RenderTarget& target)
 {
     target.draw(*this);

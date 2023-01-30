@@ -71,7 +71,7 @@ void LevelEditor::reloadScene()
     m_texturePickerOffset = 0;
     m_resizableAsset = true;
     m_selectedTexture = NULL;
-    m_obstacles.clear();
+    m_assets.clear();
 
     map<String, unique_ptr<ITexture>>& map = Game::getInstance().getAssetManager().getTextureMap();
 
@@ -102,6 +102,8 @@ void LevelEditor::reloadScene()
     }
 }
 
+float LevelEditor::getZoom() const { return m_zoomFactor; }
+
 void LevelEditor::toggleSavePopup(bool toggle) { m_savePopup.setDisplayed(toggle); }
 
 void LevelEditor::toggleLoadPopup(bool toggle) { m_loadPopup.setDisplayed(toggle); }
@@ -122,12 +124,15 @@ bool LevelEditor::loadLevel(const char* path, String levelName)
     Vector2f origin(0, 0);
     Vector2f size(0, 0);
     Vector2f scale(0, 0);
+    Vector2f offset(0, 0);
+    Vector2u grabbedSide(0, 0);
+    int grabbed = 0;
     bool parsed = false;
     map<String, unique_ptr<ITexture>>& map = Game::getInstance().getAssetManager().getTextureMap();
 
     parsed = reader.parse(content, root, false);
     auto entriesArray = root["obstacles"];
-    m_obstacles.clear();
+    m_assets.clear();
     for (auto elem : entriesArray) {
         bool hasCollision = elem["hasCollision"].asBool();
         string textureIdentifier = elem["textureIdentifier"].asString();
@@ -139,6 +144,12 @@ bool LevelEditor::loadLevel(const char* path, String levelName)
         pos.y = elem["position"]["y"].asInt();
         size.x = elem["size"]["x"].asInt();
         size.y = elem["size"]["y"].asInt();
+        offset.x = elem["offset"]["x"].asInt();
+        offset.y = elem["offset"]["y"].asInt();
+        grabbedSide.x = elem["grabbedSide"]["x"].asInt();
+        grabbedSide.y = elem["grabbedSide"]["y"].asInt();
+        grabbed = elem["grabbed"].asInt();
+
         EditableShape* newShape;
         if (textureIdentifier.compare("NULL") != 0)
             newShape = new EditableShape(map.at(textureIdentifier).get(),
@@ -146,7 +157,15 @@ bool LevelEditor::loadLevel(const char* path, String levelName)
         else
             newShape = new EditableShape(NULL,
             pos, size, hasCollision);
-        m_obstacles.push_back(newShape);
+        newShape->setOffset(offset);
+        newShape->setGrabbedSide(grabbedSide);
+        newShape->setOrigin(origin);
+        newShape->setGrabbed(grabbed);
+
+        newShape->init();
+        newShape->setPosition(pos);
+
+        m_assets.push_back(newShape);
     }
     if (!parsed)
         Logger::error("Could not load file");
@@ -162,7 +181,7 @@ void LevelEditor::saveLevel(const char *path, String levelName)
         filesystem::create_directory(path);
     ofstream saveFile(path + levelName + ".lvl");
 
-    for (auto i : m_obstacles) {
+    for (auto i : m_assets) {
         event["textureIdentifier"] = i->getTextureIdentifier();
         event["hasCollision"] = i->hasCollision();
         event["position"]["x"] = i->getPosition().x;
@@ -173,6 +192,11 @@ void LevelEditor::saveLevel(const char *path, String levelName)
         event["origin"]["y"] = i->getOrigin().y;
         event["scale"]["x"] = i->getScale().x;
         event["scale"]["y"] = i->getScale().y;
+        event["offset"]["x"] = i->getOffset().x;
+        event["offset"]["y"] = i->getOffset().y;
+        event["grabbedSide"]["x"] = i->getGrabbedSide().x;
+        event["grabbedSide"]["y"] = i->getGrabbedSide().y;
+        event["grabbed"] = i->getGrabbed();
         vec.append(event);
     }
     finalEvent["obstacles"] = vec;
@@ -184,7 +208,7 @@ void LevelEditor::setEditMode(EditMode::ID mode) { m_mode = mode; }
 
 void LevelEditor::addObstacle(Vector2f pos, bool hasCollision)
 {
-    m_obstacles.push_back(new EditableShape(m_selectedTexture,
+    m_assets.push_back(new EditableShape(m_selectedTexture,
     pos, Vector2f(m_selectedTexture->getSize()), hasCollision));
 }
 
@@ -244,7 +268,7 @@ void LevelEditor::pollEvents(RenderWindow& window)
                     && m_mode == EditMode::PLACE && m_selectedTexture && !m_savePopup.isDisplayed()) {
                     window.setView(m_cameraView);
                     addObstacle(Vector2f(getMousePosition(window)), true);
-                    m_selectedShape = m_obstacles.at(m_obstacles.size() - 1);
+                    m_selectedShape = m_assets.at(m_assets.size() - 1);
                 }
             }
             break;
@@ -271,16 +295,19 @@ void LevelEditor::updateButtons(RenderWindow& window)
 void LevelEditor::updateEditables(RenderWindow& window)
 {
     window.setView(m_cameraView);
-    for (auto obs : m_obstacles) {
-        if (DoMouseIntersect(getMousePosition(window), obs->getGlobalBounds()) && m_mode == EditMode::SELECT) {
-            obs->setFillColor(smoothColor(Color::White, Color::Green, 0.5));
+    for (auto asset : m_assets) {
+        for (int i = 0; i < 4; i++) {
+            asset->getResizeHints()[i].setScale(Vector2f(getZoom(), getZoom()));
+        }
+        if (DoMouseIntersect(getMousePosition(window), asset->getGlobalBounds()) && m_mode == EditMode::SELECT) {
+            asset->setFillColor(smoothColor(Color::White, Color::Green, 0.5));
             if (Mouse::isButtonPressed(Mouse::Left)) {
-                m_selectedShape = obs;
-                obs->setFillColor(smoothColor(Color::White, Color::Blue, 0.5));
+                m_selectedShape = asset;
+                asset->setFillColor(smoothColor(Color::White, Color::Blue, 0.5));
             }
         } else {
-            obs->setFillColor(Color::White);
-            obs->setResizableHintVisible(false);
+            asset->setFillColor(Color::White);
+            asset->setResizableHintVisible(false);
         }
     }
     if (m_selectedShape != NULL) {
@@ -297,14 +324,14 @@ void LevelEditor::updateEditables(RenderWindow& window)
             m_selectedShape->setResizableHintVisible(false);
 
         if (Keyboard::isKeyPressed(Keyboard::Delete)) {
-            auto it = std::find(m_obstacles.begin(), m_obstacles.end(), m_selectedShape);
-            if (it != m_obstacles.end())
-                m_obstacles.erase(it);
+            auto it = std::find(m_assets.begin(), m_assets.end(), m_selectedShape);
+            if (it != m_assets.end())
+                m_assets.erase(it);
             m_selectedShape = NULL;
         }
     }
 
-    std::sort(m_obstacles.begin(), m_obstacles.end(), EditableShape::comp);
+    std::sort(m_assets.begin(), m_assets.end(), EditableShape::comp);
 
     window.setView(m_view);
 }
@@ -363,7 +390,7 @@ void LevelEditor::display(RenderWindow& window)
     // Draw world
     window.draw(m_background);
 
-    for (auto i : m_obstacles)
+    for (auto i : m_assets)
         i->draw(window);
 
     player.draw(window);

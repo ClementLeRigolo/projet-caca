@@ -1,3 +1,110 @@
 {
-	"obstacles" : []
+	"obstacles" : 
+	[
+		{
+			"grabbed" : 0,
+			"grabbedSide" : 
+			{
+				"x" : 1,
+				"y" : 4
+			},
+			"hasCollision" : false,
+			"offset" : 
+			{
+				"x" : -318.99951171875,
+				"y" : -329.0
+			},
+			"origin" : 
+			{
+				"x" : 394.0001220703125,
+				"y" : 0.0
+			},
+			"position" : 
+			{
+				"x" : 1105.0,
+				"y" : -284.0
+			},
+			"scale" : 
+			{
+				"x" : 3.0,
+				"y" : 3.0
+			},
+			"size" : 
+			{
+				"x" : 394.0001220703125,
+				"y" : 361.0
+			},
+			"textureIdentifier" : "003.png"
+		},
+		{
+			"grabbed" : 0,
+			"grabbedSide" : 
+			{
+				"x" : 1,
+				"y" : 3
+			},
+			"hasCollision" : false,
+			"offset" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0
+			},
+			"origin" : 
+			{
+				"x" : 31.0,
+				"y" : 60.0
+			},
+			"position" : 
+			{
+				"x" : 157.0,
+				"y" : 133.0
+			},
+			"scale" : 
+			{
+				"x" : 3.0,
+				"y" : 3.0
+			},
+			"size" : 
+			{
+				"x" : 31.0,
+				"y" : 60.0
+			},
+			"textureIdentifier" : "banner.png"
+		},
+		{
+			"grabbed" : 0,
+			"grabbedSide" : 
+			{
+				"x" : 1,
+				"y" : 3
+			},
+			"hasCollision" : false,
+			"offset" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0
+			},
+			"origin" : 
+			{
+				"x" : 31.0,
+				"y" : 60.0
+			},
+			"position" : 
+			{
+				"x" : 749.0,
+				"y" : 100.0
+			},
+			"scale" : 
+			{
+				"x" : 3.0,
+				"y" : 3.0
+			},
+			"size" : 
+			{
+				"x" : 31.0,
+				"y" : 60.0
+			},
+			"textureIdentifier" : "banner.png"
+		}
+	]
 }
