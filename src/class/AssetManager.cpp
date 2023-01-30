@@ -4,7 +4,7 @@
 
 AssetManager::AssetManager()
 {
-    // test
+    // level assets
     loadTextureFromDirectory("asset/texture/tileset/village");
 
     // fonts

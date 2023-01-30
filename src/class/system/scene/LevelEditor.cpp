@@ -7,7 +7,6 @@ void updateTextInputBox(Event& event, EText& inputBox);
 
 LevelEditor::LevelEditor()
 {
-
     m_texturePickerBG.setSize(Vector2f(600, SCREEN_SIZE.y));
     m_texturePickerBG.setOrigin(getCenter(m_texturePickerBG));
     m_texturePickerBG.setTexture(&GET_TEXTURE(E_TEXTURE_PICKER_BG));
@@ -75,7 +74,7 @@ void LevelEditor::reloadScene()
     m_obstacles.clear();
 
     map<String, unique_ptr<ITexture>>& map = Game::getInstance().getAssetManager().getTextureMap();
-    
+
     {
         int i = 0;
         float posy = 0;
@@ -146,7 +145,7 @@ bool LevelEditor::loadLevel(const char* path, String levelName)
             pos, size, hasCollision);
         else
             newShape = new EditableShape(NULL,
-            pos, size, hasCollision);  
+            pos, size, hasCollision);
         m_obstacles.push_back(newShape);
     }
     if (!parsed)

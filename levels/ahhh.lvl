@@ -1,0 +1,101 @@
+{
+	"obstacles" : 
+	[
+		{
+			"hasCollision" : false,
+			"origin" : 
+			{
+				"x" : 48.0,
+				"y" : 48.0
+			},
+			"position" : 
+			{
+				"x" : 190.0,
+				"y" : 496.0
+			},
+			"scale" : 
+			{
+				"x" : 3.0,
+				"y" : 3.0
+			},
+			"size" : 
+			{
+				"x" : 48.0,
+				"y" : 48.0
+			},
+			"textureIdentifier" : "004.png"
+		},
+		{
+			"hasCollision" : false,
+			"origin" : 
+			{
+				"x" : 48.0,
+				"y" : 48.0
+			},
+			"position" : 
+			{
+				"x" : 516.0,
+				"y" : 642.0
+			},
+			"scale" : 
+			{
+				"x" : 3.0,
+				"y" : 3.0
+			},
+			"size" : 
+			{
+				"x" : 48.0,
+				"y" : 48.0
+			},
+			"textureIdentifier" : "004.png"
+		},
+		{
+			"hasCollision" : false,
+			"origin" : 
+			{
+				"x" : 48.0,
+				"y" : 48.0
+			},
+			"position" : 
+			{
+				"x" : 666.0,
+				"y" : 625.0
+			},
+			"scale" : 
+			{
+				"x" : 3.0,
+				"y" : 3.0
+			},
+			"size" : 
+			{
+				"x" : 48.0,
+				"y" : 48.0
+			},
+			"textureIdentifier" : "004.png"
+		},
+		{
+			"hasCollision" : false,
+			"origin" : 
+			{
+				"x" : 48.0,
+				"y" : 48.0
+			},
+			"position" : 
+			{
+				"x" : 945.0,
+				"y" : 433.0
+			},
+			"scale" : 
+			{
+				"x" : 3.0,
+				"y" : 3.0
+			},
+			"size" : 
+			{
+				"x" : 48.0,
+				"y" : 48.0
+			},
+			"textureIdentifier" : "004.png"
+		}
+	]
+}

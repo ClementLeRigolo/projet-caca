@@ -14,6 +14,7 @@ class EditableShape : public RectangleShape
         bool m_hasCollision;
         string m_textureIdentifier;
         Vector2f m_offset;
+        Vector2u m_grabbedSide;
 
     public:
         static bool comp (const EditableShape* obj, const EditableShape* other);

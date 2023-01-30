@@ -1,0 +1,53 @@
+{
+	"obstacles" : 
+	[
+		{
+			"hasCollision" : false,
+			"origin" : 
+			{
+				"x" : 45.0,
+				"y" : 45.0
+			},
+			"position" : 
+			{
+				"x" : 300.5,
+				"y" : 401.5
+			},
+			"scale" : 
+			{
+				"x" : 3.0,
+				"y" : 3.0
+			},
+			"size" : 
+			{
+				"x" : 45.0,
+				"y" : 45.0
+			},
+			"textureIdentifier" : "crate.png"
+		},
+		{
+			"hasCollision" : false,
+			"origin" : 
+			{
+				"x" : 27.0,
+				"y" : 35.0
+			},
+			"position" : 
+			{
+				"x" : 745.5,
+				"y" : 369.5
+			},
+			"scale" : 
+			{
+				"x" : 3.0,
+				"y" : 3.0
+			},
+			"size" : 
+			{
+				"x" : 27.0,
+				"y" : 35.0
+			},
+			"textureIdentifier" : "barrel.png"
+		}
+	]
+}

@@ -15,6 +15,7 @@ EditableShape::EditableShape(ITexture* texture, Vector2f pos, Vector2f size, boo
     setPosition(pos.x + (getGlobalBounds().width / 2), pos.y + (getGlobalBounds().height / 2));
     m_showResizeHint = false;
     m_grabbed = 0;
+    m_grabbedSide = Vector2u(1, 3);
     m_hasCollision = false;
     m_layer = 0;
     m_index = index;
@@ -89,7 +90,6 @@ void EditableShape::dragResize(RenderWindow& window)
     static Vector2i lastPos = getMousePosition(window);
     Vector2f diff = vectSub(Vector2f(getMousePosition(window)), (Vector2f)lastPos);
     Vector2f newSize = getSize();
-    static Vector2u grabbed = Vector2u(1, 3);
 
     for (int i = 0; i < 4; i++) {
         bound = m_resizeHint[i].getGlobalBounds();
@@ -109,25 +109,25 @@ void EditableShape::dragResize(RenderWindow& window)
                 < getGlobalBounds().left + getGlobalBounds().width) {
                 setSize(Vector2f(newSize.x - (diff.x / 3), newSize.y));
                 setOrigin(Vector2f(getSize().x, getOrigin().y));
-                if (grabbed.x == 2)
+                if (m_grabbedSide.x == 2)
                     setPosition(getPosition().x + (getSize().x * 3), getPosition().y);
-                grabbed.x = 1;
+                m_grabbedSide.x = 1;
                 m_offset.x += ((diff.x / 6));
                 setTextureRect(IntRect(m_offset.x / 2, getTextureRect().top, getSize().x, getSize().y));
             } else if (m_grabbed == 2 && m_resizeHint[1].getPosition().x + diff.x > getGlobalBounds().left) {
                 setSize(Vector2f(newSize.x + (diff.x / 3), newSize.y));
                 setOrigin(Vector2f(0, getOrigin().y));
-                if (grabbed.x == 1)
+                if (m_grabbedSide.x == 1)
                     setPosition(getPosition().x - (getSize().x * 3), getPosition().y);
-                grabbed.x = 2;
+                m_grabbedSide.x = 2;
                 setTextureRect(IntRect(m_offset.x / 2, getTextureRect().top, getSize().x, getSize().y));
             } else if (m_grabbed == 3 && m_resizeHint[2].getPosition().y + diff.y\
                 < getGlobalBounds().top + getGlobalBounds().height) {
                 setSize(Vector2f(newSize.x, newSize.y - (diff.y / 3)));
                 setOrigin(Vector2f(getOrigin().x, getSize().y));
-                if (grabbed.y == 4)
+                if (m_grabbedSide.y == 4)
                     setPosition(getPosition().x, getPosition().y + (getSize().y * 3));
-                grabbed.y = 3;
+                m_grabbedSide.y = 3;
                 m_offset.y += ((diff.y / 6));
                 setTextureRect(IntRect(getTextureRect().left, m_offset.y / 2, getSize().x, getSize().y));
 
@@ -135,9 +135,9 @@ void EditableShape::dragResize(RenderWindow& window)
             } else if (m_grabbed == 4 && m_resizeHint[3].getPosition().y + diff.y > getGlobalBounds().top) {
                 setSize(Vector2f(newSize.x, newSize.y + (diff.y / 3)));
                 setOrigin(Vector2f(getOrigin().x, 0));
-                if (grabbed.y == 3)
+                if (m_grabbedSide.y == 3)
                     setPosition(getPosition().x, getPosition().y - (getSize().y * 3));
-                grabbed.y = 4;
+                m_grabbedSide.y = 4;
                 setTextureRect(IntRect(getTextureRect().left, m_offset.y / 2, getSize().x, getSize().y));
             }
         }
