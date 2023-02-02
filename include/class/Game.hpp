@@ -24,6 +24,7 @@ class Game
         Music* m_music;
         void updateSceneLogic(Scene* scene);
         void updateFpsIndicator();
+        void printCoordsOnClick();
 
     public:
         void addScene(SceneID identifier, unique_ptr<Scene> scene);

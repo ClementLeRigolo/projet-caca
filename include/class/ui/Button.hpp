@@ -34,17 +34,17 @@ class Button
         void setTexture(Texture* texture);
         RectangleShape& getShape();
         virtual void update(Vector2i mousePos);
-        virtual void display(RenderTarget& target);
+        virtual void draw(RenderTarget& target);
 };
 
 class IconButton : public Button
 {
     private:
         RectangleShape m_icon;
+        sf::Text m_hoverHint;
 
     public:
-        IconButton();
-        IconButton(Vector2f pos, Texture* icon, void (*onClick)());
+        IconButton(Vector2f pos, Texture* icon, void (*onClick)(), std::string hoverHintString = "");
         RectangleShape& getIcon();
-        void display(RenderTarget& target) override;
+        void draw(RenderTarget& target) override;
 };

@@ -90,6 +90,13 @@ void buttonShowLevelEditorLoad()
     level->toggleLoadPopup(true);
 }
 
+void buttonLevelEditorCollisionMode()
+{
+    LevelEditor* level = (LevelEditor*)Game::getInstance().getCurrentScene();
+
+    level->setEditMode(EditMode::COLLISION);
+}
+
 void buttonHideLevelEditorLoad()
 {
     LevelEditor* level = (LevelEditor*)Game::getInstance().getCurrentScene();

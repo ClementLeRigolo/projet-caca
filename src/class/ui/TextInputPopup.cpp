@@ -54,7 +54,7 @@ void TextInputPopup::display(RenderTarget& target)
         target.draw(m_title);
         target.draw(m_message);
         target.draw(m_input);
-        m_buttonClose.display(target);
-        m_buttonApply.display(target);
+        m_buttonClose.draw(target);
+        m_buttonApply.draw(target);
     }
 }

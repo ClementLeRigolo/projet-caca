@@ -133,12 +133,26 @@ void Game::updateSceneLogic(Scene* scene)
     scene->setFocus(true);
 }
 
+void Game::printCoordsOnClick()
+{
+    static bool canClick = true;
+
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && canClick) {
+        canClick = false;
+        std::cout << "x: "
+        << getMousePosition(getRender()->getWindow()).x << " y: "
+        << getMousePosition(getRender()->getWindow()).y << std::endl;
+    } else if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        canClick = true;
+}
+
 void Game::update()
 {
     Timer::update();
     updateFpsIndicator();
     pollEvents();
     updateSceneLogic(m_currentScene);
+    //printCoordsOnClick();
 }
 
 void Game::render()

@@ -1,7 +1,7 @@
 #include "class/EditableShape.hpp"
 #include "class/Game.hpp"
 
-EditableShape::EditableShape(ITexture* texture, Vector2f pos, Vector2f size, bool resizable)
+EditableShape::EditableShape(ITexture* texture, Vector2f pos, Vector2f size)
 {
     static int index = 0;
     FloatRect bound;
@@ -16,7 +16,7 @@ EditableShape::EditableShape(ITexture* texture, Vector2f pos, Vector2f size, boo
     m_showResizeHint = false;
     m_grabbed = 0;
     m_grabbedSide = Vector2u(1, 3);
-    m_hasCollision = false;
+    m_baseColor = sf::Color::White;
     m_layer = 0;
     m_index = index;
     if (texture != NULL)
@@ -36,6 +36,13 @@ EditableShape::EditableShape(ITexture* texture, Vector2f pos, Vector2f size, boo
     m_resizeHint[2].setPosition(bound.left + (bound.width / 2.0), bound.top);
     m_resizeHint[3].setPosition(bound.left + (bound.width / 2.0), bound.top + bound.height);
     index++;
+}
+
+EditableHitbox::EditableHitbox(Vector2f pos, Vector2f size)
+: EditableShape(NULL, pos, size)
+{
+    setFillColor(sf::Color(255, 0, 0, 100));
+    m_baseColor = getFillColor();
 }
 
 string EditableShape::getTextureIdentifier() { return m_textureIdentifier; }
@@ -60,9 +67,11 @@ void EditableShape::setLayer(int layer) { m_layer = layer; }
 
 int EditableShape::getLayer() const { return m_layer; }
 
-bool EditableShape::comp (const EditableShape* obj, const EditableShape* other) { return (obj->getLayer() < other->getLayer()); }
+void EditableShape::setBaseColor(sf::Color baseColor) { m_baseColor = baseColor; }
 
-void EditableShape::dragMove(RenderWindow& window)
+bool EditableShape::comp(const EditableShape* obj, const EditableShape* other) { return (obj->getLayer() < other->getLayer()); }
+
+void EditableShape::dragMove(RenderWindow& window, float zoom)
 {
     FloatRect bound = getGlobalBounds();
     static Vector2i lastPos = getMousePosition(window);
@@ -80,9 +89,41 @@ void EditableShape::dragMove(RenderWindow& window)
         move(diff);
     }
     lastPos = getMousePosition(window);
+    static bool moveLeft = false;
+    static bool moveRight = false;
+    static bool moveDown = false;
+    static bool moveUp = false;
+    if (!m_grabbed) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && moveLeft) {
+            move(-5 * zoom, 0);
+            moveLeft = false;
+            return;
+        } else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+            moveLeft = true;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && moveRight) {
+            move(5 * zoom, 0);
+            moveRight = false;
+            return;
+        } else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+            moveRight = true;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && moveUp) {
+            move(0, -5 * zoom);
+            moveUp = false;
+            return;
+        } else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+            moveUp = true;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && moveDown) {
+            move(0, 5 * zoom);
+            moveDown = false;
+            return;
+        } else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+            moveDown = true;
+    }
 }
 
-bool EditableShape::hasCollision() { return m_hasCollision; }
+sf::Color EditableShape::getBaseColor() const { return m_baseColor; } ;
+
+bool EditableShape::hasCollision() const { return false; }
 
 void EditableShape::dragResize(RenderWindow& window)
 {
@@ -193,3 +234,5 @@ void EditableShape::draw(RenderTarget& target)
     for (int i = 0; i < 4; i++)
         target.draw(m_resizeHint[i]);
 }
+
+bool EditableHitbox::hasCollision() const { return true; }

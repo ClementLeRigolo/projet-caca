@@ -137,7 +137,7 @@ void Button::update(Vector2i mousePos)
     m_shape.setTextureRect(t_rect);
 }
 
-void Button::display(RenderTarget& target)
+void Button::draw(RenderTarget& target)
 {
     target.draw(m_shape);
     target.draw(m_label);

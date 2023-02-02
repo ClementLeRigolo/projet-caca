@@ -12,7 +12,7 @@ sf::Vector2f getCenter(sf::Shape &shape);
 sf::Vector2f getCenter(sf::Text &shape);
 sf::Vector2f getCenter(sf::Sprite &shape);
 
-sf::Vector2i getMousePosition(sf::RenderWindow& window);
+sf::Vector2i getMousePosition(sf::RenderTarget& window);
 bool DoMouseIntersect(sf::Vector2i mousePos, sf::FloatRect to_check);
 
 
@@ -42,6 +42,7 @@ void buttonApplyLevelEditorLoad();
 void buttonCloseLevelEditorLoad();
 void buttonShowLevelEditorLoad();
 void buttonHideLevelEditorLoad();
+void buttonLevelEditorCollisionMode();
 
 
 // Easing functions

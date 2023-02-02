@@ -108,7 +108,7 @@ void SettingsMenu::display(RenderWindow& window)
 {
     window.setView(m_view);
     for (int i = 0; i < m_buttons.size(); i++)
-        m_buttons.at(i)->display(window);
+        m_buttons.at(i)->draw(window);
     for (int i = 0; i < m_tickboxs.size(); i++)
         window.draw(m_tickboxs.at(i).getShape());
     for (int i = 0; i < m_text.size(); i++)

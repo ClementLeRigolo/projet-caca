@@ -6,6 +6,7 @@ enum TextureID
     B_TICKBOX,
     I_ADD,
     I_LOAD,
+    I_COLLISION,
     I_SAVE,
     I_SELECT,
     I_RESIZE,

@@ -23,6 +23,7 @@ AssetManager::AssetManager()
     loadTexture(I_MOVE, UI_PATH + "icon_move.png");
     loadTexture(I_SAVE, UI_PATH + "icon_save.png");
     loadTexture(I_LOAD, UI_PATH + "icon_load.png");
+    loadTexture(I_COLLISION, UI_PATH + "icon_collision.png");
 
     // entities
     loadTexture(ENTITY_TEXTURE, "asset/texture/entity/entity.png");

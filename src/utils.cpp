@@ -31,9 +31,9 @@ sf::Vector2f getCenter(sf::Text &shape)
     return sf::Vector2f(shape.getGlobalBounds().width / 2.0, shape.getGlobalBounds().height / 2.0);
 }
 
-sf::Vector2i getMousePosition(RenderWindow& window)
+sf::Vector2i getMousePosition(RenderTarget& window)
 {
-    sf::Vector2i mouse_pos0 = Mouse::getPosition(window);
+    sf::Vector2i mouse_pos0 = Mouse::getPosition(dynamic_cast<RenderWindow&>(window));
     sf::Vector2f mouse_pos;
 
     mouse_pos = window.mapPixelToCoords(mouse_pos0, window.getView());

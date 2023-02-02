@@ -5,9 +5,9 @@
 #include "class/ui/Popup.hpp"
 #include "class/Entity.hpp"
 #include "class/graphic/FadeLayer.hpp"
-#include "class/world/Obstacle.hpp"
 #include "class/EditableShape.hpp"
 #include "class/ISprite.hpp"
+#include <memory>
 #include "enum/Editor.hpp"
 
 class Scene
@@ -78,8 +78,9 @@ class Level : public Scene
 {
     protected:
         Text m_levelTitle;
-        vector<Entity> m_entities;
-        vector<Obstacle> m_obstacles;
+        vector<std::unique_ptr<Entity>> m_entities;
+        vector<Collider*> m_platforms;
+        vector<RectangleShape*> m_levelDecorations;
 
     public:
         Level();
@@ -97,7 +98,6 @@ class LevelEditor : public Scene
         View m_cameraView;
         EditableShape* m_selectedShape;
         vector<EditableShape*> m_assets;
-        vector<EditableShape> m_decorations;
         vector<ISprite> m_assetsTextures;
         RectangleShape m_texturePickerBG;
         RectangleShape m_texturePickerFG;
@@ -108,9 +108,10 @@ class LevelEditor : public Scene
         bool m_resizableAsset;
         ITexture* m_selectedTexture;
         float m_texturePickerOffset;
-        unsigned int m_mode;
+        EditMode::ID m_mode;
         TextInputPopup m_savePopup;
         TextInputPopup m_loadPopup;
+        EText m_layerHint;
 
     private:
         void updateEditables(RenderWindow& window);
@@ -121,6 +122,7 @@ class LevelEditor : public Scene
 
     public:
         LevelEditor();
+        ~LevelEditor();
         View& getCamera();
         void toggleSavePopup(bool toggle);
         void toggleLoadPopup(bool toggle);
@@ -130,7 +132,7 @@ class LevelEditor : public Scene
         void pollEvents(RenderWindow& window);
         void addEntity(Vector2f pos);
         void updateLogic(RenderWindow& window);
-        void addObstacle(Vector2f pos, bool resizable);
+        void addAsset(Vector2f pos);
         void display(RenderWindow& window);
         void reloadScene();
         float getZoom() const;

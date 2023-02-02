@@ -68,7 +68,7 @@ void MainMenu::display(RenderWindow& window)
     window.draw(m_background);
     window.draw(m_title);
     for (int i = 0; i < m_buttons.size(); i++)
-        m_buttons.at(i)->display(window);
+        m_buttons.at(i)->draw(window);
     window.draw(m_fadeLayer);
     window.draw(m_fpsText);
 }

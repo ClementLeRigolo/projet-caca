@@ -5,5 +5,6 @@ namespace EditMode
         SELECT,
         MOVE,
         RESIZE,
+        COLLISION,
     };
 }

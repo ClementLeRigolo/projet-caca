@@ -34,25 +34,40 @@ LevelEditor::LevelEditor()
     m_buttons.push_back(new Button(Vector2f(SCREEN_SIZE.x * 0.1,
     SCREEN_SIZE.y * 0.95), "Back", &buttonBackMainMenuFunc));
 
-    m_buttons.push_back(new IconButton(Vector2f(SCREEN_SIZE.x * 0.7,
-    SCREEN_SIZE.y * 0.1), &GET_TEXTURE(I_MOVE), &buttonLevelEditorMoveMode));
+    m_buttons.push_back(new IconButton(Vector2f(SCREEN_SIZE.x * 0.65,
+    SCREEN_SIZE.y * 0.1), &GET_TEXTURE(I_MOVE), &buttonLevelEditorMoveMode, "Move"));
+
+    m_buttons.push_back(new IconButton(Vector2f(SCREEN_SIZE.x * 0.70,
+    SCREEN_SIZE.y * 0.1), &GET_TEXTURE(I_SELECT), &buttonLevelEditorSelectMode, "Select"));
 
     m_buttons.push_back(new IconButton(Vector2f(SCREEN_SIZE.x * 0.75,
-    SCREEN_SIZE.y * 0.1), &GET_TEXTURE(I_SELECT), &buttonLevelEditorSelectMode));
+    SCREEN_SIZE.y * 0.1), &GET_TEXTURE(I_RESIZE), &buttonLevelEditorResizeMode, "Resize"));
 
     m_buttons.push_back(new IconButton(Vector2f(SCREEN_SIZE.x * 0.80,
-    SCREEN_SIZE.y * 0.1), &GET_TEXTURE(I_RESIZE), &buttonLevelEditorResizeMode));
+    SCREEN_SIZE.y * 0.1), &GET_TEXTURE(I_ADD), &buttonLevelEditorPlaceMode, "Place"));
 
     m_buttons.push_back(new IconButton(Vector2f(SCREEN_SIZE.x * 0.85,
-    SCREEN_SIZE.y * 0.1), &GET_TEXTURE(I_ADD), &buttonLevelEditorPlaceMode));
+    SCREEN_SIZE.y * 0.1), &GET_TEXTURE(I_SAVE), &buttonShowLevelEditorSave, "Save"));
 
     m_buttons.push_back(new IconButton(Vector2f(SCREEN_SIZE.x * 0.90,
-    SCREEN_SIZE.y * 0.1), &GET_TEXTURE(I_SAVE), &buttonShowLevelEditorSave));
+    SCREEN_SIZE.y * 0.1), &GET_TEXTURE(I_LOAD), &buttonShowLevelEditorLoad, "Load"));
 
     m_buttons.push_back(new IconButton(Vector2f(SCREEN_SIZE.x * 0.95,
-    SCREEN_SIZE.y * 0.1), &GET_TEXTURE(I_LOAD), &buttonShowLevelEditorLoad));
+    SCREEN_SIZE.y * 0.1), &GET_TEXTURE(I_COLLISION), &buttonLevelEditorCollisionMode, "Collider"));
+
+    m_layerHint.setFont(GET_FONT(INGAME_FONT));
+    m_layerHint.setOutlineColor(sf::Color::Black);
+    m_layerHint.setOutlineThickness(1);
+    m_layerHint.setPosition(SCREEN_SIZE.x * 0.82, SCREEN_SIZE.y * 0.95);
 
     reloadScene();
+}
+
+LevelEditor::~LevelEditor()
+{
+    for (auto& asset : m_assets)
+        delete(asset);
+    m_assets.clear();
 }
 
 void LevelEditor::reloadScene()
@@ -71,6 +86,10 @@ void LevelEditor::reloadScene()
     m_texturePickerOffset = 0;
     m_resizableAsset = true;
     m_selectedTexture = NULL;
+    m_layerHint.setString("No object selected");
+
+    for (auto& asset : m_assets)
+        delete(asset);
     m_assets.clear();
 
     map<String, unique_ptr<ITexture>>& map = Game::getInstance().getAssetManager().getTextureMap();
@@ -128,6 +147,8 @@ bool LevelEditor::loadLevel(const char* path, String levelName)
     Vector2u grabbedSide(0, 0);
     int grabbed = 0;
     bool parsed = false;
+    int layer = 0;
+    sf::Color baseColor = sf::Color::White;
     map<String, unique_ptr<ITexture>>& map = Game::getInstance().getAssetManager().getTextureMap();
 
     parsed = reader.parse(content, root, false);
@@ -149,18 +170,26 @@ bool LevelEditor::loadLevel(const char* path, String levelName)
         grabbedSide.x = elem["grabbedSide"]["x"].asInt();
         grabbedSide.y = elem["grabbedSide"]["y"].asInt();
         grabbed = elem["grabbed"].asInt();
+        layer = elem["layer"].asInt();
+        baseColor.r = elem["baseColor"]["r"].asInt();
+        baseColor.g = elem["baseColor"]["g"].asInt();
+        baseColor.b = elem["baseColor"]["b"].asInt();
+        baseColor.a = elem["baseColor"]["a"].asInt();
 
+        if (baseColor.a <= 0)
+            baseColor = sf::Color::White;
         EditableShape* newShape;
         if (textureIdentifier.compare("NULL") != 0)
             newShape = new EditableShape(map.at(textureIdentifier).get(),
-            pos, size, hasCollision);
-        else
-            newShape = new EditableShape(NULL,
-            pos, size, hasCollision);
+            pos, size);
+        else if (hasCollision)
+            newShape = new EditableHitbox(pos, size);
         newShape->setOffset(offset);
         newShape->setGrabbedSide(grabbedSide);
         newShape->setOrigin(origin);
         newShape->setGrabbed(grabbed);
+        newShape->setLayer(layer);
+        newShape->setBaseColor(baseColor);
 
         newShape->init();
         newShape->setPosition(pos);
@@ -197,6 +226,11 @@ void LevelEditor::saveLevel(const char *path, String levelName)
         event["grabbedSide"]["x"] = i->getGrabbedSide().x;
         event["grabbedSide"]["y"] = i->getGrabbedSide().y;
         event["grabbed"] = i->getGrabbed();
+        event["layer"] = i->getLayer();
+        event["baseColor"]["r"] = i->getBaseColor().r;
+        event["baseColor"]["g"] = i->getBaseColor().g;
+        event["baseColor"]["b"] = i->getBaseColor().b;
+        event["baseColor"]["a"] = i->getBaseColor().a;
         vec.append(event);
     }
     finalEvent["obstacles"] = vec;
@@ -206,10 +240,15 @@ void LevelEditor::saveLevel(const char *path, String levelName)
 
 void LevelEditor::setEditMode(EditMode::ID mode) { m_mode = mode; }
 
-void LevelEditor::addObstacle(Vector2f pos, bool hasCollision)
+void LevelEditor::addAsset(Vector2f pos)
 {
-    m_assets.push_back(new EditableShape(m_selectedTexture,
-    pos, Vector2f(m_selectedTexture->getSize()), hasCollision));
+    if (m_selectedTexture == NULL) {
+        std::cout << "new hitbox" << std::endl;
+        m_assets.push_back(new EditableHitbox(pos, sf::Vector2f(100, 100)));
+    } else {
+        m_assets.push_back(new EditableShape(m_selectedTexture,
+        pos, Vector2f(m_selectedTexture->getSize())));
+    }
 }
 
 void LevelEditor::cameraController(RenderWindow& window)
@@ -265,9 +304,9 @@ void LevelEditor::pollEvents(RenderWindow& window)
         case Event::MouseButtonPressed:
             if (!m_hoveringTexturePicker) {
                 if (event.mouseButton.button == Mouse::Left && !m_hoveringShape
-                    && m_mode == EditMode::PLACE && m_selectedTexture && !m_savePopup.isDisplayed()) {
+                    && m_mode == EditMode::PLACE && !m_savePopup.isDisplayed()) {
                     window.setView(m_cameraView);
-                    addObstacle(Vector2f(getMousePosition(window)), true);
+                    addAsset(Vector2f(getMousePosition(window)));
                     m_selectedShape = m_assets.at(m_assets.size() - 1);
                 }
             }
@@ -295,26 +334,29 @@ void LevelEditor::updateButtons(RenderWindow& window)
 void LevelEditor::updateEditables(RenderWindow& window)
 {
     window.setView(m_cameraView);
-    for (auto asset : m_assets) {
-        for (int i = 0; i < 4; i++) {
-            asset->getResizeHints()[i].setScale(Vector2f(getZoom(), getZoom()));
-        }
-        if (DoMouseIntersect(getMousePosition(window), asset->getGlobalBounds()) && m_mode == EditMode::SELECT) {
-            asset->setFillColor(smoothColor(Color::White, Color::Green, 0.5));
+    for (auto& asset : m_assets) {
+        asset->setFillColor(asset->getBaseColor());
+        asset->setResizableHintVisible(false);
+    }
+    for (int j = m_assets.size() - 1; j >= 0; j--) {
+        for (int i = 0; i < 4; i++)
+            m_assets.at(j)->getResizeHints()[i].setScale(Vector2f(getZoom(), getZoom()));
+        if (DoMouseIntersect(getMousePosition(window), m_assets.at(j)->getGlobalBounds()) && m_mode == EditMode::SELECT) {
+            m_assets.at(j)->setFillColor(smoothColor(Color::White, Color::Green, 0.5));
             if (Mouse::isButtonPressed(Mouse::Left)) {
-                m_selectedShape = asset;
-                asset->setFillColor(smoothColor(Color::White, Color::Blue, 0.5));
+                m_selectedShape = m_assets.at(j);
+                m_assets.at(j)->setFillColor(smoothColor(Color::White, Color::Blue, 0.5));
+                break;
             }
-        } else {
-            asset->setFillColor(Color::White);
-            asset->setResizableHintVisible(false);
+            break;
         }
     }
     if (m_selectedShape != NULL) {
+        m_layerHint.setString("Object is at layer " + to_string(m_selectedShape->getLayer()));
         m_selectedShape->setFillColor(smoothColor(Color::White, Color::Blue, 0.5));
 
         if (m_mode == EditMode::MOVE)
-            m_selectedShape->dragMove(window);
+            m_selectedShape->dragMove(window, getZoom());
 
         if (m_mode == EditMode::RESIZE) {
             m_selectedShape->resizeHintReposition(m_zoomFactor);
@@ -329,6 +371,8 @@ void LevelEditor::updateEditables(RenderWindow& window)
                 m_assets.erase(it);
             m_selectedShape = NULL;
         }
+    } else {
+        m_layerHint.setString("No object selected");
     }
 
     std::sort(m_assets.begin(), m_assets.end(), EditableShape::comp);
@@ -401,10 +445,11 @@ void LevelEditor::display(RenderWindow& window)
     for (auto const& i : m_assetsTextures)
         window.draw(i);
     window.draw(m_texturePickerFG);
-    for (int i = 0; i < m_buttons.size(); i++)
-        m_buttons.at(i)->display(window);
+    for (int i = m_buttons.size() - 1; i >= 0; i--)
+        m_buttons.at(i)->draw(window);
     m_savePopup.display(window);
     m_loadPopup.display(window);
     window.draw(m_fadeLayer);
     window.draw(m_fpsText);
+    window.draw(m_layerHint);
 }

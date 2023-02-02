@@ -33,6 +33,8 @@ class Collider : public RectangleShape
 
     public:
         Collider();
+        Collider(const sf::Texture*, sf::Vector2f size, sf::Vector2f pos);
+        Collider(const RectangleShape& shape);
 
         Vector2f m_vel;
         Vector2f m_acc;
@@ -43,6 +45,6 @@ class Collider : public RectangleShape
         void setGravityEnabled(bool toggle);
         float getGravityMultiplier();
         void setGravityMultiplier(float multiplier);
-    
+
         Vector2f getHalfSize();
 };

@@ -43,6 +43,6 @@ void Popup::display(RenderTarget& target)
         target.draw(m_background);
         target.draw(m_title);
         target.draw(m_message);
-        m_buttonClose.display(target);
+        m_buttonClose.draw(target);
     }
 }

@@ -2,7 +2,7 @@
 
 Render::Render()
 {
-    m_window.create(VideoMode(SCREEN_SIZE.x, SCREEN_SIZE.y, 32), WINDOW_NAME, Style::Default);
+    m_window.create(VideoMode(SCREEN_SIZE.x, SCREEN_SIZE.y, 32), WINDOW_NAME, Style::Fullscreen);
     m_window.setFramerateLimit(500);
     setVsyncEnabled(false);
 }
